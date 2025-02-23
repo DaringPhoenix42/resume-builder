@@ -1,18 +1,4 @@
-#from django.urls import path
-#from . import views
-
-#urlpatterns = [
-#    path('', views.index, name='index'),
-#   path('form/', views.resume_form, name='resume_form'),
-#    path('download/<int:id>/<str:format>/', views.download_resume, name='download_resume'),
-#    path('about/', views.about, name='about'),
-#    path('preview/<int:id>/', views.resume_preview, name='resume_preview'),
-#    path('contact/', views.contact, name='contact'),
-#    path('templates/', views.templates, name='templates'),
-#    path('faq/', views.faq, name='faq'),
-#]
-
-
+# resume_app/urls.py
 from django.urls import path
 from . import views
 
@@ -21,6 +7,7 @@ urlpatterns = [
     path('form/', views.resume_form, name='resume_form'),
     path('preview/<int:id>/', views.resume_preview, name='resume_preview'),
     path('download/<int:id>/<str:format>/', views.download_resume, name='download_resume'),
+
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('templates/', views.templates, name='templates'),
@@ -28,8 +15,12 @@ urlpatterns = [
     path('pricing/', views.pricing, name='pricing'),
     path('resources/', views.resources, name='resources'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('login/', views.login_user, name='login_user'),
+    path('logout/', views.logout_user, name='logout_user'),
     path('testimonials/', views.testimonials, name='testimonials'),
     path('examples/', views.examples, name='examples'),
     path('blog/', views.blog, name='blog'),
     path('cover-letter/', views.cover_letter, name='cover_letter'),
+
+    path('create-resource/', views.create_resource, name='create_resource'),
 ]

@@ -2,7 +2,23 @@
 {% load static %}
 
 {% block content %}
+
 <div class="resources-container">
+    <h2>Career Resources</h2>
+    <p>Explore our articles, guides, and tools to boost your career.</p>
+  
+    <div class="resources-grid">
+      {% for resource in resources %}
+      <div class="resource-card">
+        <h3>{{ resource.title }}</h3>
+        <p>Category: {{ resource.get_category_display }}</p>
+        <p>Created on: {{ resource.created_at|date:"F j, Y" }}</p>
+        <a href="#" class="btn">Read More</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% comment %} <div class="resources-container">
   <h2>Career Resources</h2>
   <p>Explore our articles, guides, and tools to boost your career.</p>
 
@@ -23,7 +39,7 @@
       <a href="#" class="btn">Read More</a>
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 
 <style>
 .resources-container {

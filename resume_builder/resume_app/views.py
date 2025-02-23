@@ -1,111 +1,169 @@
-from django.shortcuts import render, redirect
-from .forms import ResumeForm  # Import the ResumeForm
-from .models import Resume
-from django.http import HttpResponse
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from docx import Document
-from io import BytesIO
-from .models import Resume
-from django.shortcuts import render, get_object_or_404
-from .models import Resume
+# from django.shortcuts import render, redirect
+# from .forms import ResumeForm  # Import the ResumeForm
+# from .models import Resume
+# from django.http import HttpResponse
+# from reportlab.lib.pagesizes import letter
+# from reportlab.pdfgen import canvas
+# from docx import Document
+# from io import BytesIO
+# from .models import Resume
+# from django.shortcuts import render, get_object_or_404
+# from .models import Resume
+# from django.contrib.auth.decorators import login_required
+# from django.contrib.auth import login, logout
+# from django.contrib.admin.views.decorators import staff_member_required
+# from django.contrib.auth.models import User
+# from .models import Resource, BlogPost
+# from .forms import ResumeForm, ResourceForm
+# from django.contrib.auth.models import User
+# from django.contrib.auth import authenticate, login
+# from django.shortcuts import render, redirect, get_object_or_404
+# from django.contrib.auth import authenticate, login, logout
+# from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.models import User
+# from .forms import ResumeForm, ResourceForm  # <-- import both
+# from .models import Resume, Resource
 
-def index(request):
-    return render(request, 'index.html')
 
-def resume_form(request):
-    template_id = request.GET.get('template_id', 1)  # Default to template 1 if no ID is provided
-    if request.method == 'POST':
-        form = ResumeForm(request.POST)
-        if form.is_valid():
-            resume = form.save(commit=False)
-            resume.template_id = template_id  # Save the selected template ID
-            resume.save()
-            return redirect('resume_preview', id=resume.id)
-    else:
-        form = ResumeForm(initial={'template_id': template_id})  # Pass template_id to the form
-    return render(request, 'resume_form.html', {'form': form, 'template_id': template_id})
 
-def resume_preview(request, id):
-    resume = get_object_or_404(Resume, id=id)
-    return render(request, 'resume_preview.html', {'resume': resume})
+# @staff_member_required
+# def create_resource(request):
+#     if request.method == 'POST':
+#         # Save new Resource object
+#         ...
+#     return render(request, 'create_resource.html')
 
-def about(request):
-    return render(request, 'about.html')
+# def index(request):
+#     return render(request, 'index.html')
 
-def contact(request):
-    return render(request, 'contact.html')
+# def resume_form(request):
+#     template_id = request.GET.get('template_id', 1)  # Default to template 1 if no ID is provided
+#     if request.method == 'POST':
+#         form = ResumeForm(request.POST)
+#         if form.is_valid():
+#             resume = form.save(commit=False)
+#             resume.template_id = template_id  # Save the selected template ID
+#             resume.save()
+#             return redirect('resume_preview', id=resume.id)
+#     else:
+#         form = ResumeForm(initial={'template_id': template_id})  # Pass template_id to the form
+#     return render(request, 'resume_form.html', {'form': form, 'template_id': template_id})
 
-def templates(request):
-    return render(request, 'templates.html')
+# def resume_preview(request, id):
+#     resume = get_object_or_404(Resume, id=id)
+#     return render(request, 'resume_preview.html', {'resume': resume})
 
-def faq(request):
-    return render(request, 'faq.html')
+# def about(request):
+#     return render(request, 'about.html')
 
-# New pages
-def pricing(request):
-    return render(request, 'pricing.html')
+# def contact(request):
+#     return render(request, 'contact.html')
 
-def resources(request):
-    return render(request, 'resources.html')
+# def templates(request):
+#     return render(request, 'templates.html')
 
-def dashboard(request):
-    # In a real app, you'd check if the user is authenticated, fetch user resumes, etc.
-    return render(request, 'dashboard.html')
+# def faq(request):
+#     return render(request, 'faq.html')
 
-def testimonials(request):
-    return render(request, 'testimonials.html')
+# # New pages
+# def pricing(request):
+#     return render(request, 'pricing.html')
 
-def examples(request):
-    return render(request, 'examples.html')
+# def resources(request):
+#     return render(request, 'resources.html')
 
-def blog(request):
-    return render(request, 'blog.html')
+# @login_required
+# def dashboard(request):
+#     # Only logged-in users can see this page.
+#     user_resumes = Resume.objects.filter(user=request.user)
+#     return render(request, 'dashboard.html', {'resumes': user_resumes})
 
-def cover_letter(request):
-    return render(request, 'cover_letter.html')
 
-def download_resume(request, id, format):
-    resume = Resume.objects.get(id=id)
+# def login_user(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')  # or request.POST['username'] if you're sure it's there
+#         password = request.POST.get('password')
+
+#         user = authenticate(request, username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             return redirect('dashboard')
+#         else:
+#             # handle invalid credentials
+#             # e.g., show an error message or redirect
+#             ...
+#     return render(request, 'login.html')
+
+
+# def logout_user(request):
+#     logout(request)
+#     return redirect('index')
+
+# def testimonials(request):
+#     return render(request, 'testimonials.html')
+
+# def examples(request):
+#     return render(request, 'examples.html')
+
+# def blog(request):
+#     return render(request, 'blog.html')
+
+# def cover_letter(request):
+#     return render(request, 'cover_letter.html')
+
+# # views.py
+# def create_resource(request):
+#     if request.method == 'POST':
+#         form = ResourceForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('resources')  # or wherever
+#     else:
+#         form = ResourceForm()
+#     return render(request, 'create_resource.html', {'form': form})
+
+
+# def download_resume(request, id, format):
+#     resume = Resume.objects.get(id=id)
     
-    if format == 'pdf':
-        buffer = BytesIO()
-        p = canvas.Canvas(buffer, pagesize=letter)
-        p.drawString(100, 750, f"Name: {resume.name}")
-        p.drawString(100, 730, f"Email: {resume.email}")
-        p.drawString(100, 710, f"Phone: {resume.phone}")
-        p.drawString(100, 690, f"Summary: {resume.summary}")
-        p.drawString(100, 670, f"Skills: {resume.skills}")
-        p.drawString(100, 650, f"Experience: {resume.experience}")
-        p.drawString(100, 630, f"Education: {resume.education}")
-        p.showPage()
-        p.save()
+#     if format == 'pdf':
+#         buffer = BytesIO()
+#         p = canvas.Canvas(buffer, pagesize=letter)
+#         p.drawString(100, 750, f"Name: {resume.name}")
+#         p.drawString(100, 730, f"Email: {resume.email}")
+#         p.drawString(100, 710, f"Phone: {resume.phone}")
+#         p.drawString(100, 690, f"Summary: {resume.summary}")
+#         p.drawString(100, 670, f"Skills: {resume.skills}")
+#         p.drawString(100, 650, f"Experience: {resume.experience}")
+#         p.drawString(100, 630, f"Education: {resume.education}")
+#         p.showPage()
+#         p.save()
         
-        buffer.seek(0)
-        response = HttpResponse(buffer, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
-        return response
+#         buffer.seek(0)
+#         response = HttpResponse(buffer, content_type='application/pdf')
+#         response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
+#         return response
     
-    elif format == 'word':
-        document = Document()
-        document.add_heading(f"Resume: {resume.name}", 0)
-        document.add_paragraph(f"Email: {resume.email}")
-        document.add_paragraph(f"Phone: {resume.phone}")
-        document.add_paragraph(f"Summary: {resume.summary}")
-        document.add_paragraph(f"Skills: {resume.skills}")
-        document.add_paragraph(f"Experience: {resume.experience}")
-        document.add_paragraph(f"Education: {resume.education}")
+#     elif format == 'word':
+#         document = Document()
+#         document.add_heading(f"Resume: {resume.name}", 0)
+#         document.add_paragraph(f"Email: {resume.email}")
+#         document.add_paragraph(f"Phone: {resume.phone}")
+#         document.add_paragraph(f"Summary: {resume.summary}")
+#         document.add_paragraph(f"Skills: {resume.skills}")
+#         document.add_paragraph(f"Experience: {resume.experience}")
+#         document.add_paragraph(f"Education: {resume.education}")
         
-        buffer = BytesIO()
-        document.save(buffer)
-        buffer.seek(0)
+#         buffer = BytesIO()
+#         document.save(buffer)
+#         buffer.seek(0)
         
-        response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.docx"'
-        return response
+#         response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+#         response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.docx"'
+#         return response
     
-    else:
-        return HttpResponse("Invalid format", status=400)
+#     else:
+#         return HttpResponse("Invalid format", status=400)
 
 
 
@@ -313,3 +371,149 @@ def download_resume(request, id, format):
 
 # def faq(request):
 #     return render(request, 'faq.html')
+
+
+
+
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
+
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from docx import Document
+from io import BytesIO
+
+from .models import Resume, Resource
+from .forms import ResumeForm, ResourceForm
+
+def index(request):
+    return render(request, 'index.html')
+
+def resume_form(request):
+    template_id = request.GET.get('template_id', 1)  # Default to template 1 if none provided
+    if request.method == 'POST':
+        form = ResumeForm(request.POST)
+        if form.is_valid():
+            resume = form.save(commit=False)
+            resume.template_id = template_id
+            # Optionally set resume.user = request.user if you want
+            resume.save()
+            return redirect('resume_preview', id=resume.id)
+    else:
+        form = ResumeForm(initial={'template_id': template_id})
+    return render(request, 'resume_form.html', {'form': form, 'template_id': template_id})
+
+def resume_preview(request, id):
+    resume = get_object_or_404(Resume, id=id)
+    return render(request, 'resume_preview.html', {'resume': resume})
+
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def templates(request):
+    return render(request, 'templates.html')
+
+def faq(request):
+    return render(request, 'faq.html')
+
+def pricing(request):
+    return render(request, 'pricing.html')
+
+def resources(request):
+    return render(request, 'resources.html')
+
+@login_required
+def dashboard(request):
+    user_resumes = Resume.objects.filter(user=request.user)
+    return render(request, 'dashboard.html', {'resumes': user_resumes})
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            # Invalid credentials
+            return render(request, 'login.html', {'error': 'Invalid username or password'})
+    return render(request, 'login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')
+
+def testimonials(request):
+    return render(request, 'testimonials.html')
+
+def examples(request):
+    return render(request, 'examples.html')
+
+def blog(request):
+    return render(request, 'blog.html')
+
+def cover_letter(request):
+    return render(request, 'cover_letter.html')
+
+@staff_member_required
+def create_resource(request):
+    if request.method == 'POST':
+        form = ResourceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('resources')  # or any other desired page
+    else:
+        form = ResourceForm()
+    return render(request, 'create_resource.html', {'form': form})
+
+def download_resume(request, id, format):
+    resume = get_object_or_404(Resume, id=id)
+
+    if format == 'pdf':
+        buffer = BytesIO()
+        p = canvas.Canvas(buffer, pagesize=letter)
+        p.drawString(100, 750, f"Name: {resume.name}")
+        p.drawString(100, 730, f"Email: {resume.email}")
+        p.drawString(100, 710, f"Phone: {resume.phone}")
+        p.drawString(100, 690, f"Summary: {resume.summary}")
+        p.drawString(100, 670, f"Skills: {resume.skills}")
+        p.drawString(100, 650, f"Experience: {resume.experience}")
+        p.drawString(100, 630, f"Education: {resume.education}")
+        p.showPage()
+        p.save()
+
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename=\"{resume.name}_resume.pdf\"'
+        return response
+
+    elif format == 'word':
+        document = Document()
+        document.add_heading(f"Resume: {resume.name}", 0)
+        document.add_paragraph(f"Email: {resume.email}")
+        document.add_paragraph(f"Phone: {resume.phone}")
+        document.add_paragraph(f"Summary: {resume.summary}")
+        document.add_paragraph(f"Skills: {resume.skills}")
+        document.add_paragraph(f"Experience: {resume.experience}")
+        document.add_paragraph(f"Education: {resume.education}")
+
+        buffer = BytesIO()
+        document.save(buffer)
+        buffer.seek(0)
+
+        response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = f'attachment; filename=\"{resume.name}_resume.docx\"'
+        return response
+
+    else:
+        return HttpResponse("Invalid format", status=400)

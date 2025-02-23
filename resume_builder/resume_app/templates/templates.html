@@ -110,6 +110,18 @@
                 </div>
             </div>
         </div>
+        <!-- create_resource.html -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Resource</button>
+</form>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
 
         <!-- Extra Example: Modern Generalist -->
         <div class="template-card"
