@@ -2,46 +2,56 @@
 {% load static %}
 
 {% block content %}
-<div class="templates-container">
-    <!-- Optional: Filter / Sort Bar
+<div class="templates-page-wrapper">
+    <!-- Optional Hero Section -->
+    <section class="hero-section">
+        <h1>Professional Resume Templates</h1>
+        <p class="hero-subtitle">
+            Select a template that matches your career goals and industry standards. All templates are ATS-optimized.
+        </p>
+    </section>
+
+    <!-- Filter / Sort Bar + Search Bar -->
     <div class="filter-bar">
         <label for="filterTemplates">Filter by Category:</label>
-        <select id="filterTemplates">
+        <select id="filterTemplates" onchange="applyFilters()">
             <option value="all">All</option>
             <option value="business">Business</option>
             <option value="creative">Creative</option>
             <option value="tech">Tech</option>
         </select>
+
+        <label for="sortBy" style="margin-left: 1rem;">Sort by:</label>
+        <select id="sortBy" onchange="applyFilters()">
+            <option value="atsScore">ATS Score</option>
+            <option value="name">Template Name</option>
+        </select>
+
+        <!-- Search Bar -->
+        <label for="templateSearch" style="margin-left: 1rem;">Search:</label>
+        <input type="text" id="templateSearch" placeholder="Type to search..." onkeyup="applyFilters()">
     </div>
-    -->
 
-    <h2 class="page-title">Professional Resume Templates</h2>
-    <p class="templates-description">
-        Select a template that matches your career goals and industry standards. All templates are ATS-optimized.
-    </p>
-
-    <div class="template-grid">
+    <div class="template-grid" id="templateGrid">
         <!-- Corporate Template -->
-        <div class="template-card">
-            <div class="template-image">
-                <img src="{% static 'images/corporate-template.jpg' %}" alt="Corporate Template" 
-                     onerror="this.onerror=null; this.src='{% static 'images/default-template.jpg' %}'">
-            </div>
+        <div class="template-card" 
+             data-name="Corporate Pro" 
+             data-category="business" 
+             data-score="92"
+             data-description="Ideal for business professionals looking to showcase their experience in a clean, modern format.">
             <div class="template-details">
                 <h3>Corporate Pro</h3>
                 <div class="ats-score-badge">ATS Score: 92%</div>
-                <p>Ideal for business professionals .
-                    
+                <p>
+                    Ideal for business professionals looking to showcase their experience in a clean, modern format.
                 </p>
-                <br>
                 <ul class="template-features">
                     <li>✓ ATS-optimized layout</li>
                     <li>✓ Skills matrix section</li>
                     <li>✓ Experience-focused</li>
                 </ul>
                 <div class="btn-group">
-                    <!-- Optional: Preview button -->
-                    <!-- <a href="#" class="btn btn-preview">Preview</a> -->
+                    <button class="btn btn-preview" onclick="openPreviewModal('corporate')">Preview</button>
                     <a href="{% url 'resume_form' %}?template=corporate" class="btn btn-template">
                         Use Corporate Template
                     </a>
@@ -50,25 +60,24 @@
         </div>
 
         <!-- Creative Template -->
-        <div class="template-card">
-            <div class="template-image">
-                <img src="{% static 'images/creative-template.jpg' %}" alt="Creative Template"
-                     onerror="this.onerror=null; this.src='{% static 'images/default-template.jpg' %}'">
-            </div>
+        <div class="template-card" 
+             data-name="Creative Portfolio" 
+             data-category="creative" 
+             data-score="85"
+             data-description="Perfect for designers and creative professionals who want to highlight their portfolio and unique style.">
             <div class="template-details">
                 <h3>Creative Portfolio</h3>
                 <div class="ats-score-badge">ATS Score: 85%</div>
-                <p>Perfect for designers and creative professionals.
-
+                <p>
+                    Perfect for designers and creative professionals who want to highlight their portfolio and unique style.
                 </p>
-                <br>
                 <ul class="template-features">
                     <li>✓ Portfolio section</li>
                     <li>✓ Project highlights</li>
                     <li>✓ Visual hierarchy</li>
                 </ul>
                 <div class="btn-group">
-                    <!-- <a href="#" class="btn btn-preview">Preview</a> -->
+                    <button class="btn btn-preview" onclick="openPreviewModal('creative')">Preview</button>
                     <a href="{% url 'resume_form' %}?template=creative" class="btn btn-template">
                         Use Creative Template
                     </a>
@@ -77,27 +86,52 @@
         </div>
 
         <!-- Technical Template -->
-        <div class="template-card">
-            <div class="template-image">
-                <img src="{% static 'images/technical-template.jpg' %}" alt="Technical Template"
-                     onerror="this.onerror=null; this.src='{% static 'images/default-template.jpg' %}'">
-            </div>
+        <div class="template-card" 
+             data-name="Tech Specialist" 
+             data-category="tech" 
+             data-score="95"
+             data-description="Optimized for IT and engineering professionals, showcasing technical skills, certifications, and projects.">
             <div class="template-details">
                 <h3>Tech Specialist</h3>
                 <div class="ats-score-badge">ATS Score: 95%</div>
-                <p>Optimized for IT and engineering professionals.
-
+                <p>
+                    Optimized for IT and engineering professionals, showcasing technical skills, certifications, and projects.
                 </p>
-                <br>
                 <ul class="template-features">
                     <li>✓ Technical skills matrix</li>
                     <li>✓ Certifications section</li>
                     <li>✓ Project showcase</li>
                 </ul>
                 <div class="btn-group">
-                    <!-- <a href="#" class="btn btn-preview">Preview</a> -->
+                    <button class="btn btn-preview" onclick="openPreviewModal('tech')">Preview</button>
                     <a href="{% url 'resume_form' %}?template=technical" class="btn btn-template">
                         Use Tech Template
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Extra Example: Modern Generalist -->
+        <div class="template-card"
+             data-name="Modern Generalist"
+             data-category="business"
+             data-score="88"
+             data-description="A balanced, versatile layout suitable for multiple industries, combining style with readability.">
+            <div class="template-details">
+                <h3>Modern Generalist</h3>
+                <div class="ats-score-badge">ATS Score: 88%</div>
+                <p>
+                    A balanced, versatile layout suitable for multiple industries, combining style with readability.
+                </p>
+                <ul class="template-features">
+                    <li>✓ Balanced design</li>
+                    <li>✓ Multi-industry friendly</li>
+                    <li>✓ Clean typography</li>
+                </ul>
+                <div class="btn-group">
+                    <button class="btn btn-preview" onclick="openPreviewModal('generalist')">Preview</button>
+                    <a href="{% url 'resume_form' %}?template=generalist" class="btn btn-template">
+                        Use Modern Template
                     </a>
                 </div>
             </div>
@@ -106,7 +140,7 @@
 
     <!-- ATS Optimization Tips -->
     <div class="ats-tips">
-        <h3>Maximize Your ATS Score</h3>
+        <h2>Maximize Your ATS Score</h2>
         <div class="tip-card">
             <span class="tip-icon">💡</span>
             <p>Use industry-specific keywords from the job description.</p>
@@ -118,54 +152,65 @@
     </div>
 </div>
 
+<!-- Preview Modal (Hidden by default) -->
+<div id="previewModal" class="modal-overlay" onclick="closePreviewModal(event)">
+    <div class="modal-content" id="modalContent">
+        <span class="modal-close" onclick="closePreviewModal()">×</span>
+        <h3 id="templateTitle">Template Preview</h3>
+        <p id="templateDescription"></p>
+    </div>
+</div>
+
+<!-- Inline Styles & JS for Demo (move to your static files if preferred) -->
 <style>
-/* Overall Container */
-.templates-container {
+/* Page Wrapper */
+.templates-page-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    color: #c9d1d9; /* Light text on dark background */
+    color: #c9d1d9;
 }
 
-/* (Optional) Filter Bar */
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.hero-section h1 {
+    font-size: 2rem;
+    color: #c9d1d9;
+    margin-bottom: 0.5rem;
+}
+.hero-subtitle {
+    color: #8b949e;
+    font-size: 1rem;
+}
+
+/* Filter Bar */
 .filter-bar {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     margin-bottom: 1rem;
+    gap: 1rem;
 }
-
-.filter-bar label {
-    margin-right: 0.5rem;
-}
-
-.filter-bar select {
-    padding: 0.3rem;
-    border-radius: 4px;
+.filter-bar select,
+#templateSearch {
+    background: #0d1117;
     border: 1px solid #30363d;
-    background-color: #0d1117;
+    border-radius: 6px;
     color: #c9d1d9;
+    padding: 0.4rem;
+    outline: none;
 }
-
-/* Page Title & Description */
-.page-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 10px;
+.filter-bar label {
     color: #c9d1d9;
-}
-
-.templates-description {
-    text-align: center;
-    font-size: 1rem;
-    color: #8b949e;
-    margin-bottom: 30px;
+    font-size: 0.9rem;
 }
 
 /* Grid Layout */
 .template-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
     margin: 2rem 0;
 }
@@ -173,41 +218,31 @@
 /* Card Styling */
 .template-card {
     display: flex;
-    flex-direction: column;  /* So we can push the button group to the bottom */
+    flex-direction: column;
     background-color: #161b22;
     border: 1px solid #30363d;
     border-radius: 10px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 340px; /* Adjust as needed for consistent card height */
 }
-
 .template-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Template Image */
-.template-image img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-bottom: 1px solid #30363d;
-}
-
 /* Card Details */
 .template-details {
-    flex: 1; /* Make this section expand to fill space */
+    flex: 1;
     padding: 1.5rem;
 }
-
 .template-details h3 {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: #c9d1d9;
 }
-
 .template-details p {
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 1rem 0;
     color: #8b949e;
     font-size: 0.95rem;
 }
@@ -229,70 +264,62 @@
     padding: 0;
     margin: 1rem 0;
 }
-
 .template-features li {
     font-size: 0.9rem;
     color: #8b949e;
     margin-bottom: 5px;
 }
 
-/* Button Group */
+/* Buttons */
 .btn-group {
-    margin-top: auto; /* Pushes the buttons to the bottom of the card */
+    margin-top: auto;
     display: flex;
     gap: 0.5rem;
 }
-
-/* Primary Button */
+.btn {
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-preview {
+    background: #21262d;
+    color: #c9d1d9;
+    flex: 1;
+    border: none;
+    transition: background 0.3s;
+}
+.btn-preview:hover {
+    background: #30363d;
+}
 .btn-template {
     flex: 1;
     background: #1f6feb;
     color: #ffffff;
-    text-align: center;
-    padding: 0.8rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
     transition: background 0.3s;
+    text-decoration: none;
 }
-
 .btn-template:hover {
     background: #2c81f5;
 }
 
-/* (Optional) Preview Button */
-.btn-preview {
-    background: #21262d;
-    color: #c9d1d9;
-    text-align: center;
-    padding: 0.8rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: background 0.3s;
-}
-
-.btn-preview:hover {
-    background: #30363d;
-}
-
-/* ATS Tips Section */
+/* ATS Tips */
 .ats-tips {
     margin-top: 3rem;
     padding: 2rem;
     background: #0d1117;
     border: 1px solid #30363d;
     border-radius: 10px;
+    text-align: center;
 }
-
-.ats-tips h3 {
-    font-size: 1.2rem;
+.ats-tips h2 {
+    font-size: 1.4rem;
     margin-bottom: 1rem;
     color: #c9d1d9;
 }
-
 .tip-card {
     display: flex;
     align-items: center;
@@ -302,75 +329,172 @@
     margin: 1rem 0;
     padding: 1rem;
 }
-
 .tip-icon {
     font-size: 1.5rem;
     margin-right: 1rem;
 }
-
 .tip-card p {
     margin: 0;
     color: #8b949e;
     font-size: 0.95rem;
 }
 
-.template-card {
-    min-height: 500px; /* or any suitable value */
+/* Preview Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0; /* For fade-in animation */
+    transition: opacity 0.3s ease;
+}
+.modal-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+.modal-content {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 400px;
+    max-width: 80%;
+    color: #c9d1d9;
+    position: relative;
+    text-align: left;
+    transform: translateY(20px); /* For slide-up animation */
+    transition: transform 0.3s ease;
+}
+.modal-content.show {
+    transform: translateY(0);
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #8b949e;
+}
+.modal-close:hover {
+    color: #58a6ff;
+}
+</style>
+
+<script>
+/* Template Info for Preview Modal */
+const templateInfo = {
+    'corporate': {
+        name: 'Corporate Pro',
+        desc: 'A clean, modern layout for business professionals. Focus on experience, achievements, and skill sets.'
+    },
+    'creative': {
+        name: 'Creative Portfolio',
+        desc: 'Showcase your projects and creativity. Ideal for designers, artists, and freelancers who want to stand out.'
+    },
+    'tech': {
+        name: 'Tech Specialist',
+        desc: 'Highlight technical skills, certifications, and projects. Perfect for IT, engineering, and software pros.'
+    },
+    'generalist': {
+        name: 'Modern Generalist',
+        desc: 'A balanced, versatile layout suitable for multiple industries, combining style with readability.'
+    }
+};
+
+/* Open Modal with Animated Fade/Slide */
+function openPreviewModal(templateKey) {
+    const modal = document.getElementById('previewModal');
+    const modalContent = document.getElementById('modalContent');
+    const title = document.getElementById('templateTitle');
+    const description = document.getElementById('templateDescription');
+
+    // Set text
+    if (templateInfo[templateKey]) {
+        title.innerText = templateInfo[templateKey].name + ' - Preview';
+        description.innerText = templateInfo[templateKey].desc;
+    } else {
+        title.innerText = 'Template Preview';
+        description.innerText = 'No additional details available.';
+    }
+
+    // Show modal with fade/slide animations
+    modal.classList.add('show');
+    setTimeout(() => modalContent.classList.add('show'), 50); // slight delay for slide-up
 }
 
-</style>
+/* Close Modal */
+function closePreviewModal(event) {
+    const modal = document.getElementById('previewModal');
+    const modalContent = document.getElementById('modalContent');
+
+    // If clicking the overlay or the close button
+    if (!event || event.target === modal || event.target.classList.contains('modal-close')) {
+        // Reverse animations
+        modalContent.classList.remove('show');
+        setTimeout(() => modal.classList.remove('show'), 200); // wait for slide-up to finish
+    }
+}
+
+/* Apply Filters & Sorting */
+function applyFilters() {
+    const category = document.getElementById('filterTemplates').value;
+    const sortBy = document.getElementById('sortBy').value;
+    const searchText = document.getElementById('templateSearch').value.toLowerCase();
+    const grid = document.getElementById('templateGrid');
+    const cards = grid.getElementsByClassName('template-card');
+
+    // Filter by category + search
+    Array.from(cards).forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        const cardName = card.getAttribute('data-name').toLowerCase();
+        const cardDesc = card.getAttribute('data-description').toLowerCase();
+
+        // Match category?
+        const categoryMatch = (category === 'all' || cardCategory === category);
+        // Match search text in name or description
+        const searchMatch = (cardName.indexOf(searchText) !== -1 || cardDesc.indexOf(searchText) !== -1);
+
+        if (categoryMatch && searchMatch) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Sort cards
+    sortCards(sortBy);
+}
+
+/* Sort Cards By Name or ATS Score */
+function sortCards(sortBy) {
+    const grid = document.getElementById('templateGrid');
+    const cards = Array.from(grid.getElementsByClassName('template-card'));
+
+    cards.sort((a, b) => {
+        const aName = a.getAttribute('data-name');
+        const bName = b.getAttribute('data-name');
+        const aScore = parseInt(a.getAttribute('data-score'), 10);
+        const bScore = parseInt(b.getAttribute('data-score'), 10);
+
+        if (sortBy === 'atsScore') {
+            // Higher ATS score first
+            return bScore - aScore;
+        } else if (sortBy === 'name') {
+            // Alphabetical by name
+            return aName.localeCompare(bName);
+        }
+        return 0;
+    });
+
+    // Re-append sorted cards
+    cards.forEach(card => grid.appendChild(card));
+}
+</script>
 {% endblock %}
-
-
-{% comment %} {% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<div class="templates-container">
-    <h2>Resume Templates</h2>
-    <p class="templates-description">
-        Choose from our collection of professionally designed resume templates. Each template is customizable to suit your needs.
-    </p>
-
-    <div class="template-grid">
-        <div class="template-card">
-            <div class="template-image">
-                <img src="{% static 'images/template1.jpg' %}" alt="Template 1">
-            </div>
-            <div class="template-details">
-                <h3>Modern</h3>
-                <p>A sleek and modern design for professionals.</p>
-                <a href="{% url 'resume_form' %}?template_id=1" class="btn">Use This Template</a>
-            </div>
-        </div>
-
-        <div class="template-card">
-            <div class="template-image">
-                <img src="{% static 'images/template2.jpg' %}" alt="Template 2">
-            </div>
-            <div class="template-details">
-                <h3>Creative</h3>
-                <p>A creative design for freelancers and artists.</p>
-                <a href="{% url 'resume_form' %}?template_id=2" class="btn">Use This Template</a>
-            </div>
-        </div>
-
-        <div class="template-card">
-            <div class="template-image">
-                <img src="{% static 'images/template3.jpg' %}" alt="Template 3">
-            </div>
-            <div class="template-details">
-                <h3>Modern</h3>
-                <p>A sleek and modern design for professionals.</p>
-                <a href="{% url 'resume_form' %}?template_id=3" class="btn">Use This Template</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Create Resume Button (Placed Outside the Grid) -->
-    <div class="create-resume-container" style="text-align: center; margin-top: 20px;">
-        <a href="{% url 'resume_form' %}" class="btn create-resume-btn">Create Resume</a>
-    </div>
-
-</div>
-{% endblock %} {% endcomment %}
