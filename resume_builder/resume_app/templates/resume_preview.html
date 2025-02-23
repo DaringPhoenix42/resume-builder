@@ -2,16 +2,17 @@
 {% load static %}
 
 {% block content %}
-<div class="resume-container">
-    <h2 class="page-title">Your Resume</h2>
+<div class="resume-page-wrapper">
+    <h2 class="resume-title">Your Resume</h2>
 
-    <div class="resume-content">
-        <!-- Header: Name, Contact Info, Social Links -->
+    <div class="resume-card">
+        <!-- Resume Header: Name, Contact, Social Links -->
         <div class="resume-header">
             <h1>{{ resume.name }}</h1>
-            <p class="contact-info">{{ resume.email }} | {{ resume.phone }}</p>
-            
-            <!-- Optional Social Links -->
+            <p class="contact-info">
+                {{ resume.email }} | {{ resume.phone }}
+            </p>
+
             {% if resume.github or resume.linkedin or resume.portfolio %}
             <p class="social-links">
                 {% if resume.github %}
@@ -29,7 +30,7 @@
             {% endif %}
         </div>
 
-        <hr class="divider"/>
+        <hr class="divider" />
 
         <!-- Summary -->
         {% if resume.summary %}
@@ -88,7 +89,6 @@
         {% endif %}
     </div>
 
-    <!-- Resume Actions -->
     <div class="resume-actions">
         <a href="{% url 'resume_form' %}" class="btn">Edit Resume</a>
         <a href="{% url 'download_resume' id=resume.id format='pdf' %}" class="btn btn-download">Download as PDF</a>
@@ -96,48 +96,51 @@
     </div>
 </div>
 
-<!-- Inline CSS (move to styles.css if preferred) -->
 <style>
-/* Container */
-.resume-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+/* Page Wrapper with Subtle Gradient Background */
+.resume-page-wrapper {
+    min-height: 80vh;
+    background: linear-gradient(135deg, #0d1117 0%, #003366 100%);
+    padding: 40px 20px;
+    text-align: center;
     color: #c9d1d9; /* Light text for dark theme */
 }
 
-.page-title {
-    text-align: center;
-    margin-bottom: 1.5rem;
+/* Title */
+.resume-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
     color: #c9d1d9;
-    font-size: 1.8rem;
 }
 
-/* Resume Content Box */
-.resume-content {
+/* Resume Card Container */
+.resume-card {
+    max-width: 700px;
+    margin: 0 auto;
     background-color: #161b22;
     border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    text-align: left; /* Let the content inside be left-aligned */
 }
 
-/* Header Section */
+/* Header: Name & Contact */
 .resume-header {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
 }
 
 .resume-header h1 {
     font-size: 1.8rem;
     color: #c9d1d9;
-    margin-bottom: 0.3rem;
+    margin-bottom: 5px;
 }
 
 .contact-info {
     color: #8b949e;
-    margin-bottom: 0.5rem;
     font-size: 0.95rem;
+    margin-bottom: 8px;
 }
 
 .social-links {
@@ -148,7 +151,7 @@
 .social-links a {
     color: #58a6ff;
     text-decoration: none;
-    margin-right: 0.5rem;
+    margin: 0 5px;
 }
 
 .social-links a:hover {
@@ -159,45 +162,43 @@
 .divider {
     border: none;
     border-top: 1px solid #30363d;
-    margin: 1rem 0;
+    margin: 20px 0;
 }
 
 /* Resume Sections */
 .resume-section {
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
 }
 
 .resume-section h3 {
+    font-size: 1.1rem;
     color: #c9d1d9;
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    margin-bottom: 6px;
 }
 
 .resume-section p {
     color: #8b949e;
-    line-height: 1.5;
-    margin: 0;
+    line-height: 1.6;
     font-size: 0.95rem;
+    margin: 0;
 }
 
-/* Actions */
+/* Actions (Edit & Download) */
 .resume-actions {
-    text-align: center;
-    margin-top: 2rem;
+    margin-top: 30px;
 }
 
 .btn {
     background-color: #238636;
     color: #ffffff;
-    padding: 0.7rem 1.2rem;
+    padding: 0.8rem 1.2rem;
     border-radius: 6px;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
-    margin-right: 1rem;
+    margin: 0 10px;
     transition: background 0.3s, transform 0.3s;
 }
-
 .btn:hover {
     background-color: #2ea043;
     transform: translateY(-2px);
@@ -206,55 +207,8 @@
 .btn-download {
     background-color: #1f6feb;
 }
-
 .btn-download:hover {
     background-color: #2c81f5;
 }
 </style>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} {% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<div class="resume-container">
-    <h2>Your Resume</h2>
-    <div class="resume">
-        <h1>{{ resume.name }}</h1>
-        <p>{{ resume.job_title }}</p>
-        <p>{{ resume.email }} | {{ resume.phone }} | {{ resume.address }}</p>
-        <p>LinkedIn: {{ resume.linkedin }} | GitHub: {{ resume.github }} | Portfolio: {{ resume.portfolio }}</p>
-        <h3>Summary</h3>
-        <p>{{ resume.summary }}</p>
-        <h3>Experience</h3>
-        <p>{{ resume.experience }}</p>
-        <h3>Education</h3>
-        <p>{{ resume.education }}</p>
-        <h3>Skills</h3>
-        <p>{{ resume.skills }}</p>
-        <h3>Certifications</h3>
-        <p>{{ resume.certifications }}</p>
-        <h3>Languages</h3>
-        <p>{{ resume.languages }}</p>
-        <h3>Hobbies/Interests</h3>
-        <p>{{ resume.hobbies_interests }}</p>
-    </div>
-    <div class="resume-actions">
-        <a href="{% url 'resume_form' %}" class="btn">Edit Resume</a>
-        <a href="{% url 'download_resume' id=resume.id format='pdf' %}" class="btn btn-download">Download as PDF</a>
-        <a href="{% url 'download_resume' id=resume.id format='word' %}" class="btn btn-download">Download as Word</a>
-    </div>
-</div>
-{% endblock %} {% endcomment %}
