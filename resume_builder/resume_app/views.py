@@ -373,6 +373,10 @@
 #     return render(request, 'faq.html')
 
 
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from docx import Document
 
 
 
@@ -548,4 +552,79 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('index')
+
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from docx import Document
+from io import BytesIO
+
+from .models import CoverLetter
+from .forms import CoverLetterForm
+from django.shortcuts import render, redirect
+
+@login_required
+def cover_letter(request):
+    if request.method == 'POST':
+        form = CoverLetterForm(request.POST)
+        if form.is_valid():
+            cover_letter = form.save(commit=False)
+            cover_letter.user = request.user
+            cover_letter.save()
+            return redirect('cover_letter_preview', id=cover_letter.id)
+    else:
+        form = CoverLetterForm()
+    return render(request, 'cover_letter.html', {'form': form})
+
+
+@login_required
+def cover_letter_preview(request, id):
+    cover_letter = get_object_or_404(CoverLetter, id=id, user=request.user)
+    return render(request, 'cover_letter_preview.html', {'cover_letter': cover_letter})
+
+@login_required
+def download_cover_letter(request, id, format):
+    cover_letter = get_object_or_404(CoverLetter, id=id, user=request.user)
+    
+    content = f"""
+    {cover_letter.greeting}
+
+    {cover_letter.introduction}
+
+    {cover_letter.body}
+
+    {cover_letter.closing}
+    """
+    
+    if format == 'pdf':
+        # Generate PDF
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="cover_letter.pdf"'
+        
+        # Use reportlab to create PDF
+        p = canvas.Canvas(response, pagesize=letter)
+        p.drawString(100, 750, content)
+        p.showPage()
+        p.save()
+        
+        return response
+        
+    elif format == 'docx':
+        # Generate Word document
+        document = Document()
+        document.add_paragraph(content)
+        
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        response['Content-Disposition'] = f'attachment; filename="cover_letter.docx"'
+        
+        document.save(response)
+        
+        return response
+    
+    else:
+        return HttpResponse("Invalid format", status=400)
 

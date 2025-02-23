@@ -6,23 +6,17 @@
   <h2>Cover Letter Builder</h2>
   <p>Create a professional cover letter that complements your resume.</p>
 
-  <form class="cover-letter-form">
-    <div class="form-group">
-      <label for="cl-greeting">Greeting</label>
-      <input type="text" id="cl-greeting" placeholder="e.g. Dear Hiring Manager">
-    </div>
-    <div class="form-group">
-      <label for="cl-intro">Introduction</label>
-      <textarea id="cl-intro" rows="3" placeholder="Introduce yourself and the position you're applying for..."></textarea>
-    </div>
-    <div class="form-group">
-      <label for="cl-body">Body</label>
-      <textarea id="cl-body" rows="6" placeholder="Highlight relevant experience, skills, and achievements..."></textarea>
-    </div>
-    <div class="form-group">
-      <label for="cl-closing">Closing</label>
-      <textarea id="cl-closing" rows="2" placeholder="Thank the employer, express enthusiasm..."></textarea>
-    </div>
+  <form class="cover-letter-form" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+          <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+      </div>
+    {% endfor %}
     <button type="submit" class="btn">Generate Cover Letter</button>
   </form>
 </div>

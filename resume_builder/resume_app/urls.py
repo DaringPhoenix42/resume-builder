@@ -1,6 +1,8 @@
 # resume_app/urls.py
 from django.urls import path
 from . import views
+from .forms import CoverLetterForm
+
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -24,4 +26,11 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
 
     path('create-resource/', views.create_resource, name='create_resource'),
+    path('cover-letter/', views.cover_letter, name='cover_letter'),
+    path('cover-letter/<int:id>/preview/', 
+         views.cover_letter_preview, 
+         name='cover_letter_preview'),
+    path('cover-letter/<int:id>/download/<str:format>/', 
+         views.download_cover_letter, 
+         name='download_cover_letter'),
 ]

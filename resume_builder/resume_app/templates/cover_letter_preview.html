@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cover-letter-preview-container">
+  <h2 class="preview-title">Cover Letter Preview</h2>
+
+  <div class="preview-card">
+    <div class="preview-content">
+      <div class="preview-section">
+        <h3 class="section-title">Greeting</h3>
+        <p class="section-text">{{ cover_letter.greeting }}</p>
+      </div>
+      <div class="preview-section">
+        <h3 class="section-title">Introduction</h3>
+        <p class="section-text">{{ cover_letter.introduction }}</p>
+      </div>
+      <div class="preview-section">
+        <h3 class="section-title">Body</h3>
+        <p class="section-text">{{ cover_letter.body }}</p>
+      </div>
+      <div class="preview-section">
+        <h3 class="section-title">Closing</h3>
+        <p class="section-text">{{ cover_letter.closing }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="download-options">
+    <a href="{% url 'download_cover_letter' cover_letter.id 'pdf' %}" class="btn btn-pdf">
+      <i class="fas fa-file-pdf"></i> Download PDF
+    </a>
+    <a href="{% url 'download_cover_letter' cover_letter.id 'docx' %}" class="btn btn-word">
+      <i class="fas fa-file-word"></i> Download Word
+    </a>
+  </div>
+</div>
+
+<style>
+  .cover-letter-preview-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px; /* Increased Padding */
+    color: #c9d1d9;
+  }
+
+  .preview-title {
+    text-align: center;
+    color: #58a6ff;
+    margin-bottom: 2rem;
+    font-size: 2.2rem; /* Increased title font size */
+  }
+
+  .preview-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 30px; /* Increased padding inside preview card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .preview-content {
+    background: #0d1117;
+    border-radius: 10px;
+    padding: 20px; /* Increased padding inside preview content */
+    margin-bottom: 30px;
+  }
+
+  .preview-section {
+    margin-bottom: 25px; /* Increased spacing between sections */
+  }
+
+  .preview-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .preview-section .section-title {
+    color: #58a6ff;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem; /* Increased font size */
+  }
+
+  .preview-section .section-text {
+    color: #c9d1d9;
+    font-size: 1.1rem; /* Increased font size */
+    line-height: 1.7; /* Adjusted line height for better readability */
+  }
+
+  .download-options {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem; /* Increased spacing above buttons */
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 2rem; /* Increased button padding */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Added more transitions */
+  }
+
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-pdf {
+    background-color: #d9534f;
+    color: white;
+  }
+
+  .btn-word {
+    background-color: #0275d8;
+    color: white;
+  }
+</style>
+{% endblock %}
