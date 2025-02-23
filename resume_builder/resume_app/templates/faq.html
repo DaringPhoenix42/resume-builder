@@ -8,104 +8,274 @@
         Here are some common questions about Space AstroResume. If you don’t find what you’re looking for, feel free to <a href="{% url 'contact' %}">contact us</a>.
     </p>
 
-    <div class="faq-list">
+    <!-- (Optional) Search Bar -->
+    <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Search FAQs..." onkeyup="filterFAQs()">
+    </div>
+
+    <div class="faq-list" id="faqList">
+        <!-- FAQ 1 -->
         <div class="faq-item">
-            <h3>How do I create a resume?</h3>
-            <p>
-                Simply go to the <a href="{% url 'resume_form' %}">Create Resume</a> page, fill out the form, and preview your resume.
-            </p>
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-question-circle"></i>
+                <span>How do I create a resume?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Simply go to the <a href="{% url 'resume_form' %}">Create Resume</a> page, fill out the form, and preview your resume.
+                    <br><br>
+                    **Steps to create a resume:**
+                    <ol>
+                        <li>Visit our <em>Create Resume</em> page.</li>
+                        <li>Fill in your personal information, education, and experience.</li>
+                        <li>Choose a template that fits your style.</li>
+                        <li>Click “Preview” to see how it looks, then download in PDF format.</li>
+                    </ol>
+                </p>
+            </div>
         </div>
 
+        <!-- FAQ 2 -->
         <div class="faq-item">
-            <h3>Can I download my resume?</h3>
-            <p>
-                Yes, you can download your resume in PDF format after previewing it.
-            </p>
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-file-download"></i>
+                <span>Can I download my resume?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Yes, you can download your resume in PDF format after previewing it. We recommend double-checking the layout and formatting before finalizing.
+                </p>
+            </div>
         </div>
 
+        <!-- FAQ 3 -->
         <div class="faq-item">
-            <h3>Is Space AstroResume free to use?</h3>
-            <p>
-                Yes, our basic features are completely free. We may offer premium features in the future.
-            </p>
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-coins"></i>
+                <span>Is Space AstroResume free to use?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Yes, our basic features are completely free. We may introduce premium features in the future (such as advanced templates or AI-driven resume critiques), but the core functionality will remain free.
+                </p>
+            </div>
         </div>
 
+        <!-- FAQ 4 -->
         <div class="faq-item">
-            <h3>How do I contact support?</h3>
-            <p>
-                Visit the <a href="{% url 'contact' %}">Contact Us</a> page to send us a message.
-            </p>
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-headset"></i>
+                <span>How do I contact support?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Visit the <a href="{% url 'contact' %}">Contact Us</a> page to send us a message. Our support team is available Monday through Friday from 9 AM to 5 PM (EST). We typically respond within 24 hours.
+                </p>
+            </div>
         </div>
 
+        <!-- FAQ 5 -->
         <div class="faq-item">
-            <h3>Can I customize my resume?</h3>
-            <p>
-                Yes, our templates are fully customizable. You can edit the content and layout to suit your needs.
-            </p>
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-edit"></i>
+                <span>Can I customize my resume?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Absolutely! Our templates are fully customizable. You can rearrange sections, change fonts, and edit colors to match your personal style or industry standards. We also offer both dark and light themes for each template.
+                </p>
+            </div>
         </div>
 
+        <!-- FAQ 6 -->
         <div class="faq-item">
-            <h3>Do you store my data?</h3>
-            <p>
-                No, we do not store any of your personal data. Your resume is generated on the fly and can be downloaded directly to your device.
-            </p>
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-user-shield"></i>
+                <span>Do you store my data?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    No, we do not store any of your personal data on our servers. Your resume is generated on-the-fly, and you can download it directly to your device. For added privacy, we recommend saving your resume locally.
+                </p>
+            </div>
+        </div>
+
+        <!-- FAQ 7 (Extra Example) -->
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <i class="fas fa-robot"></i>
+                <span>Will you add AI resume suggestions?</span>
+                <i class="fas fa-chevron-down arrow-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    We’re exploring the integration of AI to provide personalized feedback and suggestions. Stay tuned for future updates in our <a href="{% url 'about' %}">Roadmap</a>.
+                </p>
+            </div>
         </div>
     </div>
+
+    <!-- CTA for Additional Help -->
+    <div class="faq-help">
+        <p>Still have questions? <a href="{% url 'contact' %}">Reach out to our team</a> and we'll be happy to assist you!</p>
+    </div>
 </div>
+
+<!-- (Optional) Minimal JavaScript for Accordion & Search -->
+<script>
+function toggleFAQ(button) {
+    // Toggle the 'active' class on the clicked FAQ question
+    button.classList.toggle('active');
+    const answer = button.nextElementSibling;
+    if (button.classList.contains('active')) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+    } else {
+        answer.style.maxHeight = 0;
+    }
+}
+
+// Filter FAQs by text input
+function filterFAQs() {
+    const input = document.getElementById('faqSearchInput');
+    const filter = input.value.toLowerCase();
+    const faqItems = document.getElementsByClassName('faq-item');
+
+    for (let i = 0; i < faqItems.length; i++) {
+        const questionText = faqItems[i].querySelector('.faq-question span').innerText.toLowerCase();
+        const answerText = faqItems[i].querySelector('.faq-answer p').innerText.toLowerCase();
+
+        if (questionText.indexOf(filter) > -1 || answerText.indexOf(filter) > -1) {
+            faqItems[i].style.display = '';
+        } else {
+            faqItems[i].style.display = 'none';
+        }
+    }
+}
+</script>
+
+<style>
+/* Container */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #c9d1d9;
+}
+
+/* Title & Description */
+.faq-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #c9d1d9;
+}
+.faq-description {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #8b949e;
+    font-size: 0.95rem;
+}
+
+/* Search Bar */
+.faq-search {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#faqSearchInput {
+    width: 60%;
+    max-width: 400px;
+    padding: 0.5rem;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background-color: #161b22;
+    color: #c9d1d9;
+    outline: none;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+}
+#faqSearchInput:focus {
+    border-color: #58a6ff;
+}
+
+/* FAQ List */
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* FAQ Item */
+.faq-item {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    overflow: hidden; /* So the collapsed content is hidden */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* FAQ Question (Button) */
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: #c9d1d9;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.faq-question:hover {
+    background-color: #0d1117;
+}
+.faq-question i {
+    margin-right: 0.5rem;
+}
+
+/* Arrow Icon */
+.arrow-icon {
+    transition: transform 0.3s;
+}
+.faq-question.active .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* FAQ Answer */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 1rem;
+}
+.faq-answer p {
+    margin: 1rem 0;
+    font-size: 0.95rem;
+    color: #8b949e;
+    line-height: 1.5;
+}
+
+/* CTA for Additional Help */
+.faq-help {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+}
+.faq-help a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+.faq-help a:hover {
+    text-decoration: underline;
+}
+</style>
 {% endblock %}
-
-{% comment %} {% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<div class="faq-container">
-    <h2>Frequently Asked Questions</h2>
-    <p class="faq-description">
-        Here are some common questions about Space AstroResume. If you don’t find what you’re looking for, feel free to <a href="{% url 'contact' %}">contact us</a>.
-    </p>
-
-    <div class="faq-list">
-        <div class="faq-item">
-            <h3>How do I create a resume?</h3>
-            <p>
-                Simply go to the <a href="{% url 'resume_form' %}">Create Resume</a> page, fill out the form, and preview your resume.
-            </p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Can I download my resume?</h3>
-            <p>
-                Yes, you can download your resume in PDF format after previewing it.
-            </p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Is Space AstroResume free to use?</h3>
-            <p>
-                Yes, our basic features are completely free. We may offer premium features in the future.
-            </p>
-        </div>
-
-        <div class="faq-item">
-            <h3>How do I contact support?</h3>
-            <p>
-                Visit the <a href="{% url 'contact' %}">Contact Us</a> page to send us a message.
-            </p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Can I customize my resume?</h3>
-            <p>
-                Yes, our templates are fully customizable. You can edit the content and layout to suit your needs.
-            </p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Do you store my data?</h3>
-            <p>
-                No, we do not store any of your personal data. Your resume is generated on the fly and can be downloaded directly to your device.
-            </p>
-        </div>
-    </div>
-</div>
-{% endblock %} {% endcomment %}
