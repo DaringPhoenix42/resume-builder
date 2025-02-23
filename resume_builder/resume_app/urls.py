@@ -25,4 +25,11 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('templates/', views.templates, name='templates'),
     path('faq/', views.faq, name='faq'),
+    path('pricing/', views.pricing, name='pricing'),
+    path('resources/', views.resources, name='resources'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('testimonials/', views.testimonials, name='testimonials'),
+    path('examples/', views.examples, name='examples'),
+    path('blog/', views.blog, name='blog'),
+    path('cover-letter/', views.cover_letter, name='cover_letter'),
 ]

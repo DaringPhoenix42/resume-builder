@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="pricing-container">
+  <h2>Pricing & Plans</h2>
+  <p>Choose the plan that fits your needs. Upgrade anytime!</p>
+
+  <div class="pricing-grid">
+    <div class="plan-card">
+      <h3>Free Plan</h3>
+      <p class="price">$0 / month</p>
+      <ul>
+        <li>Basic resume templates</li>
+        <li>PDF download</li>
+        <li>Dark & Light themes</li>
+      </ul>
+      <a href="#" class="btn">Get Started</a>
+    </div>
+
+    <div class="plan-card featured">
+      <h3>Pro Plan</h3>
+      <p class="price">$9 / month</p>
+      <ul>
+        <li>All Free features</li>
+        <li>Advanced resume templates</li>
+        <li>Priority support</li>
+        <li>Cover letter builder</li>
+      </ul>
+      <a href="#" class="btn btn-upgrade">Upgrade Now</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.pricing-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: #c9d1d9;
+}
+.pricing-grid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.plan-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.plan-card h3 {
+  margin-bottom: 1rem;
+}
+.price {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  text-align: left;
+}
+.plan-card ul li {
+  margin-bottom: 0.5rem;
+  color: #8b949e;
+}
+.btn-upgrade {
+  background-color: #238636;
+}
+.featured {
+  border: 2px solid #58a6ff;
+}
+</style>
+{% endblock %}

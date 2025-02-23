@@ -42,6 +42,28 @@ def templates(request):
 def faq(request):
     return render(request, 'faq.html')
 
+# New pages
+def pricing(request):
+    return render(request, 'pricing.html')
+
+def resources(request):
+    return render(request, 'resources.html')
+
+def dashboard(request):
+    # In a real app, you'd check if the user is authenticated, fetch user resumes, etc.
+    return render(request, 'dashboard.html')
+
+def testimonials(request):
+    return render(request, 'testimonials.html')
+
+def examples(request):
+    return render(request, 'examples.html')
+
+def blog(request):
+    return render(request, 'blog.html')
+
+def cover_letter(request):
+    return render(request, 'cover_letter.html')
 
 def download_resume(request, id, format):
     resume = Resume.objects.get(id=id)

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard-container">
+  <h2>My Dashboard</h2>
+  <p>Welcome back, {{ request.user.username }}!</p>
+
+  <div class="resume-list">
+    <h3>Your Resumes</h3>
+    <ul>
+      <!-- In a real app, loop through user’s resumes -->
+      <li>
+        <span>Resume 1 (Corporate Template)</span>
+        <a href="#" class="btn">Edit</a>
+        <a href="#" class="btn">Download</a>
+      </li>
+      <li>
+        <span>Resume 2 (Creative Template)</span>
+        <a href="#" class="btn">Edit</a>
+        <a href="#" class="btn">Download</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<style>
+.dashboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #c9d1d9;
+}
+.resume-list {
+  margin-top: 2rem;
+}
+.resume-list ul {
+  list-style: none;
+  padding: 0;
+}
+.resume-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  background: #161b22;
+  padding: 0.8rem;
+  border-radius: 6px;
+  align-items: center;
+}
+.resume-list li span {
+  color: #8b949e;
+}
+</style>
+{% endblock %}

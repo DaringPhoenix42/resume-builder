@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 class Resume(models.Model):
     # Personal Information
     name = models.CharField(max_length=255, help_text="Your full name")
@@ -29,3 +29,50 @@ class Resume(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+    class Resource(models.Model):
+        title = models.CharField(max_length=200)
+        slug = models.SlugField(unique=True)
+        content = models.TextField()
+        created_at = models.DateTimeField(auto_now_add=True)
+        updated_at = models.DateTimeField(auto_now=True)
+
+        # Example: could categorize resources
+        category = models.CharField(
+            max_length=50,
+            choices=[
+                ('resume', 'Resume Writing'),
+                ('interview', 'Interview Prep'),
+                ('networking', 'Networking'),
+                ('career', 'Career Advice'),
+            ],
+            default='career'
+        )
+
+    def __str__(self):
+        return self.title
+
+class BlogPost(models.Model):
+    """Represents a blog post entry."""
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+    is_published = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+class Testimonial(models.Model):
+    """Stores user testimonials."""
+    user_name = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    # e.g., link to a resume template used
+    template_used = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return f"{self.user_name} - {self.created_at.date()}"

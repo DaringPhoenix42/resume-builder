@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="resources-container">
+  <h2>Career Resources</h2>
+  <p>Explore our articles, guides, and tools to boost your career.</p>
+
+  <div class="resources-grid">
+    <div class="resource-card">
+      <h3>Resume Writing 101</h3>
+      <p>Learn the basics of crafting an effective resume that stands out.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+    <div class="resource-card">
+      <h3>Interview Prep</h3>
+      <p>Top questions, best practices, and tips to ace your next interview.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+    <div class="resource-card">
+      <h3>Networking Tips</h3>
+      <p>Build meaningful professional connections for career growth.</p>
+      <a href="#" class="btn">Read More</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.resources-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #c9d1d9;
+}
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.resource-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.resource-card h3 {
+  margin-bottom: 0.5rem;
+}
+.resource-card p {
+  color: #8b949e;
+  margin-bottom: 1rem;
+}
+</style>
+{% endblock %}

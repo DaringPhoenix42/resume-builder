@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="testimonials-container">
+  <h2>User Testimonials</h2>
+  <p>Hear what our users have to say about Space AstroResume.</p>
+
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <blockquote>
+        “I landed my dream job within two weeks of using the Corporate Pro template!”
+      </blockquote>
+      <p class="author">— Jane Doe</p>
+    </div>
+    <div class="testimonial-card">
+      <blockquote>
+        “The creative templates helped me stand out as a designer. Love it!”
+      </blockquote>
+      <p class="author">— Alex Smith</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.testimonials-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: #c9d1d9;
+}
+.testimonial-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.testimonial-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+blockquote {
+  font-style: italic;
+  color: #8b949e;
+  margin-bottom: 1rem;
+}
+.author {
+  color: #c9d1d9;
+  font-weight: 600;
+}
+</style>
+{% endblock %}

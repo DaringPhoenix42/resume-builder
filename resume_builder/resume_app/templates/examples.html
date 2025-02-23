@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="examples-container">
+  <h2>Resume Examples</h2>
+  <p>See how different resume styles look for various industries.</p>
+
+  <div class="examples-grid">
+    <div class="example-card">
+      <h3>Software Developer</h3>
+      <p>A mid-level resume focusing on coding skills and projects.</p>
+      <a href="#" class="btn">View Example</a>
+    </div>
+    <div class="example-card">
+      <h3>Marketing Manager</h3>
+      <p>Emphasizes leadership, campaign successes, and ROI achievements.</p>
+      <a href="#" class="btn">View Example</a>
+    </div>
+    <div class="example-card">
+      <h3>Graphic Designer</h3>
+      <p>Showcases a creative portfolio and strong branding expertise.</p>
+      <a href="#" class="btn">View Example</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.examples-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #c9d1d9;
+}
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.example-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.example-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+.example-card h3 {
+  margin-bottom: 0.5rem;
+}
+.example-card p {
+  color: #8b949e;
+  margin-bottom: 1rem;
+}
+</style>
+{% endblock %}
