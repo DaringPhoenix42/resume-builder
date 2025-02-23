@@ -3,56 +3,216 @@
 
 {% block content %}
 <div class="resume-container">
-    <h2>Your Resume</h2>
-    <div class="resume">
+    <h2 class="page-title">Your Resume</h2>
+
+    <div class="resume-content">
+        <!-- Header: Name, Contact Info, Social Links -->
         <div class="resume-header">
             <h1>{{ resume.name }}</h1>
-            <p>{{ resume.email }} | {{ resume.phone }}</p>
+            <p class="contact-info">{{ resume.email }} | {{ resume.phone }}</p>
+            
+            <!-- Optional Social Links -->
+            {% if resume.github or resume.linkedin or resume.portfolio %}
+            <p class="social-links">
+                {% if resume.github %}
+                    <a href="{{ resume.github }}" target="_blank">GitHub</a>
+                {% endif %}
+                {% if resume.linkedin %}
+                    {% if resume.github %} | {% endif %}
+                    <a href="{{ resume.linkedin }}" target="_blank">LinkedIn</a>
+                {% endif %}
+                {% if resume.portfolio %}
+                    {% if resume.github or resume.linkedin %} | {% endif %}
+                    <a href="{{ resume.portfolio }}" target="_blank">Portfolio</a>
+                {% endif %}
+            </p>
+            {% endif %}
         </div>
 
+        <hr class="divider"/>
+
+        <!-- Summary -->
+        {% if resume.summary %}
         <div class="resume-section">
             <h3>Summary</h3>
-            <p>{{ resume.summary }}</p>
+            <p>{{ resume.summary|linebreaks }}</p>
         </div>
+        {% endif %}
 
+        <!-- Skills -->
+        {% if resume.skills %}
         <div class="resume-section">
             <h3>Skills</h3>
-            <p>{{ resume.skills }}</p>
+            <p>{{ resume.skills|linebreaks }}</p>
         </div>
+        {% endif %}
 
+        <!-- Experience -->
+        {% if resume.experience %}
         <div class="resume-section">
             <h3>Experience</h3>
-            <p>{{ resume.experience }}</p>
+            <p>{{ resume.experience|linebreaks }}</p>
         </div>
+        {% endif %}
 
+        <!-- Education -->
+        {% if resume.education %}
         <div class="resume-section">
             <h3>Education</h3>
-            <p>{{ resume.education }}</p>
+            <p>{{ resume.education|linebreaks }}</p>
         </div>
+        {% endif %}
 
+        <!-- Certifications -->
+        {% if resume.certifications %}
         <div class="resume-section">
             <h3>Certifications</h3>
-            <p>{{ resume.certifications }}</p>
+            <p>{{ resume.certifications|linebreaks }}</p>
         </div>
+        {% endif %}
 
+        <!-- Languages -->
+        {% if resume.languages %}
         <div class="resume-section">
             <h3>Languages</h3>
-            <p>{{ resume.languages }}</p>
+            <p>{{ resume.languages|linebreaks }}</p>
         </div>
+        {% endif %}
 
+        <!-- Hobbies/Interests -->
+        {% if resume.hobbies_interests %}
         <div class="resume-section">
             <h3>Hobbies/Interests</h3>
-            <p>{{ resume.hobbies_interests }}</p>
+            <p>{{ resume.hobbies_interests|linebreaks }}</p>
         </div>
+        {% endif %}
     </div>
 
+    <!-- Resume Actions -->
     <div class="resume-actions">
         <a href="{% url 'resume_form' %}" class="btn">Edit Resume</a>
         <a href="{% url 'download_resume' id=resume.id format='pdf' %}" class="btn btn-download">Download as PDF</a>
         <a href="{% url 'download_resume' id=resume.id format='word' %}" class="btn btn-download">Download as Word</a>
     </div>
 </div>
+
+<!-- Inline CSS (move to styles.css if preferred) -->
+<style>
+/* Container */
+.resume-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #c9d1d9; /* Light text for dark theme */
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #c9d1d9;
+    font-size: 1.8rem;
+}
+
+/* Resume Content Box */
+.resume-content {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Header Section */
+.resume-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.resume-header h1 {
+    font-size: 1.8rem;
+    color: #c9d1d9;
+    margin-bottom: 0.3rem;
+}
+
+.contact-info {
+    color: #8b949e;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.social-links {
+    color: #8b949e;
+    font-size: 0.95rem;
+}
+
+.social-links a {
+    color: #58a6ff;
+    text-decoration: none;
+    margin-right: 0.5rem;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+/* Divider */
+.divider {
+    border: none;
+    border-top: 1px solid #30363d;
+    margin: 1rem 0;
+}
+
+/* Resume Sections */
+.resume-section {
+    margin-bottom: 1rem;
+}
+
+.resume-section h3 {
+    color: #c9d1d9;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.resume-section p {
+    color: #8b949e;
+    line-height: 1.5;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Actions */
+.resume-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    background-color: #238636;
+    color: #ffffff;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    background-color: #2ea043;
+    transform: translateY(-2px);
+}
+
+.btn-download {
+    background-color: #1f6feb;
+}
+
+.btn-download:hover {
+    background-color: #2c81f5;
+}
+</style>
 {% endblock %}
+
 
 
 
