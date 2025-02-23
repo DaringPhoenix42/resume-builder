@@ -3,51 +3,199 @@
 
 {% block content %}
 <div class="dashboard-container">
-  <h2>My Dashboard</h2>
-  <p>Welcome back, {{ request.user.username }}!</p>
+  <h2 class="dashboard-title">My Dashboard</h2>
+  <p class="welcome-message">Welcome back, {{ request.user.username }}!</p>
+
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <i class="fas fa-file-alt"></i>
+      <span class="stat-number">2</span>
+      <span class="stat-label">Resumes Created</span>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-download"></i>
+      <span class="stat-number">5</span>
+      <span class="stat-label">Downloads</span>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-eye"></i>
+      <span class="stat-number">15</span>
+      <span class="stat-label">Profile Views</span>
+    </div>
+  </div>
 
   <div class="resume-list">
     <h3>Your Resumes</h3>
     <ul>
-      <!-- In a real app, loop through user’s resumes -->
+      <!-- In a real app, loop through user's resumes -->
       <li>
-        <span>Resume 1 (Corporate Template)</span>
-        <a href="#" class="btn">Edit</a>
-        <a href="#" class="btn">Download</a>
+        <span class="resume-name">Resume 1 (Corporate Template)</span>
+        <div class="resume-actions">
+          <a href="#" class="btn btn-edit"><i class="fas fa-edit"></i> Edit</a>
+          <a href="#" class="btn btn-download"><i class="fas fa-download"></i> Download</a>
+        </div>
       </li>
       <li>
-        <span>Resume 2 (Creative Template)</span>
-        <a href="#" class="btn">Edit</a>
-        <a href="#" class="btn">Download</a>
+        <span class="resume-name">Resume 2 (Creative Template)</span>
+        <div class="resume-actions">
+          <a href="#" class="btn btn-edit"><i class="fas fa-edit"></i> Edit</a>
+          <a href="#" class="btn btn-download"><i class="fas fa-download"></i> Download</a>
+        </div>
       </li>
     </ul>
+  </div>
+
+  <div class="quick-actions">
+    <h3>Quick Actions</h3>
+    <a href="{% url 'resume_form' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Create New Resume</a>
+    <a href="#" class="btn btn-secondary"><i class="fas fa-cog"></i> Account Settings</a>
   </div>
 </div>
 
 <style>
 .dashboard-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 2rem;
   color: #c9d1d9;
 }
+
+.dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #58a6ff;
+}
+
+.welcome-message {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #8b949e;
+}
+
+.dashboard-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #161b22;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+  margin: 0 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card i {
+  font-size: 2rem;
+  color: #58a6ff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #8b949e;
+}
+
 .resume-list {
   margin-top: 2rem;
 }
+
+.resume-list h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
 .resume-list ul {
   list-style: none;
   padding: 0;
 }
+
 .resume-list li {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
   background: #161b22;
-  padding: 0.8rem;
-  border-radius: 6px;
+  padding: 1rem;
+  border-radius: 8px;
   align-items: center;
+  transition: background-color 0.3s ease;
 }
-.resume-list li span {
-  color: #8b949e;
+
+.resume-list li:hover {
+  background-color: #1c2129;
+}
+
+.resume-name {
+  color: #c9d1d9;
+  font-weight: 600;
+}
+
+.resume-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-edit {
+  background-color: #238636;
+  color: #ffffff;
+}
+
+.btn-download {
+  background-color: #1f6feb;
+  color: #ffffff;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.quick-actions {
+  margin-top: 2rem;
+}
+
+.quick-actions h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
+.btn-primary {
+  background-color: #238636;
+  color: #ffffff;
+  margin-right: 1rem;
+}
+
+.btn-secondary {
+  background-color: #21262d;
+  color: #c9d1d9;
+}
+
+.btn i {
+  margin-right: 0.3rem;
 }
 </style>
 {% endblock %}

@@ -4,33 +4,78 @@
 {% block content %}
 <div class="blog-container">
   <h2>Space AstroResume Blog</h2>
-  <p>Stay updated on the latest career tips, platform updates, and more.</p>
+  <p class="blog-intro">Stay updated on the latest career tips, industry trends, and platform updates to boost your professional journey.</p>
 
-  <div class="blog-grid">
-    <div class="blog-post">
+  <div class="blog-filter">
+    <input type="text" id="searchInput" placeholder="Search blog posts..." onkeyup="filterPosts()">
+    <select id="categoryFilter" onchange="filterPosts()">
+      <option value="all">All Categories</option>
+      <option value="career-tips">Career Tips</option>
+      <option value="industry-trends">Industry Trends</option>
+      <option value="platform-updates">Platform Updates</option>
+    </select>
+  </div>
+
+  <div class="blog-grid" id="blogGrid">
+    <div class="blog-post" data-category="platform-updates">
+      <img src="{% static 'images/ai-feature.jpg' %}" alt="AI Feature" class="blog-image">
       <h3>New AI Feature Launch</h3>
       <p class="date">January 10, 2025</p>
-      <p>We’ve introduced an AI-driven resume critique tool. Find out how it can help refine your resume!</p>
-      <a href="#" class="btn">Read More</a>
+      <p class="excerpt">We've introduced an AI-driven resume critique tool. Find out how it can help refine your resume!</p>
+      <a href="#" class="btn" onclick="openModal('New AI Feature Launch', 'Our new AI-driven resume critique tool uses advanced machine learning algorithms to analyze your resume and provide personalized feedback. It checks for optimal keyword usage, formatting consistency, and even suggests improvements tailored to your industry. This feature is now available to all premium users.')">Read More</a>
     </div>
-    <div class="blog-post">
+    <div class="blog-post" data-category="career-tips">
+      <img src="{% static 'images/remote-interview.jpg' %}" alt="Remote Interview" class="blog-image">
       <h3>5 Tips for Remote Interviews</h3>
       <p class="date">December 20, 2024</p>
-      <p>Make a great impression even when interviewing from home. Our top five tips for success.</p>
-      <a href="#" class="btn">Read More</a>
+      <p class="excerpt">Make a great impression even when interviewing from home. Our top five tips for success.</p>
+      <a href="#" class="btn" onclick="openModal('5 Tips for Remote Interviews', '1. Test your technology beforehand. 2. Choose a professional background. 3. Dress professionally from head to toe. 4. Maintain eye contact by looking at the camera. 5. Have a backup plan for technical difficulties.')">Read More</a>
     </div>
+    <div class="blog-post" data-category="industry-trends">
+      <img src="{% static 'images/tech-skills.jpg' %}" alt="Tech Skills" class="blog-image">
+      <h3>Top 10 Tech Skills for 2025</h3>
+      <p class="date">February 5, 2025</p>
+      <p class="excerpt">Stay ahead of the curve with these in-demand tech skills that employers are looking for in 2025.</p>
+      <a href="#" class="btn" onclick="openModal('Top 10 Tech Skills for 2025', '1. Artificial Intelligence and Machine Learning 2. Quantum Computing 3. Augmented and Virtual Reality 4. Cybersecurity 5. Blockchain 6. Internet of Things (IoT) 7. 5G Technology 8. Edge Computing 9. Robotic Process Automation 10. Natural Language Processing')">Read More</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for blog post content -->
+<div id="blogModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalContent"></p>
   </div>
 </div>
 
 <style>
 .blog-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
+  color: #c9d1d9;
+  padding: 2rem;
+}
+.blog-intro {
+  color: #8b949e;
+  margin-bottom: 2rem;
+}
+.blog-filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.blog-filter input, .blog-filter select {
+  padding: 0.5rem;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  background-color: #0d1117;
   color: #c9d1d9;
 }
 .blog-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -53,5 +98,98 @@
   color: #8b949e;
   margin-bottom: 0.5rem;
 }
+.blog-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+.excerpt {
+  color: #8b949e;
+  margin-bottom: 1rem;
+}
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #238636;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.btn:hover {
+  background-color: #2ea043;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #0d1117;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #30363d;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover,
+.close:focus {
+  color: #c9d1d9;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
+
+<script>
+function filterPosts() {
+  const searchText = document.getElementById('searchInput').value.toLowerCase();
+  const category = document.getElementById('categoryFilter').value;
+  const posts = document.getElementsByClassName('blog-post');
+
+  for (let post of posts) {
+    const title = post.getElementsByTagName('h3')[0].innerText.toLowerCase();
+    const excerpt = post.getElementsByClassName('excerpt')[0].innerText.toLowerCase();
+    const postCategory = post.getAttribute('data-category');
+
+    if ((category === 'all' || postCategory === category) &&
+        (title.includes(searchText) || excerpt.includes(searchText))) {
+      post.style.display = '';
+    } else {
+      post.style.display = 'none';
+    }
+  }
+}
+
+function openModal(title, content) {
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalContent').innerText = content;
+  document.getElementById('blogModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('blogModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+  if (event.target == document.getElementById('blogModal')) {
+    closeModal();
+  }
+}
+</script>
 {% endblock %}

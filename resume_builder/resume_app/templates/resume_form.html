@@ -112,94 +112,97 @@
 </div>
 
 <style>
-/* Container */
-.resume-form-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #c9d1d9; /* Light text for dark background */
-}
-.page-title {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #c9d1d9;
-    font-size: 1.8rem;
-}
-
-/* Form */
-.resume-form {
-    background-color: #161b22;       /* Dark container background */
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-.form-section {
-    margin-bottom: 1.5rem;
-}
-.form-section h3 {
-    font-size: 1.2rem;
-    color: #c9d1d9;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-.form-group {
-    margin-bottom: 1rem;
-}
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-    color: #c9d1d9;
-}
-.form-group label i {
-    color: #58a6ff; /* Icon accent color */
-    margin-right: 0.3rem;
-}
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 6px;
-    color: #c9d1d9;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.3s;
-}
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #58a6ff;
-}
-.form-text {
-    display: block;
-    font-size: 0.85rem;
-    color: #8b949e;
-    margin-top: 0.2rem;
-}
-
-/* Submit Button */
-.form-submit {
-    text-align: center;
-}
-.btn-submit {
-    background-color: #238636;
-    color: #ffffff;
-    padding: 0.7rem 1.2rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: background 0.3s, transform 0.3s;
-    border: none;
-    cursor: pointer;
-}
-.btn-submit:hover {
-    background-color: #2ea043;
-    transform: translateY(-2px);
-}
-</style>
+    /* Container */
+    .resume-form-container {
+        max-width: 800px; /* Reduced max-width for better readability */
+        margin: 0 auto;
+        padding: 20px;
+        color: #c9d1d9;
+    }
+    .page-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #c9d1d9;
+        font-size: 1.8rem;
+    }
+    
+    /* Form */
+    .resume-form {
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .form-section {
+        margin-bottom: 1.5rem;
+    }
+    .form-section h3 {
+        font-size: 1.2rem;
+        color: #c9d1d9;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: #c9d1d9;
+        font-size: 0.9rem; /* Slightly reduced font size */
+    }
+    .form-group label i {
+        color: #58a6ff;
+        margin-right: 0.3rem;
+    }
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.6rem; /* Slightly reduced padding */
+        background-color: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        color: #c9d1d9;
+        font-size: 0.9rem; /* Slightly reduced font size */
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #58a6ff;
+    }
+    .form-text {
+        display: block;
+        font-size: 0.8rem; /* Slightly reduced font size */
+        color: #8b949e;
+        margin-top: 0.2rem;
+    }
+    
+    /* Submit Button */
+    .form-submit {
+        text-align: center;
+        margin-top: 1rem; /* Added margin-top */
+    }
+    .btn-submit {
+        background-color: #238636;
+        color: #ffffff;
+        padding: 0.6rem 1rem; /* Slightly reduced padding */
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem; /* Slightly reduced font size */
+        font-weight: 600;
+        transition: background 0.3s, transform 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-submit:hover {
+        background-color: #2ea043;
+        transform: translateY(-2px);
+    }
+    </style>
+    
 {% endblock %}

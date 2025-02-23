@@ -48,17 +48,33 @@
     {% endblock %}
   </main>
 
-  <!-- Simple Footer -->
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p>&copy; 2025 Space AstroResume. All rights reserved.</p>
-    </div>
-  </footer>
+ <!-- Simple Footer -->
+ <footer class="site-footer">
+  <div class="footer-content">
+    <p>&copy; 2025 Space AstroResume. All rights reserved.</p>
+  </div>
+</footer>
 
   <script src="{% static 'js/script.js' %}"></script>
 
   <!-- Inline styles for demonstration (move to styles.css if desired) -->
   <style>
+    /* Add these styles */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px 0;
+    }
     /* Make the header sticky */
     .main-nav {
       position: sticky;

@@ -2,59 +2,160 @@
 {% load static %}
 
 {% block content %}
-<div class="examples-container">
-  <h2>Resume Examples</h2>
-  <p>See how different resume styles look for various industries.</p>
 
-  <div class="examples-grid">
-    <div class="example-card">
-      <h3>Software Developer</h3>
-      <p>A mid-level resume focusing on coding skills and projects.</p>
-      <a href="#" class="btn">View Example</a>
+<div class="examples-container">
+    <h2>Resume Examples</h2>
+    <p class="examples-intro">Explore resume examples tailored for various industries and experience levels. Find inspiration to
+        craft a standout resume.</p>
+
+    <div class="examples-grid">
+        <!-- Example 1: Software Developer -->
+        <div class="example-card">
+            <h3>Software Developer</h3>
+            <p>A mid-level resume focusing on coding skills, project highlights, and technical expertise.</p>
+            <a href="#" class="btn btn-example">View Example</a>
+        </div>
+
+        <!-- Example 2: Marketing Manager -->
+        <div class="example-card">
+            <h3>Marketing Manager</h3>
+            <p>Emphasizes leadership, successful campaign management, ROI achievements, and strategic thinking.</p>
+            <a href="#" class="btn btn-example">View Example</a>
+        </div>
+
+        <!-- Example 3: Graphic Designer -->
+        <div class="example-card">
+            <h3>Graphic Designer</h3>
+            <p>Showcases a creative portfolio, strong branding expertise, and design software proficiency.</p>
+            <a href="#" class="btn btn-example">View Example</a>
+        </div>
+
+        <!-- Example 4: Project Manager -->
+        <div class="example-card">
+            <h3>Project Manager</h3>
+            <p>Highlights project planning, team leadership, risk management, and on-time delivery.</p>
+            <a href="#" class="btn btn-example">View Example</a>
+        </div>
+
+        <!-- Example 5: Customer Service Representative -->
+        <div class="example-card">
+            <h3>Customer Service Representative</h3>
+            <p>Focuses on communication skills, problem-solving abilities, and customer satisfaction metrics.</p>
+            <a href="#" class="btn btn-example">View Example</a>
+        </div>
+
+        <!-- Example 6: Data Analyst -->
+        <div class="example-card">
+            <h3>Data Analyst</h3>
+            <p>Emphasizes data analysis skills, statistical modeling, and data visualization expertise.</p>
+            <a href="#" class="btn btn-example">View Example</a>
+        </div>
     </div>
-    <div class="example-card">
-      <h3>Marketing Manager</h3>
-      <p>Emphasizes leadership, campaign successes, and ROI achievements.</p>
-      <a href="#" class="btn">View Example</a>
-    </div>
-    <div class="example-card">
-      <h3>Graphic Designer</h3>
-      <p>Showcases a creative portfolio and strong branding expertise.</p>
-      <a href="#" class="btn">View Example</a>
-    </div>
-  </div>
+
+    <!-- Learn More Section -->
+    <section class="learn-more">
+        <h2>Crafting Your Best Resume</h2>
+        <p>Creating a compelling resume is essential for landing your dream job. Here are some tips to help you get started:</p>
+        <ul class="resume-tips">
+            <li><strong>Highlight Achievements:</strong> Quantify your accomplishments whenever possible. Use numbers and metrics to showcase your impact.</li>
+            <li><strong>Tailor Your Resume:</strong> Customize your resume for each job you apply for. Focus on the skills and experience that are most relevant to the specific role.</li>
+            <li><strong>Use Keywords:</strong> Incorporate industry-specific keywords from the job description to help your resume get past Applicant Tracking Systems (ATS).</li>
+            <li><strong>Keep it Concise:</strong> Aim for a one- or two-page resume. Focus on the most relevant information and avoid unnecessary details.</li>
+            <li><strong>Proofread Carefully:</strong> Ensure your resume is free of typos and grammatical errors. Ask a friend or colleague to review it for you.</li>
+        </ul>
+    </section>
 </div>
 
 <style>
-.examples-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  color: #c9d1d9;
-}
-.examples-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-.example-card {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: left;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.example-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-}
-.example-card h3 {
-  margin-bottom: 0.5rem;
-}
-.example-card p {
-  color: #8b949e;
-  margin-bottom: 1rem;
-}
+    .examples-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        color: #c9d1d9;
+        padding: 2rem; /* Added padding */
+    }
+
+    .examples-container h2 {
+        margin-bottom: 1rem; /* Spacing for heading */
+    }
+
+    .examples-intro {
+        color: #8b949e; /* Subtitle color */
+        margin-bottom: 2rem;
+    }
+
+    .examples-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .example-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: left;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .example-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .example-card h3 {
+        margin-bottom: 0.5rem;
+    }
+
+    .example-card p {
+        color: #8b949e;
+        margin-bottom: 1rem;
+        line-height: 1.4; /* Improved readability */
+    }
+
+    /* Button Styling */
+    .btn-example {
+        background: #21262d;
+        color: #c9d1d9;
+        border: none;
+        padding: 0.7rem 1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: inline-block; /* Ensures consistent button size */
+    }
+
+    .btn-example:hover {
+        background: #30363d;
+    }
+
+    /* Learn More Section */
+    .learn-more {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+    }
+
+    .resume-tips {
+        list-style: disc; /* Use disc for a cleaner look */
+        padding-left: 2rem;
+        margin-top: 1rem;
+    }
+
+    .resume-tips li {
+        color: #8b949e;
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+
+    .resume-tips strong {
+        color: #c9d1d9; /* Highlight tip titles */
+    }
 </style>
+
 {% endblock %}

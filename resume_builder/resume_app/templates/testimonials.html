@@ -4,20 +4,60 @@
 {% block content %}
 <div class="testimonials-container">
   <h2>User Testimonials</h2>
-  <p>Hear what our users have to say about Space AstroResume.</p>
+  <p class="subtitle">Discover how Space AstroResume has helped professionals across various industries.</p>
 
-  <div class="testimonial-grid">
-    <div class="testimonial-card">
+  <div class="testimonial-carousel" id="testimonialCarousel">
+    <div class="testimonial-card active">
+      <img src="{% static 'images/jane-doe.jpg' %}" alt="Jane Doe" class="testimonial-image">
       <blockquote>
-        “I landed my dream job within two weeks of using the Corporate Pro template!”
+        "I landed my dream job within two weeks of using the Corporate Pro template! The ATS optimization feature really made a difference."
       </blockquote>
-      <p class="author">— Jane Doe</p>
+      <p class="author">— Jane Doe, Marketing Manager</p>
+      <p class="company">TechCorp Inc.</p>
     </div>
     <div class="testimonial-card">
+      <img src="{% static 'images/alex-smith.jpg' %}" alt="Alex Smith" class="testimonial-image">
       <blockquote>
-        “The creative templates helped me stand out as a designer. Love it!”
+        "The creative templates helped me stand out as a designer. I've received compliments on my resume from every interviewer!"
       </blockquote>
-      <p class="author">— Alex Smith</p>
+      <p class="author">— Alex Smith, UX Designer</p>
+      <p class="company">Creative Studios</p>
+    </div>
+    <div class="testimonial-card">
+      <img src="{% static 'images/sarah-johnson.jpg' %}" alt="Sarah Johnson" class="testimonial-image">
+      <blockquote>
+        "As a recent graduate, I was worried about my lack of experience. The entry-level templates helped me showcase my potential effectively."
+      </blockquote>
+      <p class="author">— Sarah Johnson, Software Engineer</p>
+      <p class="company">Innovate Solutions</p>
+    </div>
+    <div class="testimonial-card">
+      <img src="{% static 'images/michael-brown.jpg' %}" alt="Michael Brown" class="testimonial-image">
+      <blockquote>
+        "The AI-powered resume critique gave me insights I never would have considered. It's like having a personal career coach!"
+      </blockquote>
+      <p class="author">— Michael Brown, Data Scientist</p>
+      <p class="company">Analytics Pro</p>
+    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <button id="prevBtn" onclick="changeTestimonial(-1)">&lt; Previous</button>
+    <button id="nextBtn" onclick="changeTestimonial(1)">Next &gt;</button>
+  </div>
+
+  <div class="testimonial-stats">
+    <div class="stat-item">
+      <h3>95%</h3>
+      <p>User Satisfaction</p>
+    </div>
+    <div class="stat-item">
+      <h3>50,000+</h3>
+      <p>Resumes Created</p>
+    </div>
+    <div class="stat-item">
+      <h3>80%</h3>
+      <p>Interview Success Rate</p>
     </div>
   </div>
 </div>
@@ -28,17 +68,35 @@
   margin: 0 auto;
   text-align: center;
   color: #c9d1d9;
+  padding: 2rem;
 }
-.testimonial-grid {
-  display: grid;
-  gap: 2rem;
-  margin-top: 2rem;
+.subtitle {
+  color: #8b949e;
+  margin-bottom: 2rem;
+}
+.testimonial-carousel {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
 }
 .testimonial-card {
   background: #161b22;
   border: 1px solid #30363d;
   border-radius: 8px;
   padding: 1.5rem;
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.testimonial-card.active {
+  opacity: 1;
+}
+.testimonial-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
 blockquote {
   font-style: italic;
@@ -48,6 +106,54 @@ blockquote {
 .author {
   color: #c9d1d9;
   font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+.company {
+  color: #8b949e;
+  font-size: 0.9rem;
+}
+.carousel-controls {
+  margin-top: 1rem;
+}
+.carousel-controls button {
+  background: #21262d;
+  color: #c9d1d9;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.carousel-controls button:hover {
+  background: #30363d;
+}
+.testimonial-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3rem;
+}
+.stat-item h3 {
+  font-size: 1.8rem;
+  color: #58a6ff;
+  margin-bottom: 0.5rem;
+}
+.stat-item p {
+  color: #8b949e;
 }
 </style>
+
+<script>
+let currentTestimonial = 0;
+const testimonials = document.querySelectorAll('.testimonial-card');
+
+function changeTestimonial(direction) {
+  testimonials[currentTestimonial].classList.remove('active');
+  currentTestimonial = (currentTestimonial + direction + testimonials.length) % testimonials.length;
+  testimonials[currentTestimonial].classList.add('active');
+}
+
+// Auto-rotate testimonials
+setInterval(() => changeTestimonial(1), 5000);
+</script>
 {% endblock %}

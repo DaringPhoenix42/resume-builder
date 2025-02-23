@@ -2,80 +2,192 @@
 {% load static %}
 
 {% block content %}
+
 <div class="pricing-container">
-  <h2>Pricing & Plans</h2>
-  <p>Choose the plan that fits your needs. Upgrade anytime!</p>
+    <h2>Pricing & Plans</h2>
+    <p class="pricing-intro">Choose the plan that fits your career goals. Upgrade or downgrade anytime!</p>
 
-  <div class="pricing-grid">
-    <div class="plan-card">
-      <h3>Free Plan</h3>
-      <p class="price">$0 / month</p>
-      <ul>
-        <li>Basic resume templates</li>
-        <li>PDF download</li>
-        <li>Dark & Light themes</li>
-      </ul>
-      <a href="#" class="btn">Get Started</a>
+    <div class="pricing-grid">
+        <!-- Free Plan -->
+        <div class="plan-card">
+            <h3>Free Plan</h3>
+            <p class="price">$0 / month</p>
+            <ul>
+                <li><strong>Basic Resume Templates</strong></li>
+                <li><strong>PDF Download</strong></li>
+                <li><strong>Dark & Light Themes</strong></li>
+            </ul>
+            <p class="plan-details">Perfect for getting started and creating a simple, professional resume.</p>
+            <a href="#" class="btn btn-select">Get Started</a>
+        </div>
+
+        <!-- Pro Plan (Featured) -->
+        <div class="plan-card featured">
+            <h3>Pro Plan</h3>
+            <p class="price">$9 / month</p>
+            <ul>
+                <li><strong>All Free Features</strong></li>
+                <li><strong>Advanced Resume Templates</strong> - Gain Access to 100+ advanced resume templates.</li>
+                <li><strong>Priority Support</strong> - Receive faster responses to your questions.</li>
+                <li><strong>Cover Letter Builder</strong> - Build a matching cover letter to impress recruiters.</li>
+            </ul>
+            <p class="plan-details">Unlock advanced features and templates to take your job application to the next level.</p>
+            <a href="#" class="btn btn-upgrade">Upgrade Now</a>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="plan-card">
+            <h3>Premium Plan</h3>
+            <p class="price">$19 / month</p>
+            <ul>
+                <li><strong>All Pro Features</strong></li>
+                <li><strong>ATS Optimization Tool</strong> - Ensure your resume passes through applicant tracking systems</li>
+                <li><strong>Unlimited Resume Downloads</strong></li>
+                <li><strong>1-on-1 Resume Review</strong> - Get expert feedback on your resume from career advisors.</li>
+            </ul>
+            <p class="plan-details">Get the most out of our services with advanced features and personalized support.</p>
+            <a href="#" class="btn btn-select">Choose Plan</a>
+        </div>
     </div>
 
-    <div class="plan-card featured">
-      <h3>Pro Plan</h3>
-      <p class="price">$9 / month</p>
-      <ul>
-        <li>All Free features</li>
-        <li>Advanced resume templates</li>
-        <li>Priority support</li>
-        <li>Cover letter builder</li>
-      </ul>
-      <a href="#" class="btn btn-upgrade">Upgrade Now</a>
-    </div>
-  </div>
+    <!-- FAQs Section -->
+    <section class="faqs">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>What payment methods do you accept?</h3>
+            <p>We accept all major credit cards, including Visa, MasterCard, American Express, and Discover.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I cancel my subscription at any time?</h3>
+            <p>Yes, you can cancel your subscription at any time. Your access will continue until the end of your billing
+                cycle.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Do you offer a money-back guarantee?</h3>
+            <p>Yes, we offer a 30-day money-back guarantee. If you're not satisfied with our services, contact us within
+                30 days for a full refund.</p>
+        </div>
+    </section>
 </div>
 
 <style>
-.pricing-container {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  color: #c9d1d9;
-}
-.pricing-grid {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-.plan-card {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 2rem;
-  width: 250px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-.plan-card h3 {
-  margin-bottom: 1rem;
-}
-.price {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #58a6ff;
-}
-.plan-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0;
-  text-align: left;
-}
-.plan-card ul li {
-  margin-bottom: 0.5rem;
-  color: #8b949e;
-}
-.btn-upgrade {
-  background-color: #238636;
-}
-.featured {
-  border: 2px solid #58a6ff;
-}
+    .pricing-container {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+        color: #c9d1d9;
+        padding: 2rem; /* Added padding */
+    }
+
+    .pricing-intro {
+        color: #8b949e;
+        margin-bottom: 2rem;
+    }
+
+    .pricing-grid {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .plan-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 2rem;
+        width: 280px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .plan-card h3 {
+        margin-bottom: 1rem;
+    }
+
+    .price {
+        font-size: 1.7rem;
+        margin-bottom: 1rem;
+        color: #58a6ff;
+    }
+
+    .plan-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+        text-align: left;
+    }
+
+    .plan-card ul li {
+        margin-bottom: 0.7rem;
+        color: #8b949e;
+        line-height: 1.4; /* Improved readability */
+    }
+
+    /* Button Styling */
+    .btn {
+        display: inline-block; /* Makes button take up only necessary width */
+        background: #21262d;
+        color: #c9d1d9;
+        border: none;
+        padding: 0.7rem 1.2rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background: #30363d;
+    }
+
+    .btn-upgrade {
+        background-color: #238636;
+    }
+
+    .btn-select {
+        background-color: #1f6feb; /* A blue-ish color to match */
+    }
+
+    .featured {
+        border: 2px solid #58a6ff;
+    }
+
+    .plan-details {
+        color: #8b949e; /* Muted color */
+        font-size: 0.9rem;
+        margin-top: 1rem;
+    }
+
+    /* FAQs Section */
+    .faqs {
+        margin-top: 4rem;
+        padding: 2rem;
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        text-align: left;
+    }
+
+    .faq-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .faq-item h3 {
+        margin-bottom: 0.5rem;
+        color: #c9d1d9;
+    }
+
+    .faq-item p {
+        color: #8b949e;
+        line-height: 1.5;
+    }
 </style>
+
 {% endblock %}
