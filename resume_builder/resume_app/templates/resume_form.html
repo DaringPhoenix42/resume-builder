@@ -2,107 +2,204 @@
 {% load static %}
 
 {% block content %}
-<div class="form-container">
-    <h2>Create Your Resume</h2>
-    <form method="post" action="{% url 'resume_form' %}">
+<div class="resume-form-container">
+    <h2 class="page-title">Create Your Resume</h2>
+
+    <form method="post" action="{% url 'resume_form' %}" class="resume-form">
         {% csrf_token %}
         <input type="hidden" name="template_id" value="{{ template_id }}">
 
-        <!-- Personal Information -->
-        <div class="form-group">
-            <label for="id_name">Name:</label>
-            {{ form.name }}
-            <small class="form-text text-muted">{{ form.name.help_text }}</small>
+        <!-- PERSONAL INFORMATION -->
+        <div class="form-section">
+            <h3><i class="fas fa-user"></i> Personal Information</h3>
+            <div class="form-group">
+                <label for="id_name">Name:</label>
+                {{ form.name }}
+                <small class="form-text">{{ form.name.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_job_title">Job Title:</label>
+                {{ form.job_title }}
+                <small class="form-text">{{ form.job_title.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+                <small class="form-text">{{ form.email.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_phone">Phone:</label>
+                {{ form.phone }}
+                <small class="form-text">{{ form.phone.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_address">Address:</label>
+                {{ form.address }}
+                <small class="form-text">{{ form.address.help_text }}</small>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="id_job_title">Job Title:</label>
-            {{ form.job_title }}
-            <small class="form-text text-muted">{{ form.job_title.help_text }}</small>
+        <!-- SOCIAL LINKS -->
+        <div class="form-section">
+            <h3><i class="fas fa-link"></i> Social Links</h3>
+            <div class="form-group">
+                <label for="id_github">GitHub:</label>
+                {{ form.github }}
+                <small class="form-text">{{ form.github.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_linkedin">LinkedIn:</label>
+                {{ form.linkedin }}
+                <small class="form-text">{{ form.linkedin.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_portfolio">Portfolio:</label>
+                {{ form.portfolio }}
+                <small class="form-text">{{ form.portfolio.help_text }}</small>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="id_email">Email:</label>
-            {{ form.email }}
-            <small class="form-text text-muted">{{ form.email.help_text }}</small>
+        <!-- PROFESSIONAL DETAILS -->
+        <div class="form-section">
+            <h3><i class="fas fa-briefcase"></i> Professional Details</h3>
+            <div class="form-group">
+                <label for="id_summary">Summary:</label>
+                {{ form.summary }}
+                <small class="form-text">{{ form.summary.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_skills">Skills:</label>
+                {{ form.skills }}
+                <small class="form-text">{{ form.skills.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_experience">Experience:</label>
+                {{ form.experience }}
+                <small class="form-text">{{ form.experience.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_education">Education:</label>
+                {{ form.education }}
+                <small class="form-text">{{ form.education.help_text }}</small>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="id_phone">Phone:</label>
-            {{ form.phone }}
-            <small class="form-text text-muted">{{ form.phone.help_text }}</small>
+        <!-- ADDITIONAL INFORMATION -->
+        <div class="form-section">
+            <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+            <div class="form-group">
+                <label for="id_certifications">Certifications:</label>
+                {{ form.certifications }}
+                <small class="form-text">{{ form.certifications.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_languages">Languages:</label>
+                {{ form.languages }}
+                <small class="form-text">{{ form.languages.help_text }}</small>
+            </div>
+            <div class="form-group">
+                <label for="id_hobbies_interests">Hobbies/Interests:</label>
+                {{ form.hobbies_interests }}
+                <small class="form-text">{{ form.hobbies_interests.help_text }}</small>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="id_address">Address:</label>
-            {{ form.address }}
-            <small class="form-text text-muted">{{ form.address.help_text }}</small>
+        <!-- SUBMIT -->
+        <div class="form-submit">
+            <button type="submit" class="btn btn-submit">Submit</button>
         </div>
-
-        <!-- Social Links -->
-        <div class="form-group">
-            <label for="id_github">GitHub:</label>
-            {{ form.github }}
-            <small class="form-text text-muted">{{ form.github.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_linkedin">LinkedIn:</label>
-            {{ form.linkedin }}
-            <small class="form-text text-muted">{{ form.linkedin.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_portfolio">Portfolio:</label>
-            {{ form.portfolio }}
-            <small class="form-text text-muted">{{ form.portfolio.help_text }}</small>
-        </div>
-
-        <!-- Professional Details -->
-        <div class="form-group">
-            <label for="id_summary">Summary:</label>
-            {{ form.summary }}
-            <small class="form-text text-muted">{{ form.summary.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_skills">Skills:</label>
-            {{ form.skills }}
-            <small class="form-text text-muted">{{ form.skills.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_experience">Experience:</label>
-            {{ form.experience }}
-            <small class="form-text text-muted">{{ form.experience.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_education">Education:</label>
-            {{ form.education }}
-            <small class="form-text text-muted">{{ form.education.help_text }}</small>
-        </div>
-
-        <!-- Additional Information -->
-        <div class="form-group">
-            <label for="id_certifications">Certifications:</label>
-            {{ form.certifications }}
-            <small class="form-text text-muted">{{ form.certifications.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_languages">Languages:</label>
-            {{ form.languages }}
-            <small class="form-text text-muted">{{ form.languages.help_text }}</small>
-        </div>
-
-        <div class="form-group">
-            <label for="id_hobbies_interests">Hobbies/Interests:</label>
-            {{ form.hobbies_interests }}
-            <small class="form-text text-muted">{{ form.hobbies_interests.help_text }}</small>
-        </div>
-
-        <button type="submit" class="btn">Submit</button>
     </form>
 </div>
+
+<style>
+/* Container */
+.resume-form-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #c9d1d9; /* Light text for dark background */
+}
+.page-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #c9d1d9;
+    font-size: 1.8rem;
+}
+
+/* Form */
+.resume-form {
+    background-color: #161b22;       /* Dark container background */
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.form-section {
+    margin-bottom: 1.5rem;
+}
+.form-section h3 {
+    font-size: 1.2rem;
+    color: #c9d1d9;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: #c9d1d9;
+}
+.form-group label i {
+    color: #58a6ff; /* Icon accent color */
+    margin-right: 0.3rem;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #c9d1d9;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #58a6ff;
+}
+.form-text {
+    display: block;
+    font-size: 0.85rem;
+    color: #8b949e;
+    margin-top: 0.2rem;
+}
+
+/* Submit Button */
+.form-submit {
+    text-align: center;
+}
+.btn-submit {
+    background-color: #238636;
+    color: #ffffff;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
+}
+.btn-submit:hover {
+    background-color: #2ea043;
+    transform: translateY(-2px);
+}
+</style>
 {% endblock %}
