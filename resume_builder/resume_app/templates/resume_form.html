@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Create Your Resume</h2>
+    <form method="post" action="{% url 'resume_form' %}">
+        {% csrf_token %}
+        <input type="hidden" name="template_id" value="{{ template_id }}">
+
+        <!-- Personal Information -->
+        <div class="form-group">
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+            <small class="form-text text-muted">{{ form.name.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_job_title">Job Title:</label>
+            {{ form.job_title }}
+            <small class="form-text text-muted">{{ form.job_title.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            <small class="form-text text-muted">{{ form.email.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_phone">Phone:</label>
+            {{ form.phone }}
+            <small class="form-text text-muted">{{ form.phone.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_address">Address:</label>
+            {{ form.address }}
+            <small class="form-text text-muted">{{ form.address.help_text }}</small>
+        </div>
+
+        <!-- Social Links -->
+        <div class="form-group">
+            <label for="id_github">GitHub:</label>
+            {{ form.github }}
+            <small class="form-text text-muted">{{ form.github.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_linkedin">LinkedIn:</label>
+            {{ form.linkedin }}
+            <small class="form-text text-muted">{{ form.linkedin.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_portfolio">Portfolio:</label>
+            {{ form.portfolio }}
+            <small class="form-text text-muted">{{ form.portfolio.help_text }}</small>
+        </div>
+
+        <!-- Professional Details -->
+        <div class="form-group">
+            <label for="id_summary">Summary:</label>
+            {{ form.summary }}
+            <small class="form-text text-muted">{{ form.summary.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_skills">Skills:</label>
+            {{ form.skills }}
+            <small class="form-text text-muted">{{ form.skills.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_experience">Experience:</label>
+            {{ form.experience }}
+            <small class="form-text text-muted">{{ form.experience.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_education">Education:</label>
+            {{ form.education }}
+            <small class="form-text text-muted">{{ form.education.help_text }}</small>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="form-group">
+            <label for="id_certifications">Certifications:</label>
+            {{ form.certifications }}
+            <small class="form-text text-muted">{{ form.certifications.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_languages">Languages:</label>
+            {{ form.languages }}
+            <small class="form-text text-muted">{{ form.languages.help_text }}</small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_hobbies_interests">Hobbies/Interests:</label>
+            {{ form.hobbies_interests }}
+            <small class="form-text text-muted">{{ form.hobbies_interests.help_text }}</small>
+        </div>
+
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+{% endblock %}

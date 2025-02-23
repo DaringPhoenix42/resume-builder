@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <p class="faq-description">
+        Here are some common questions about Space AstroResume. If you don’t find what you’re looking for, feel free to <a href="{% url 'contact' %}">contact us</a>.
+    </p>
+
+    <div class="faq-list">
+        <div class="faq-item">
+            <h3>How do I create a resume?</h3>
+            <p>
+                Simply go to the <a href="{% url 'resume_form' %}">Create Resume</a> page, fill out the form, and preview your resume.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I download my resume?</h3>
+            <p>
+                Yes, you can download your resume in PDF format after previewing it.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Is Space AstroResume free to use?</h3>
+            <p>
+                Yes, our basic features are completely free. We may offer premium features in the future.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I contact support?</h3>
+            <p>
+                Visit the <a href="{% url 'contact' %}">Contact Us</a> page to send us a message.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I customize my resume?</h3>
+            <p>
+                Yes, our templates are fully customizable. You can edit the content and layout to suit your needs.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Do you store my data?</h3>
+            <p>
+                No, we do not store any of your personal data. Your resume is generated on the fly and can be downloaded directly to your device.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <p class="faq-description">
+        Here are some common questions about Space AstroResume. If you don’t find what you’re looking for, feel free to <a href="{% url 'contact' %}">contact us</a>.
+    </p>
+
+    <div class="faq-list">
+        <div class="faq-item">
+            <h3>How do I create a resume?</h3>
+            <p>
+                Simply go to the <a href="{% url 'resume_form' %}">Create Resume</a> page, fill out the form, and preview your resume.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I download my resume?</h3>
+            <p>
+                Yes, you can download your resume in PDF format after previewing it.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Is Space AstroResume free to use?</h3>
+            <p>
+                Yes, our basic features are completely free. We may offer premium features in the future.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I contact support?</h3>
+            <p>
+                Visit the <a href="{% url 'contact' %}">Contact Us</a> page to send us a message.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I customize my resume?</h3>
+            <p>
+                Yes, our templates are fully customizable. You can edit the content and layout to suit your needs.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Do you store my data?</h3>
+            <p>
+                No, we do not store any of your personal data. Your resume is generated on the fly and can be downloaded directly to your device.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %} {% endcomment %}

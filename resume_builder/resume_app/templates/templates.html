@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="templates-container">
+    <!-- Optional: Filter / Sort Bar
+    <div class="filter-bar">
+        <label for="filterTemplates">Filter by Category:</label>
+        <select id="filterTemplates">
+            <option value="all">All</option>
+            <option value="business">Business</option>
+            <option value="creative">Creative</option>
+            <option value="tech">Tech</option>
+        </select>
+    </div>
+    -->
+
+    <h2 class="page-title">Professional Resume Templates</h2>
+    <p class="templates-description">
+        Select a template that matches your career goals and industry standards. All templates are ATS-optimized.
+    </p>
+
+    <div class="template-grid">
+        <!-- Corporate Template -->
+        <div class="template-card">
+            <div class="template-image">
+                <img src="{% static 'images/corporate-template.jpg' %}" alt="Corporate Template" 
+                     onerror="this.onerror=null; this.src='{% static 'images/default-template.jpg' %}'">
+            </div>
+            <div class="template-details">
+                <h3>Corporate Pro</h3>
+                <div class="ats-score-badge">ATS Score: 92%</div>
+                <p>Ideal for business professionals and executive roles.
+                    
+                </p>
+                <ul class="template-features">
+                    <li>✓ ATS-optimized layout</li>
+                    <li>✓ Skills matrix section</li>
+                    <li>✓ Experience-focused</li>
+                </ul>
+                <div class="btn-group">
+                    <!-- Optional: Preview button -->
+                    <!-- <a href="#" class="btn btn-preview">Preview</a> -->
+                    <a href="{% url 'resume_form' %}?template=corporate" class="btn btn-template">
+                        Use Corporate Template
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creative Template -->
+        <div class="template-card">
+            <div class="template-image">
+                <img src="{% static 'images/creative-template.jpg' %}" alt="Creative Template"
+                     onerror="this.onerror=null; this.src='{% static 'images/default-template.jpg' %}'">
+            </div>
+            <div class="template-details">
+                <h3>Creative Portfolio</h3>
+                <div class="ats-score-badge">ATS Score: 85%</div>
+                <p>Perfect for designers and creative professionals.
+
+                </p>
+                <ul class="template-features">
+                    <li>✓ Portfolio section</li>
+                    <li>✓ Project highlights</li>
+                    <li>✓ Visual hierarchy</li>
+                </ul>
+                <div class="btn-group">
+                    <!-- <a href="#" class="btn btn-preview">Preview</a> -->
+                    <a href="{% url 'resume_form' %}?template=creative" class="btn btn-template">
+                        Use Creative Template
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Template -->
+        <div class="template-card">
+            <div class="template-image">
+                <img src="{% static 'images/technical-template.jpg' %}" alt="Technical Template"
+                     onerror="this.onerror=null; this.src='{% static 'images/default-template.jpg' %}'">
+            </div>
+            <div class="template-details">
+                <h3>Tech Specialist</h3>
+                <div class="ats-score-badge">ATS Score: 95%</div>
+                <p>Optimized for IT and engineering professionals.
+
+                </p>
+                <ul class="template-features">
+                    <li>✓ Technical skills matrix</li>
+                    <li>✓ Certifications section</li>
+                    <li>✓ Project showcase</li>
+                </ul>
+                <div class="btn-group">
+                    <!-- <a href="#" class="btn btn-preview">Preview</a> -->
+                    <a href="{% url 'resume_form' %}?template=technical" class="btn btn-template">
+                        Use Tech Template
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATS Optimization Tips -->
+    <div class="ats-tips">
+        <h3>Maximize Your ATS Score</h3>
+        <div class="tip-card">
+            <span class="tip-icon">💡</span>
+            <p>Use industry-specific keywords from the job description.</p>
+        </div>
+        <div class="tip-card">
+            <span class="tip-icon">⚠️</span>
+            <p>Avoid graphics and complex layouts in ATS-optimized versions.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Overall Container */
+.templates-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #c9d1d9; /* Light text on dark background */
+}
+
+/* (Optional) Filter Bar */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.filter-bar label {
+    margin-right: 0.5rem;
+}
+
+.filter-bar select {
+    padding: 0.3rem;
+    border-radius: 4px;
+    border: 1px solid #30363d;
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+/* Page Title & Description */
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #c9d1d9;
+}
+
+.templates-description {
+    text-align: center;
+    font-size: 1rem;
+    color: #8b949e;
+    margin-bottom: 30px;
+}
+
+/* Grid Layout */
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Card Styling */
+.template-card {
+    display: flex;
+    flex-direction: column;  /* So we can push the button group to the bottom */
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Template Image */
+.template-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid #30363d;
+}
+
+/* Card Details */
+.template-details {
+    flex: 1; /* Make this section expand to fill space */
+    padding: 1.5rem;
+}
+
+.template-details h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #c9d1d9;
+}
+
+.template-details p {
+    margin: 0.5rem 0;
+    color: #8b949e;
+    font-size: 0.95rem;
+}
+
+/* ATS Badge */
+.ats-score-badge {
+    background: #238636;
+    color: #ffffff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin: 0.5rem 0;
+    display: inline-block;
+}
+
+/* Feature List */
+.template-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.template-features li {
+    font-size: 0.9rem;
+    color: #8b949e;
+    margin-bottom: 5px;
+}
+
+/* Button Group */
+.btn-group {
+    margin-top: auto; /* Pushes the buttons to the bottom of the card */
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Primary Button */
+.btn-template {
+    flex: 1;
+    background: #1f6feb;
+    color: #ffffff;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-template:hover {
+    background: #2c81f5;
+}
+
+/* (Optional) Preview Button */
+.btn-preview {
+    background: #21262d;
+    color: #c9d1d9;
+    text-align: center;
+    padding: 0.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-preview:hover {
+    background: #30363d;
+}
+
+/* ATS Tips Section */
+.ats-tips {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.ats-tips h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #c9d1d9;
+}
+
+.tip-card {
+    display: flex;
+    align-items: center;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+.tip-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.tip-card p {
+    margin: 0;
+    color: #8b949e;
+    font-size: 0.95rem;
+}
+</style>
+{% endblock %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="templates-container">
+    <h2>Resume Templates</h2>
+    <p class="templates-description">
+        Choose from our collection of professionally designed resume templates. Each template is customizable to suit your needs.
+    </p>
+
+    <div class="template-grid">
+        <div class="template-card">
+            <div class="template-image">
+                <img src="{% static 'images/template1.jpg' %}" alt="Template 1">
+            </div>
+            <div class="template-details">
+                <h3>Modern</h3>
+                <p>A sleek and modern design for professionals.</p>
+                <a href="{% url 'resume_form' %}?template_id=1" class="btn">Use This Template</a>
+            </div>
+        </div>
+
+        <div class="template-card">
+            <div class="template-image">
+                <img src="{% static 'images/template2.jpg' %}" alt="Template 2">
+            </div>
+            <div class="template-details">
+                <h3>Creative</h3>
+                <p>A creative design for freelancers and artists.</p>
+                <a href="{% url 'resume_form' %}?template_id=2" class="btn">Use This Template</a>
+            </div>
+        </div>
+
+        <div class="template-card">
+            <div class="template-image">
+                <img src="{% static 'images/template3.jpg' %}" alt="Template 3">
+            </div>
+            <div class="template-details">
+                <h3>Modern</h3>
+                <p>A sleek and modern design for professionals.</p>
+                <a href="{% url 'resume_form' %}?template_id=3" class="btn">Use This Template</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Resume Button (Placed Outside the Grid) -->
+    <div class="create-resume-container" style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'resume_form' %}" class="btn create-resume-btn">Create Resume</a>
+    </div>
+
+</div>
+{% endblock %} {% endcomment %}

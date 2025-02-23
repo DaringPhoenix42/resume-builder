@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to Space AstroResume</h1>
+        <p>Create your professional resume in minutes!</p>
+        <a href="{% url 'resume_form' %}" class="btn">Create Your Resume</a>
+    </div>
+    <div class="earth"></div>
+</div>
+{% endblock %}

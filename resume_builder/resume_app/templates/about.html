@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="about-container">
+    <h2>About Space AstroResume</h2>
+    <p class="about-description">
+        Space AstroResume is a modern, user-friendly platform designed to help you create professional resumes in minutes. Whether you're a job seeker, freelancer, or student, our tools will help you stand out from the crowd.
+    </p>
+
+    <div class="about-section">
+        <h3>Our Mission</h3>
+        <p>
+            Our mission is to simplify the resume-building process and provide users with a seamless experience. We believe that everyone deserves a well-crafted resume to showcase their skills and achievements.
+        </p>
+    </div>
+
+    <div class="about-section">
+        <h3>Why Choose Us?</h3>
+        <p>
+            Space AstroResume offers a unique combination of simplicity, flexibility, and professionalism. Here’s why thousands of users trust us:
+        </p>
+        <ul>
+            <li><strong>Easy-to-Use:</strong> Our intuitive interface makes resume creation a breeze.</li>
+            <li><strong>Customizable Templates:</strong> Choose from a variety of professionally designed templates.</li>
+            <li><strong>Download in PDF:</strong> Save and share your resume in a universally accepted format.</li>
+            <li><strong>Dark & Light Themes:</strong> Work in a theme that suits your preference.</li>
+            <li><strong>Free & Premium Options:</strong> Access basic features for free or unlock advanced tools with our premium plan.</li>
+        </ul>
+    </div>
+
+    <div class="about-section">
+        <h3>Our Story</h3>
+        <p>
+            Space AstroResume was founded in 2023 by <strong>Dhruv Tiwari</strong>, a passionate developer and problem solver. The idea for this platform came from the realization that many people struggle to create resumes that truly reflect their skills and experiences. That’s why we built this platform—to empower individuals to create resumes that stand out in today’s competitive job market.
+        </p>
+    </div>
+
+    <div class="about-section meet-creator-section">
+        <h3>Meet the Creator</h3>
+        <div class="creator-card">
+            <div class="creator-image">
+                <img src="{% static 'images/dhruv.jpg' %}" alt="Dhruv Tiwari">
+            </div>
+            <div class="creator-info">
+                <h4>Dhruv Tiwari</h4>
+                <p>Founder & Developer</p>
+                <p>
+                    <a href="mailto:dhruvdtiwari107@gmail.com">dhruvdtiwari107@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <div class="about-section">
+        <h3>Join Our Community</h3>
+        <p>
+            We’re more than just a resume builder—we’re a community of professionals helping each other succeed. Join us today and take the first step toward landing your dream job!
+        </p>
+        <a href="{% url 'resume_form' %}" class="btn">Create Your Resume</a>
+    </div>
+</div>
+
+<style>
+    /* Meet the Creator Section */
+    .meet-creator-section {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .meet-creator-section h3 {
+        color: #c9d1d9; /* Matches your light text color */
+        margin-bottom: 15px;
+    }
+    
+    /* Creator Card */
+    .creator-card {
+        display: inline-block;
+        background-color: #161b22;       /* Slightly lighter than #0d1117, but still dark */
+        border: 1px solid #30363d;      /* Subtle border */
+        border-radius: 6px;
+        padding: 20px;
+        max-width: 260px;               /* Keeps the card small & neat */
+        margin: 0 auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Creator Image */
+    .creator-image img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #58a6ff;      /* Accent color */
+        margin-bottom: 10px;
+    }
+    
+    /* Creator Info */
+    .creator-info h4 {
+        color: #c9d1d9;                 /* Primary text color */
+        margin-bottom: 5px;
+    }
+    
+    .creator-info p {
+        color: #8b949e;                 /* Secondary text color */
+        margin: 5px 0;
+    }
+    
+    .creator-info a {
+        color: #58a6ff;                 /* Link color */
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    
+    .creator-info a:hover {
+        color: #79c0ff;                 /* Slight hover effect */
+        text-decoration: underline;
+    }
+    
+
+</style>
+{% endblock %}
