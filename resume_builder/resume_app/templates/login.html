@@ -1,0 +1,90 @@
+
+<!-- resume_app/templates/login.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Login</h2>
+    <p>Please enter your credentials to sign in</p>
+    
+    {% if error %}
+      <p class="error" style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        
+        <button type="submit" class="btn">Login</button>
+    </form>
+</div>
+
+<style>
+/* Container styling similar to your dashboard look */
+.login-container {
+    max-width: 600px;
+    margin: 2rem auto;            /* centers on page, adds top margin */
+    background-color: #161b22;    /* dark background */
+    border: 1px solid #30363d;    /* subtle border */
+    border-radius: 8px;
+    padding: 2rem;
+    color: #c9d1d9;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Heading styling */
+.login-container h2 {
+    margin-bottom: 1rem;
+    color: #c9d1d9;
+}
+
+/* Form group styling */
+.login-form .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Label styling */
+.login-form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #c9d1d9;
+}
+
+/* Input fields */
+.login-form input {
+    width: 100%;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 0.6rem;
+    color: #c9d1d9;
+    outline: none;
+}
+
+/* Button styling */
+.btn {
+    background-color: #238636;
+    color: #ffffff;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn:hover {
+    background-color: #2ea043;
+}
+</style>
+{% endblock %}

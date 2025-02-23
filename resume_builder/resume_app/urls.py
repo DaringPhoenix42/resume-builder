@@ -21,6 +21,7 @@ urlpatterns = [
     path('examples/', views.examples, name='examples'),
     path('blog/', views.blog, name='blog'),
     path('cover-letter/', views.cover_letter, name='cover_letter'),
+    path('signup/', views.signup, name='signup'),
 
     path('create-resource/', views.create_resource, name='create_resource'),
 ]

@@ -25,11 +25,21 @@
         <li><a href="{% url 'resources' %}">Resources</a></li>
         <li><a href="{% url 'blog' %}">Blog</a></li>
         <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
-        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         <li><a href="{% url 'faq' %}">FAQ</a></li>
         <li><a href="{% url 'contact' %}">Contact</a></li>
         <li><a href="{% url 'resume_form' %}">Create Resume</a></li>
+      
+        {% if user.is_authenticated %}
+          <!-- Show these only if user is logged in -->
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'logout_user' %}">Logout</a></li>
+        {% else %}
+          <!-- Show these only if user is NOT logged in -->
+          <li><a href="{% url 'login_user' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li> <!-- only if you have a signup page -->
+        {% endif %}
       </ul>
+      
     </nav>
   </header>
 
