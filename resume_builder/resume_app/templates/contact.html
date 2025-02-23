@@ -3,73 +3,179 @@
 
 {% block content %}
 <div class="contact-container">
-    <h2>Contact Us</h2>
+    <h2 class="contact-title">Contact Us</h2>
     <p class="contact-description">
         Have questions or feedback? We’d love to hear from you! Fill out the form below, and we’ll get back to you as soon as possible.
     </p>
 
-    <form method="post" class="contact-form">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-wrapper">
+            <form method="post" class="contact-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message"><i class="fas fa-comment-dots"></i> Your Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-send">Send Message</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
-        </div>
-        <button type="submit" class="btn">Send Message</button>
-    </form>
 
-    <div class="contact-info">
-        <h3>Other Ways to Reach Us</h3>
-        <ul>
-            <li><strong>Email:</strong> <a href="mailto:dhruvdtiwari107@gmail.com">dhruvdtiwari107@gmail.com</a></li>
-            <li><strong>Phone:</strong> +91 12345 67890</li>
-            <li><strong>Address:</strong> 123 Space Lane, Astro City, Universe</li>
-        </ul>
+        <!-- Contact Info -->
+        <div class="contact-info-wrapper">
+            <h3>Other Ways to Reach Us</h3>
+            <ul class="contact-info-list">
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <strong>Email:</strong> 
+                    <a href="mailto:dhruvdtiwari107@gmail.com">dhruvdtiwari107@gmail.com</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone-alt"></i>
+                    <strong>Phone:</strong> +91 12345 67890
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <strong>Address:</strong> 123 Space Lane, Astro City, Universe
+                </li>
+            </ul>
+            <!-- Optional: Additional Info -->
+            <p class="additional-info">
+                We typically respond within 24-48 hours. For urgent inquiries, please call us directly.
+            </p>
+        </div>
     </div>
 </div>
-{% endblock %}
 
-{% comment %} {% extends 'base.html' %}
-{% load static %}
+<!-- Inline Styles (Move to styles.css if you prefer) -->
+<style>
+/* Container */
+.contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #c9d1d9; /* Light text for dark theme */
+}
 
-{% block content %}
-<div class="contact-container">
-    <h2>Contact Us</h2>
-    <p class="contact-description">
-        Have questions or feedback? We’d love to hear from you! Fill out the form below, and we’ll get back to you as soon as possible.
-    </p>
+/* Title & Description */
+.contact-title {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #c9d1d9;
+    font-size: 1.8rem;
+}
+.contact-description {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #8b949e;
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
 
-    <form method="post" class="contact-form">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Your Message</label>
-            <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
-        </div>
-        <button type="submit" class="btn">Send Message</button>
-    </form>
+/* Grid Layout for Form & Info */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.contact-form-wrapper,
+.contact-info-wrapper {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
 
-    <div class="contact-info">
-        <h3>Other Ways to Reach Us</h3>
-        <ul>
-            <li><strong>Email:</strong> <a href="mailto:dhruvdtiwari107@gmail.com">dhruvdtiwari107@gmail.com</a></li>
-            <li><strong>Phone:</strong> +91 12345 67890</li>
-            <li><strong>Address:</strong> 123 Space Lane, Astro City, Universe</li>
-        </ul>
-    </div>
-</div>
-{% endblock %} {% endcomment %}
+/* Responsive Layout (Mobile) */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Form Styles */
+.contact-form .form-group {
+    margin-bottom: 1rem;
+}
+.contact-form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #c9d1d9;
+    font-weight: 600;
+}
+.contact-form label i {
+    margin-right: 0.4rem;
+    color: #58a6ff; /* Accent color for icons */
+}
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    color: #c9d1d9;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #58a6ff;
+}
+
+/* Send Button */
+.btn-send {
+    display: inline-block;
+    background-color: #238636;
+    color: #ffffff;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: background 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
+}
+.btn-send:hover {
+    background-color: #2ea043;
+    transform: translateY(-3px);
+}
+
+/* Contact Info Styles */
+.contact-info-wrapper h3 {
+    margin-top: 0;
+    color: #c9d1d9;
+    margin-bottom: 1rem;
+}
+.contact-info-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+.contact-info-list li {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+.contact-info-list i {
+    color: #58a6ff;
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+.contact-info-list a {
+    color: #58a6ff;
+    text-decoration: none
