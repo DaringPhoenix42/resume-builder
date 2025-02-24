@@ -502,11 +502,19 @@ def create_resource(request):
     pass
 
 
+
+
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+import pdfkit
+from io import BytesIO
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
 def download_resume(request, id, format):
     """
     Generates a PDF or Word resume for the given Resume object.
-    :param id: The Resume object ID.
-    :param format: 'pdf' or 'word'.
     """
     resume = get_object_or_404(Resume, id=id)
 
@@ -515,9 +523,6 @@ def download_resume(request, id, format):
         html_string = render_to_string('resume_pdf_template.html', {'resume': resume})
 
         # 2) Convert the HTML to PDF using pdfkit
-        #    If wkhtmltopdf is not on your PATH, specify its location via configuration:
-        #    config = pdfkit.configuration(wkhtmltopdf=r"C:\path\to\wkhtmltopdf.exe")
-        #    pdf_file = pdfkit.from_string(html_string, False, configuration=config)
         pdf_file = pdfkit.from_string(html_string, False)  # returns PDF bytes
 
         # 3) Return as a downloadable PDF
@@ -526,85 +531,105 @@ def download_resume(request, id, format):
         return response
 
     elif format == 'word':
-        # 1) Create a Word document with python-docx
         document = Document()
 
-        # 2) Optional: Adjust default font & size
-        styles = document.styles
-        normal_style = styles['Normal']
-        if normal_style and normal_style.type == WD_STYLE_TYPE.PARAGRAPH:
-            normal_style.font.name = 'Arial'
-            normal_style.font.size = Pt(11)
+        # --- Centered Name ---
+        name_heading = document.add_heading(resume.name or "Your Name", 0)
+        name_heading.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-        # 3) Name & Job Title
-        document.add_heading(resume.name or "Your Name", 0)
+        # --- Centered Job Title ---
         if resume.job_title:
-            job_title_paragraph = document.add_paragraph(resume.job_title)
-            job_title_paragraph.style = document.styles['Normal']
+            job_title_par = document.add_paragraph(resume.job_title)
+            job_title_par.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-        # 4) Contact Info
-        contact_info = []
+        # --- Vertical Contact Info, also centered ---
+        contact_par = document.add_paragraph()
+        contact_par.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
         if resume.address:
-            contact_info.append(f"Address: {resume.address}")
+            contact_par.add_run(f"{resume.address}\n")
         if resume.phone:
-            contact_info.append(f"Phone: {resume.phone}")
+            contact_par.add_run(f"{resume.phone}\n")
         if resume.email:
-            contact_info.append(f"Email: {resume.email}")
+            contact_par.add_run(f"{resume.email}\n")
         if resume.github:
-            contact_info.append(f"GitHub: {resume.github}")
+            contact_par.add_run(f"GitHub: {resume.github}\n")
         if resume.linkedin:
-            contact_info.append(f"LinkedIn: {resume.linkedin}")
+            contact_par.add_run(f"LinkedIn: {resume.linkedin}\n")
         if resume.portfolio:
-            contact_info.append(f"Portfolio: {resume.portfolio}")
+            contact_par.add_run(f"Portfolio: {resume.portfolio}\n")
 
-        if contact_info:
-            document.add_paragraph("\n".join(contact_info))
-
-        # 5) Summary
+        # --- About Me ---
         if resume.summary:
-            document.add_heading("Summary", level=1)
+            document.add_heading("About Me", level=1)
             document.add_paragraph(resume.summary)
 
-        # 6) Technical Skills (example: bullet points)
-        if resume.skills:
-            document.add_heading("Technical Skills", level=1)
-            skill_lines = [line.strip() for line in resume.skills.split('\n') if line.strip()]
-            for line in skill_lines:
-                document.add_paragraph(line, style='List Bullet')
-
-        # 7) Professional Experience
-        if resume.experience:
-            document.add_heading("Professional Experience", level=1)
-            exp_lines = [line.strip() for line in resume.experience.split('\n') if line.strip()]
-            for line in exp_lines:
-                document.add_paragraph(line, style='List Bullet')
-
-        # 8) Education
-        if resume.education:
+        # --- Education ---
+        if resume.educations.exists():
             document.add_heading("Education", level=1)
-            document.add_paragraph(resume.education)
+            for edu in resume.educations.all():
+                edu_par = document.add_paragraph(style='List Bullet')
+                line = f"{edu.institution}"
+                if edu.degree:
+                    line += f" - {edu.degree}"
+                if edu.field_of_study:
+                    line += f" ({edu.field_of_study})"
+                if edu.start_year or edu.end_year:
+                    line += f", {edu.start_year} - {edu.end_year}"
+                edu_par.add_run(line)
+                if edu.description:
+                    edu_par.add_run(f"\n{edu.description}")
 
-        # 9) Certifications
+        # --- Experience ---
+        if resume.experience:
+            document.add_heading("Experience", level=1)
+            exp_lines = resume.experience.split('\n')
+            for line in exp_lines:
+                line = line.strip()
+                if line:
+                    document.add_paragraph(line, style='List Bullet')
+
+        # --- Skills ---
+        if resume.skills:
+            document.add_heading("Skills", level=1)
+            skill_lines = resume.skills.split('\n')
+            for line in skill_lines:
+                line = line.strip()
+                if line:
+                    document.add_paragraph(line, style='List Bullet')
+
+        # --- Certifications ---
         if resume.certifications:
             document.add_heading("Certifications", level=1)
-            document.add_paragraph(resume.certifications)
+            cert_lines = resume.certifications.split('\n')
+            for line in cert_lines:
+                line = line.strip()
+                if line:
+                    document.add_paragraph(line, style='List Bullet')
 
-        # 10) Languages
+        # --- Languages ---
         if resume.languages:
             document.add_heading("Languages", level=1)
-            document.add_paragraph(resume.languages)
+            lang_lines = resume.languages.split('\n')
+            for line in lang_lines:
+                line = line.strip()
+                if line:
+                    document.add_paragraph(line, style='List Bullet')
 
-        # 11) Hobbies & Interests
+        # --- Hobbies & Interests ---
         if resume.hobbies_interests:
             document.add_heading("Hobbies & Interests", level=1)
-            document.add_paragraph(resume.hobbies_interests)
+            hobby_lines = resume.hobbies_interests.split('\n')
+            for line in hobby_lines:
+                line = line.strip()
+                if line:
+                    document.add_paragraph(line, style='List Bullet')
 
-        # 12) Save to an in-memory buffer
+        # --- Return as a .docx file ---
         buffer = BytesIO()
         document.save(buffer)
         buffer.seek(0)
 
-        # 13) Return as a downloadable Word file
         response = HttpResponse(
             buffer,
             content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -614,8 +639,6 @@ def download_resume(request, id, format):
 
     else:
         return HttpResponse("Invalid format", status=400)
-
-
 
 
 from django.contrib.auth.forms import UserCreationForm
@@ -722,4 +745,30 @@ def download_cover_letter(request, id, format):
     
     else:
         return HttpResponse("Invalid format", status=400)
+    
+    # views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Resume
+from .forms import ResumeForm, EducationForm, EducationFormSet
 
+def resume_form_view(request, resume_id=None):
+    if resume_id:
+        resume = get_object_or_404(Resume, pk=resume_id)
+    else:
+        resume = Resume()
+
+    if request.method == 'POST':
+        form = ResumeForm(request.POST, instance=resume)
+        formset = EducationFormSet(request.POST, instance=resume)
+        if form.is_valid() and formset.is_valid():
+            resume = form.save()
+            formset.save()
+            return redirect('resume_preview', id=resume.id)
+    else:
+        form = ResumeForm(instance=resume)
+        formset = EducationFormSet(instance=resume)
+
+    return render(request, 'resume_form.html', {
+        'form': form,
+        'formset': formset
+    })

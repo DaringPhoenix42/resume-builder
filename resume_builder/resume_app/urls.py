@@ -2,6 +2,11 @@
 from django.urls import path
 from . import views
 from .forms import CoverLetterForm
+from django.urls import path
+from .views import resume_form_view, download_resume
+
+from django.urls import path
+from .views import resume_form_view, resume_preview, download_resume
 
 
 urlpatterns = [
@@ -33,6 +38,16 @@ urlpatterns = [
     path('cover-letter/<int:id>/download/<str:format>/', 
          views.download_cover_letter, 
          name='download_cover_letter'),
-   path('resume/<int:id>/<str:format>/', views.download_resume, name='download_resume'),
 
+    # For creating a new resume
+    path('resume/create/', resume_form_view, name='resume_form'),
+    
+    # For previewing a resume
+    path('resume/<int:id>/preview/', resume_preview, name='resume_preview'),
+    
+    # For downloading (PDF/Word)
+    path('resume/<int:id>/<str:format>/', download_resume, name='download_resume'),
 ]
+
+
+

@@ -8,41 +8,50 @@ from reportlab.lib.pagesizes import letter
 from docx import Document
 
 
+
 class Resume(models.Model):
-    """Stores user resume data."""
-    # Link to the user (if you want each resume tied to a specific user)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    linkedin = models.URLField(blank=True, null=True)
+    github = models.URLField(blank=True, null=True)
+    portfolio = models.URLField(blank=True, null=True)
+    job_title = models.CharField(max_length=200, blank=True, null=True)
+    summary = models.TextField(blank=True, null=True)
+    experience = models.TextField(blank=True, null=True)
+    # Remove old "education" TextField if you want multiple entries
+    skills = models.TextField(blank=True, null=True)
+    certifications = models.TextField(blank=True, null=True)
+    languages = models.TextField(blank=True, null=True)
+    hobbies_interests = models.TextField(blank=True, null=True)
 
-    # Basic fields
-    name = models.CharField(max_length=255, help_text="Your full name")
-    email = models.EmailField(help_text="Your email address")
-    phone = models.CharField(max_length=20, help_text="Your phone number")
-    address = models.CharField(max_length=255, blank=True, null=True, help_text="Your address")
-    linkedin = models.URLField(blank=True, null=True, help_text="Your LinkedIn profile URL")
-    github = models.URLField(blank=True, null=True, help_text="Your GitHub profile URL")
-    portfolio = models.URLField(blank=True, null=True, help_text="Your portfolio website URL")
-
-    # Professional Information
-    job_title = models.CharField(max_length=255, blank=True, null=True, help_text="Your current or desired job title")
-    summary = models.TextField(help_text="A brief summary of your professional experience")
-
-    # Work Experience
-    experience = models.TextField(help_text="Describe your work experience")
-    education = models.TextField(help_text="List your educational background")
-    skills = models.TextField(help_text="List your skills (e.g., Python, Django, JavaScript)")
-    certifications = models.TextField(blank=True, null=True, help_text="List your certifications (e.g., AWS Certified, PMP)")
-    languages = models.TextField(blank=True, null=True, help_text="List languages you speak (e.g., English, Spanish)")
-    hobbies_interests = models.TextField(blank=True, null=True, help_text="List your hobbies and interests")
-
-    # Template Info
-    template_id = models.IntegerField(default=1, help_text="The selected template ID")
+    template_id = models.IntegerField(blank=True, null=True)
     template_name = models.CharField(max_length=100, blank=True, null=True)
 
-    # Created_at with default for existing rows
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} (Template {self.template_id})"
+        return self.name or "Untitled Resume"
+
+
+class Education(models.Model):
+    """
+    Stores a single education entry, related to a Resume via ForeignKey.
+    """
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='educations')
+    institution = models.CharField(max_length=255)
+    degree = models.CharField(max_length=255, blank=True, null=True)
+    field_of_study = models.CharField(max_length=255, blank=True, null=True)
+    start_year = models.CharField(max_length=10, blank=True, null=True)
+    end_year = models.CharField(max_length=10, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.institution} ({self.start_year} - {self.end_year})"
+
 
 
 class Resource(models.Model):

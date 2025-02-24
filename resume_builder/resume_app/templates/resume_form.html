@@ -15,6 +15,194 @@
             <div class="form-group">
                 <label for="id_name">Name:</label>
                 {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="id_job_title">Job Title:</label>
+                {{ form.job_title }}
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="id_phone">Phone:</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-group">
+                <label for="id_address">Address:</label>
+                {{ form.address }}
+            </div>
+        </div>
+
+        <!-- SOCIAL LINKS -->
+        <div class="form-section">
+            <h3><i class="fas fa-link"></i> Social Links</h3>
+            <div class="form-group">
+                <label for="id_github">GitHub:</label>
+                {{ form.github }}
+            </div>
+            <div class="form-group">
+                <label for="id_linkedin">LinkedIn:</label>
+                {{ form.linkedin }}
+            </div>
+            <div class="form-group">
+                <label for="id_portfolio">Portfolio:</label>
+                {{ form.portfolio }}
+            </div>
+        </div>
+
+        <!-- PROFESSIONAL DETAILS -->
+        <div class="form-section">
+            <h3><i class="fas fa-briefcase"></i> Professional Details</h3>
+            <div class="form-group">
+                <label for="id_summary">Summary:</label>
+                {{ form.summary }}
+            </div>
+            <div class="form-group">
+                <label for="id_skills">Skills:</label>
+                {{ form.skills }}
+            </div>
+            <div class="form-group">
+                <label for="id_experience">Experience:</label>
+                {{ form.experience }}
+            </div>
+        </div>
+
+        <!-- EDUCATION FORMSET -->
+        <div class="form-section">
+            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+            {{ formset.management_form }}
+            {% for subform in formset %}
+            <div class="form-group" style="border: 1px solid #30363d; padding: 10px; margin-bottom: 10px;">
+                {{ subform.as_p }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ADDITIONAL INFORMATION -->
+        <div class="form-section">
+            <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+            <div class="form-group">
+                <label for="id_certifications">Certifications:</label>
+                {{ form.certifications }}
+            </div>
+            <div class="form-group">
+                <label for="id_languages">Languages:</label>
+                {{ form.languages }}
+            </div>
+            <div class="form-group">
+                <label for="id_hobbies_interests">Hobbies/Interests:</label>
+                {{ form.hobbies_interests }}
+            </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="form-submit">
+            <button type="submit" class="btn btn-submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Keep your existing styling */
+    .resume-form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #c9d1d9;
+    }
+    .page-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #c9d1d9;
+        font-size: 1.8rem;
+    }
+    .resume-form {
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .form-section {
+        margin-bottom: 1.5rem;
+    }
+    .form-section h3 {
+        font-size: 1.2rem;
+        color: #c9d1d9;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: #c9d1d9;
+        font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.6rem;
+        background-color: #0d1117;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        color: #c9d1d9;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        border-color: #58a6ff;
+    }
+    .form-submit {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    .btn-submit {
+        background-color: #238636;
+        color: #ffffff;
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-submit:hover {
+        background-color: #2ea043;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="resume-form-container">
+    <h2 class="page-title">Create Your Resume</h2>
+
+    <form method="post" action="{% url 'resume_form' %}" class="resume-form">
+        {% csrf_token %}
+        <input type="hidden" name="template_id" value="{{ template_id }}">
+
+        <!-- PERSONAL INFORMATION -->
+        <div class="form-section">
+            <h3><i class="fas fa-user"></i> Personal Information</h3>
+            <div class="form-group">
+                <label for="id_name">Name:</label>
+                {{ form.name }}
                 <small class="form-text">{{ form.name.help_text }}</small>
             </div>
             <div class="form-group">
@@ -205,4 +393,4 @@
     }
     </style>
     
-{% endblock %}
+{% endblock %} {% endcomment %}

@@ -51,16 +51,20 @@
 
 from django import forms
 from .models import Resume, Resource, BlogPost
+from django import forms
+from django.forms import inlineformset_factory
+from .models import Resume, Education
 
 class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
         fields = [
-            'user',  # Optional if you want to assign user from the form
-            'name', 'email', 'phone', 'address', 'linkedin', 'github', 'portfolio',
-            'job_title', 'summary', 'experience', 'education', 'skills',
-            'certifications', 'languages', 'hobbies_interests', 'template_id',
-            'template_name',
+            'user',
+            'name', 'email', 'phone', 'address',
+            'linkedin', 'github', 'portfolio',
+            'job_title', 'summary', 'experience', 'skills',
+            'certifications', 'languages', 'hobbies_interests',
+            'template_id', 'template_name',
         ]
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'John Doe'}),
@@ -71,17 +75,40 @@ class ResumeForm(forms.ModelForm):
             'github': forms.URLInput(attrs={'placeholder': 'https://github.com/yourusername'}),
             'portfolio': forms.URLInput(attrs={'placeholder': 'https://yourportfolio.com'}),
             'job_title': forms.TextInput(attrs={'placeholder': 'Software Engineer'}),
-            'summary': forms.Textarea(attrs={'placeholder': 'A passionate software engineer...'}),
-            'experience': forms.Textarea(attrs={'placeholder': 'Worked as a Software Engineer...'}),
-            'education': forms.Textarea(attrs={'placeholder': 'Bachelor of Science in Computer Science...'}),
-            'skills': forms.Textarea(attrs={'placeholder': 'Python, Django, JavaScript, React, SQL'}),
-            'certifications': forms.Textarea(attrs={'placeholder': 'AWS Certified Solutions Architect...'}),
-            'languages': forms.Textarea(attrs={'placeholder': 'English (Fluent), Spanish (Intermediate)'}),
-            'hobbies_interests': forms.Textarea(attrs={'placeholder': 'Reading, Traveling, Photography...'}),
+            'summary': forms.Textarea(attrs={'placeholder': 'Brief overview...'}),
+            'experience': forms.Textarea(attrs={'placeholder': 'Detail your professional experience...'}),
+            'skills': forms.Textarea(attrs={'placeholder': 'List your technical or soft skills...'}),
+            'certifications': forms.Textarea(attrs={'placeholder': 'Certifications (e.g. AWS, PMP)...'}),
+            'languages': forms.Textarea(attrs={'placeholder': 'List languages (English, Spanish, etc.)'}),
+            'hobbies_interests': forms.Textarea(attrs={'placeholder': 'Hobbies, interests, volunteering...'}),
             'template_id': forms.HiddenInput(),
             'template_name': forms.TextInput(attrs={'placeholder': 'Corporate Pro'}),
         }
 
+class EducationForm(forms.ModelForm):
+    class Meta:
+        model = Education
+        fields = [
+            'institution', 'degree', 'field_of_study',
+            'start_year', 'end_year', 'description'
+        ]
+        widgets = {
+            'institution': forms.TextInput(attrs={'placeholder': 'Harvard University'}),
+            'degree': forms.TextInput(attrs={'placeholder': 'Bachelor of Science'}),
+            'field_of_study': forms.TextInput(attrs={'placeholder': 'Computer Science'}),
+            'start_year': forms.TextInput(attrs={'placeholder': '2020'}),
+            'end_year': forms.TextInput(attrs={'placeholder': '2024'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Notable achievements, coursework...'}),
+        }
+
+# Inline formset to manage multiple education entries for a single Resume
+EducationFormSet = inlineformset_factory(
+    Resume,
+    Education,
+    form=EducationForm,
+    extra=1,      # number of blank forms initially
+    can_delete=True
+)
 
 class ResourceForm(forms.ModelForm):
     class Meta:

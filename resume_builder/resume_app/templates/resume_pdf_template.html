@@ -4,6 +4,178 @@
   <meta charset="UTF-8">
   <title>{{ resume.name }} - Resume</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.4;
+      margin: 20px;
+    }
+    .resume-container {
+      max-width: 800px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+    }
+    .resume-header {
+      text-align: center; /* center the header content */
+      margin-bottom: 20px;
+    }
+    .resume-header h1 {
+      font-size: 24px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+    .resume-header h2 {
+      font-size: 16px;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .contact-info {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6; /* slightly bigger line spacing for clarity */
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    .section-content {
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: #444;
+    }
+    .education-item {
+      margin-bottom: 10px;
+    }
+    .education-item strong {
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+    .edu-years {
+      color: #666;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume-container">
+    <!-- HEADER -->
+    <div class="resume-header">
+      <!-- Centered Name -->
+      <h1>{{ resume.name }}</h1>
+
+      <!-- Centered Job Title -->
+      {% if resume.job_title %}
+      <h2>{{ resume.job_title }}</h2>
+      {% endif %}
+
+      <!-- Vertical Contact Info (one item per line) -->
+      <div class="contact-info">
+        {% if resume.address %}
+          <div>{{ resume.address }}</div>
+        {% endif %}
+        {% if resume.phone %}
+          <div>{{ resume.phone }}</div>
+        {% endif %}
+        {% if resume.email %}
+          <div>{{ resume.email }}</div>
+        {% endif %}
+        {% if resume.github %}
+          <div>GitHub: {{ resume.github }}</div>
+        {% endif %}
+        {% if resume.linkedin %}
+          <div>LinkedIn: {{ resume.linkedin }}</div>
+        {% endif %}
+        {% if resume.portfolio %}
+          <div>Portfolio: {{ resume.portfolio }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    {% if resume.summary %}
+    <div class="section-title">About Me</div>
+    <div class="section-content">
+      {{ resume.summary|linebreaksbr }}
+    </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if resume.educations.all %}
+    <div class="section-title">Education</div>
+    <div class="section-content">
+      {% for edu in resume.educations.all %}
+      <div class="education-item">
+        <strong>{{ edu.institution }}</strong>
+        {% if edu.degree %} - {{ edu.degree }}{% endif %}
+        {% if edu.field_of_study %} ({{ edu.field_of_study }}){% endif %}
+        <div class="edu-years">{{ edu.start_year }} - {{ edu.end_year }}</div>
+        {% if edu.description %}
+          <p>{{ edu.description|linebreaksbr }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if resume.experience %}
+    <div class="section-title">Experience</div>
+    <div class="section-content">
+      {{ resume.experience|linebreaksbr }}
+    </div>
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if resume.skills %}
+    <div class="section-title">Skills</div>
+    <div class="section-content">
+      {{ resume.skills|linebreaksbr }}
+    </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if resume.certifications %}
+    <div class="section-title">Certifications</div>
+    <div class="section-content">
+      {{ resume.certifications|linebreaksbr }}
+    </div>
+    {% endif %}
+
+    <!-- LANGUAGES -->
+    {% if resume.languages %}
+    <div class="section-title">Languages</div>
+    <div class="section-content">
+      {{ resume.languages|linebreaksbr }}
+    </div>
+    {% endif %}
+
+    <!-- HOBBIES & INTERESTS -->
+    {% if resume.hobbies_interests %}
+    <div class="section-title">Hobbies & Interests</div>
+    <div class="section-content">
+      {{ resume.hobbies_interests|linebreaksbr }}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.name }} - Resume</title>
+  <style>
     /* Basic reset & body styling */
     * {
       margin: 0;
@@ -172,4 +344,187 @@
     {% endif %}
   </div>
 </body>
-</html>
+</html> {% endcomment %}
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.name }} - Resume</title>
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0; 
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.4;
+      padding: 20px;
+    }
+    .resume-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    /* Header: Name + Job Title + Contact Info */
+    .resume-header {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .resume-header h1 {
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+    .resume-header h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    .contact-info {
+      font-size: 14px;
+      color: #666;
+    }
+    .contact-info p {
+      margin: 3px 0;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: #333;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    /* Section Content */
+    .section-content {
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: #444;
+    }
+    .section-content p {
+      margin: 5px 0;
+      line-height: 1.6;
+    }
+    /* Education Items */
+    .education-item {
+      margin-bottom: 10px;
+    }
+    .education-item strong {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+    .education-item .edu-years {
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* Additional styling for bullet-like lists if needed */
+    .list-item {
+      margin-left: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="resume-container">
+    <!-- HEADER -->
+    <div class="resume-header">
+      <h1>{{ resume.name|default_if_none:"Your Name" }}</h1>
+      {% if resume.job_title %}
+      <h2>{{ resume.job_title }}</h2>
+      {% endif %}
+
+      <div class="contact-info">
+        {% if resume.address %}<p><strong>Address:</strong> {{ resume.address }}</p>{% endif %}
+        {% if resume.phone %}<p><strong>Phone:</strong> {{ resume.phone }}</p>{% endif %}
+        {% if resume.email %}<p><strong>Email:</strong> {{ resume.email }}</p>{% endif %}
+        {% if resume.github %}<p><strong>GitHub:</strong> {{ resume.github }}</p>{% endif %}
+        {% if resume.linkedin %}<p><strong>LinkedIn:</strong> {{ resume.linkedin }}</p>{% endif %}
+        {% if resume.portfolio %}<p><strong>Portfolio:</strong> {{ resume.portfolio }}</p>{% endif %}
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    {% if resume.summary %}
+      <div class="section-title">About Me</div>
+      <div class="section-content">
+        <p>{{ resume.summary|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if resume.educations.all %}
+      <div class="section-title">Education</div>
+      <div class="section-content">
+        {% for edu in resume.educations.all %}
+          <div class="education-item">
+            <strong>{{ edu.institution }}</strong>
+            {% if edu.degree %} - {{ edu.degree }}{% endif %}
+            {% if edu.field_of_study %} ({{ edu.field_of_study }}){% endif %}
+            <div class="edu-years">{{ edu.start_year }} - {{ edu.end_year }}</div>
+            {% if edu.description %}
+              <p>{{ edu.description|linebreaksbr }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- EXPERIENCE -->
+    {% if resume.experience %}
+      <div class="section-title">Experience</div>
+      <div class="section-content">
+        <p>{{ resume.experience|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+
+    <!-- SKILLS -->
+    {% if resume.skills %}
+      <div class="section-title">Skills</div>
+      <div class="section-content">
+        <p>{{ resume.skills|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if resume.certifications %}
+      <div class="section-title">Certifications</div>
+      <div class="section-content">
+        <p>{{ resume.certifications|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+
+    <!-- LANGUAGES -->
+    {% if resume.languages %}
+      <div class="section-title">Languages</div>
+      <div class="section-content">
+        <p>{{ resume.languages|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+
+    <!-- HOBBIES & INTERESTS -->
+    {% if resume.hobbies_interests %}
+      <div class="section-title">Hobbies & Interests</div>
+      <div class="section-content">
+        <p>{{ resume.hobbies_interests|linebreaksbr }}</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html> {% endcomment %}
