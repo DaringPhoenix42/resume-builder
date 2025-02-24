@@ -1,0 +1,79 @@
+# ------------------------------
+# OS-Specific & Editor Files
+# ------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ------------------------------
+# Python / Django
+# ------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# If you use local_settings.py or similar
+local_settings.py
+
+# ------------------------------
+# Virtual Environments
+# ------------------------------
+venv/
+env/
+ENV/
+
+# ------------------------------
+# Django Files
+# ------------------------------
+db.sqlite3          # If you don't want to commit your local DB
+media/              # If you store user uploads locally
+staticfiles/        # If using collectstatic locally
+
+# ------------------------------
+# Logs & Temp Files
+# ------------------------------
+*.log
+*.pid
+*.seed
+*.tmp
+
+# ------------------------------
+# Environment & Secrets
+# ------------------------------
+*.env               # Environment variables
+.env
+
+# ------------------------------
+# Build / Distribution
+# ------------------------------
+build/
+dist/
+*.egg-info/
+*.egg
+
+# ------------------------------
+# Node (if using Tailwind or npm)
+# ------------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ------------------------------
+# Coverage & Test
+# ------------------------------
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.tox/
+
+# ------------------------------
+# Miscellaneous
+# ------------------------------
+*.pdf               # If you don't want to commit generated PDFs
+*.docx              # If you generate Word files locally
+test.pdf            # Specifically ignoring a test file
