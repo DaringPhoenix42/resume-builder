@@ -177,33 +177,28 @@ resume-builder/
    - Switch to PostgreSQL, MySQL, or others in `settings.py` if needed.
 
 
-<!-- 
-## Screenshots (Optional)
 
-If you have screenshots or GIFs, you can include them here:
-
-```markdown
-![Resume Form Screenshot](docs/screenshots/resume_form.png)
-![Resume Preview Screenshot](docs/screenshots/resume_preview.png)
-``` -->
 
 ---
 
 ## License
 
-(Choose a license, e.g. MIT)
+
 
 ```
-MIT License
 
-Copyright (c) 2023 ...
-Permission is hereby granted, free of charge, to any person obtaining a copy ...
+
+© 2025 Dhruv Tiwari
+
+All rights reserved. No permission is granted to copy, distribute, or modify this code without explicit written consent.
+
+This software is provided “as is,” without any warranties or guarantees of any kind. Use at your own risk.
 ```
-Replace the above text with your preferred license if needed.
+
 
 ---
 
-## Contributing (Optional)
+## Contributing 
 
 Contributions are welcome! Feel free to open **pull requests** or **issues** if you have improvements or find bugs. Steps to contribute:
 
