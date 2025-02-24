@@ -91,8 +91,9 @@
 
     <div class="resume-actions">
         <a href="{% url 'resume_form' %}" class="btn">Edit Resume</a>
-        <a href="{% url 'download_resume' id=resume.id format='pdf' %}" class="btn btn-download">Download as PDF</a>
-        <a href="{% url 'download_resume' id=resume.id format='word' %}" class="btn btn-download">Download as Word</a>
+        <a href="{% url 'download_resume' id=resume.id format='pdf' %}">Download PDF</a>
+        <a href="{% url 'download_resume' id=resume.id format='word' %}">Download Word</a>
+        
     </div>
 </div>
 

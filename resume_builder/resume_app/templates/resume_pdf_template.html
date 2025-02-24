@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ resume.name }} - Resume</title>
+  <style>
+    /* Basic reset & body styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
+      line-height: 1.4;
+      padding: 20px;
+    }
+
+    /* Main container to mimic a "page" look */
+    .resume-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    /* Name & Title styling */
+    .resume-header {
+      margin-bottom: 20px;
+    }
+    .resume-header h1 {
+      font-size: 26px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+    .resume-header h2 {
+      font-size: 16px;
+      font-weight: normal;
+      color: #666;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Contact info & social links in smaller text */
+    .contact-info {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+    .contact-info a {
+      color: #666;
+      text-decoration: none;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #ccc;
+      margin: 20px 0;
+    }
+
+    /* Section headings: e.g. Summary, Technical Skills, etc. */
+    .section-title {
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    /* Section content styling */
+    .section-content {
+      margin-left: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    /* If you want bullet points for multiline content, 
+       you can parse the text or just use <br> for line breaks. */
+  </style>
+</head>
+<body>
+  <div class="resume-container">
+    <!-- HEADER: Name + Job Title -->
+    <div class="resume-header">
+      <h1>{{ resume.name|default_if_none:"Your Name" }}</h1>
+      <h2>{{ resume.job_title|default_if_none:"Job Title" }}</h2>
+    </div>
+
+    <!-- CONTACT INFO & ADDRESS -->
+    <div class="contact-info">
+      {% if resume.address %}
+        <strong>Address:</strong> {{ resume.address }}<br/>
+      {% endif %}
+      {% if resume.phone %}
+        <strong>Phone:</strong> {{ resume.phone }}<br/>
+      {% endif %}
+      {% if resume.email %}
+        <strong>Email:</strong> {{ resume.email }}<br/>
+      {% endif %}
+      {% if resume.github %}
+        <strong>GitHub:</strong> <a href="{{ resume.github }}" target="_blank">{{ resume.github }}</a><br/>
+      {% endif %}
+      {% if resume.linkedin %}
+        <strong>LinkedIn:</strong> <a href="{{ resume.linkedin }}" target="_blank">{{ resume.linkedin }}</a><br/>
+      {% endif %}
+      {% if resume.portfolio %}
+        <strong>Portfolio:</strong> <a href="{{ resume.portfolio }}" target="_blank">{{ resume.portfolio }}</a><br/>
+      {% endif %}
+    </div>
+
+    <hr />
+
+    <!-- SUMMARY -->
+    {% if resume.summary %}
+      <div class="section-title">Summary</div>
+      <div class="section-content">
+        {{ resume.summary|linebreaksbr }}
+      </div>
+    {% endif %}
+
+    <!-- TECHNICAL SKILLS -->
+    {% if resume.skills %}
+      <div class="section-title">Technical Skills</div>
+      <div class="section-content">
+        {{ resume.skills|linebreaksbr }}
+      </div>
+    {% endif %}
+
+    <!-- PROFESSIONAL EXPERIENCE -->
+    {% if resume.experience %}
+      <div class="section-title">Professional Experience</div>
+      <div class="section-content">
+        {{ resume.experience|linebreaksbr }}
+      </div>
+    {% endif %}
+
+    <!-- EDUCATION -->
+    {% if resume.education %}
+      <div class="section-title">Education</div>
+      <div class="section-content">
+        {{ resume.education|linebreaksbr }}
+      </div>
+    {% endif %}
+
+    <!-- CERTIFICATIONS -->
+    {% if resume.certifications %}
+      <div class="section-title">Certifications</div>
+      <div class="section-content">
+        {{ resume.certifications|linebreaksbr }}
+      </div>
+    {% endif %}
+
+    <!-- LANGUAGES -->
+    {% if resume.languages %}
+      <div class="section-title">Languages</div>
+      <div class="section-content">
+        {{ resume.languages|linebreaksbr }}
+      </div>
+    {% endif %}
+
+    <!-- HOBBIES/INTERESTS -->
+    {% if resume.hobbies_interests %}
+      <div class="section-title">Hobbies & Interests</div>
+      <div class="section-content">
+        {{ resume.hobbies_interests|linebreaksbr }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

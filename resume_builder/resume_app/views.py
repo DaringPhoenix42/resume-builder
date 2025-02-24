@@ -480,47 +480,142 @@ def create_resource(request):
         form = ResourceForm()
     return render(request, 'create_resource.html', {'form': form})
 
+# views.py
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
+
+import pdfkit
+from io import BytesIO
+from docx import Document
+from docx.shared import Pt
+from docx.enum.style import WD_STYLE_TYPE
+
+from .models import Resume
+
+
+@staff_member_required
+def create_resource(request):
+    # Your existing create_resource logic here (if any)
+    pass
+
+
 def download_resume(request, id, format):
+    """
+    Generates a PDF or Word resume for the given Resume object.
+    :param id: The Resume object ID.
+    :param format: 'pdf' or 'word'.
+    """
     resume = get_object_or_404(Resume, id=id)
 
     if format == 'pdf':
-        buffer = BytesIO()
-        p = canvas.Canvas(buffer, pagesize=letter)
-        p.drawString(100, 750, f"Name: {resume.name}")
-        p.drawString(100, 730, f"Email: {resume.email}")
-        p.drawString(100, 710, f"Phone: {resume.phone}")
-        p.drawString(100, 690, f"Summary: {resume.summary}")
-        p.drawString(100, 670, f"Skills: {resume.skills}")
-        p.drawString(100, 650, f"Experience: {resume.experience}")
-        p.drawString(100, 630, f"Education: {resume.education}")
-        p.showPage()
-        p.save()
+        # 1) Render your HTML template with the resume data
+        html_string = render_to_string('resume_pdf_template.html', {'resume': resume})
 
-        buffer.seek(0)
-        response = HttpResponse(buffer, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=\"{resume.name}_resume.pdf\"'
+        # 2) Convert the HTML to PDF using pdfkit
+        #    If wkhtmltopdf is not on your PATH, specify its location via configuration:
+        #    config = pdfkit.configuration(wkhtmltopdf=r"C:\path\to\wkhtmltopdf.exe")
+        #    pdf_file = pdfkit.from_string(html_string, False, configuration=config)
+        pdf_file = pdfkit.from_string(html_string, False)  # returns PDF bytes
+
+        # 3) Return as a downloadable PDF
+        response = HttpResponse(pdf_file, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
         return response
 
     elif format == 'word':
+        # 1) Create a Word document with python-docx
         document = Document()
-        document.add_heading(f"Resume: {resume.name}", 0)
-        document.add_paragraph(f"Email: {resume.email}")
-        document.add_paragraph(f"Phone: {resume.phone}")
-        document.add_paragraph(f"Summary: {resume.summary}")
-        document.add_paragraph(f"Skills: {resume.skills}")
-        document.add_paragraph(f"Experience: {resume.experience}")
-        document.add_paragraph(f"Education: {resume.education}")
 
+        # 2) Optional: Adjust default font & size
+        styles = document.styles
+        normal_style = styles['Normal']
+        if normal_style and normal_style.type == WD_STYLE_TYPE.PARAGRAPH:
+            normal_style.font.name = 'Arial'
+            normal_style.font.size = Pt(11)
+
+        # 3) Name & Job Title
+        document.add_heading(resume.name or "Your Name", 0)
+        if resume.job_title:
+            job_title_paragraph = document.add_paragraph(resume.job_title)
+            job_title_paragraph.style = document.styles['Normal']
+
+        # 4) Contact Info
+        contact_info = []
+        if resume.address:
+            contact_info.append(f"Address: {resume.address}")
+        if resume.phone:
+            contact_info.append(f"Phone: {resume.phone}")
+        if resume.email:
+            contact_info.append(f"Email: {resume.email}")
+        if resume.github:
+            contact_info.append(f"GitHub: {resume.github}")
+        if resume.linkedin:
+            contact_info.append(f"LinkedIn: {resume.linkedin}")
+        if resume.portfolio:
+            contact_info.append(f"Portfolio: {resume.portfolio}")
+
+        if contact_info:
+            document.add_paragraph("\n".join(contact_info))
+
+        # 5) Summary
+        if resume.summary:
+            document.add_heading("Summary", level=1)
+            document.add_paragraph(resume.summary)
+
+        # 6) Technical Skills (example: bullet points)
+        if resume.skills:
+            document.add_heading("Technical Skills", level=1)
+            skill_lines = [line.strip() for line in resume.skills.split('\n') if line.strip()]
+            for line in skill_lines:
+                document.add_paragraph(line, style='List Bullet')
+
+        # 7) Professional Experience
+        if resume.experience:
+            document.add_heading("Professional Experience", level=1)
+            exp_lines = [line.strip() for line in resume.experience.split('\n') if line.strip()]
+            for line in exp_lines:
+                document.add_paragraph(line, style='List Bullet')
+
+        # 8) Education
+        if resume.education:
+            document.add_heading("Education", level=1)
+            document.add_paragraph(resume.education)
+
+        # 9) Certifications
+        if resume.certifications:
+            document.add_heading("Certifications", level=1)
+            document.add_paragraph(resume.certifications)
+
+        # 10) Languages
+        if resume.languages:
+            document.add_heading("Languages", level=1)
+            document.add_paragraph(resume.languages)
+
+        # 11) Hobbies & Interests
+        if resume.hobbies_interests:
+            document.add_heading("Hobbies & Interests", level=1)
+            document.add_paragraph(resume.hobbies_interests)
+
+        # 12) Save to an in-memory buffer
         buffer = BytesIO()
         document.save(buffer)
         buffer.seek(0)
 
-        response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = f'attachment; filename=\"{resume.name}_resume.docx\"'
+        # 13) Return as a downloadable Word file
+        response = HttpResponse(
+            buffer,
+            content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        )
+        response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.docx"'
         return response
 
     else:
         return HttpResponse("Invalid format", status=400)
+
+
 
 
 from django.contrib.auth.forms import UserCreationForm

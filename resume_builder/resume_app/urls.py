@@ -33,4 +33,6 @@ urlpatterns = [
     path('cover-letter/<int:id>/download/<str:format>/', 
          views.download_cover_letter, 
          name='download_cover_letter'),
+   path('resume/<int:id>/<str:format>/', views.download_resume, name='download_resume'),
+
 ]
