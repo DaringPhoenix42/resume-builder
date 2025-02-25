@@ -3,29 +3,41 @@
 
 {% block content %}
 <div class="cover-letter-preview-container">
-  <h2 class="preview-title">Cover Letter Preview</h2>
-
-  <div class="preview-card">
-    <div class="preview-content">
-      <div class="preview-section">
-        <h3 class="section-title">Greeting</h3>
-        <p class="section-text">{{ cover_letter.greeting }}</p>
-      </div>
-      <div class="preview-section">
-        <h3 class="section-title">Introduction</h3>
-        <p class="section-text">{{ cover_letter.introduction }}</p>
-      </div>
-      <div class="preview-section">
-        <h3 class="section-title">Body</h3>
-        <p class="section-text">{{ cover_letter.body }}</p>
-      </div>
-      <div class="preview-section">
-        <h3 class="section-title">Closing</h3>
-        <p class="section-text">{{ cover_letter.closing }}</p>
-      </div>
+  <h2>Cover Letter Preview</h2>
+  
+  <!-- Header bar with user info -->
+  <div class="header-bar">
+    <div class="left">
+      <h3>{{ cover_letter.full_name }}</h3>
+      <p>{{ cover_letter.job_title }}</p>
+    </div>
+    <div class="right">
+      <!-- Join them with '|' just like in docx -->
+      {% if cover_letter.phone %}{{ cover_letter.phone }}{% endif %}
+      {% if cover_letter.city_state %} | {{ cover_letter.city_state }}{% endif %}
+      {% if cover_letter.email %} | {{ cover_letter.email }}{% endif %}
+      {% if cover_letter.linkedin %} | {{ cover_letter.linkedin }}{% endif %}
     </div>
   </div>
+  <hr>
 
+  <!-- Date / Employer Info -->
+  <p>{{ cover_letter.created_at|date:"F d, Y" }}</p>
+  <p>
+    {% if cover_letter.employer_name %}{{ cover_letter.employer_name }}{% endif %}
+    {% if cover_letter.employer_title %}, {{ cover_letter.employer_title }}{% endif %}<br>
+    {% if cover_letter.employer_company %}{{ cover_letter.employer_company }}<br>{% endif %}
+    {% if cover_letter.employer_email %}{{ cover_letter.employer_email }}<br>{% endif %}
+    {% if cover_letter.employer_location %}{{ cover_letter.employer_location }}{% endif %}
+  </p>
+
+  <!-- Greeting, Body, Closing -->
+  <p><strong>{{ cover_letter.greeting }}</strong></p>
+  <p>{{ cover_letter.body|linebreaks }}</p>
+  <p>{{ cover_letter.closing }}</p>
+  <p>Sincerely,<br>{{ cover_letter.full_name }}</p>
+
+  <!-- Download Buttons -->
   <div class="download-options">
     <a href="{% url 'download_cover_letter' cover_letter.id 'pdf' %}" class="btn btn-pdf">
       <i class="fas fa-file-pdf"></i> Download PDF
@@ -36,87 +48,99 @@
   </div>
 </div>
 
+<!-- Inline Styles: Dark Theme & Responsive Layout -->
 <style>
   .cover-letter-preview-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 30px; /* Increased Padding */
+    padding: 2rem;
     color: #c9d1d9;
   }
-
-  .preview-title {
+  .cover-letter-preview-container h2 {
     text-align: center;
     color: #58a6ff;
     margin-bottom: 2rem;
-    font-size: 2.2rem; /* Increased title font size */
+    font-size: 2rem;
   }
 
-  .preview-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 30px; /* Increased padding inside preview card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .header-bar .left h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .header-bar .left p {
+    margin: 0;
+    color: #8b949e;
+    font-size: 1rem;
+  }
+  .header-bar .right {
+    color: #8b949e;
+    text-align: right;
   }
 
-  .preview-content {
-    background: #0d1117;
-    border-radius: 10px;
-    padding: 20px; /* Increased padding inside preview content */
-    margin-bottom: 30px;
+  hr {
+    border: none;
+    border-top: 1px solid #30363d;
+    margin: 1rem 0;
   }
 
-  .preview-section {
-    margin-bottom: 25px; /* Increased spacing between sections */
+  p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
   }
-
-  .preview-section:last-child {
-    margin-bottom: 0;
-  }
-
-  .preview-section .section-title {
-    color: #58a6ff;
-    margin-bottom: 0.8rem;
-    font-size: 1.4rem; /* Increased font size */
-  }
-
-  .preview-section .section-text {
-    color: #c9d1d9;
-    font-size: 1.1rem; /* Increased font size */
-    line-height: 1.7; /* Adjusted line height for better readability */
+  p strong {
+    font-weight: 600;
   }
 
   .download-options {
     display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
     justify-content: center;
-    gap: 1.5rem;
-    margin-top: 3rem; /* Increased spacing above buttons */
   }
-
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
-    padding: 1rem 2rem; /* Increased button padding */
-    border-radius: 8px;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Added more transitions */
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    color: #fff;
   }
-
   .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
   }
-
   .btn-pdf {
     background-color: #d9534f;
-    color: white;
   }
-
   .btn-word {
     background-color: #0275d8;
-    color: white;
+  }
+
+  /* Responsive Adjustments for Smaller Screens */
+  @media (max-width: 768px) {
+    .cover-letter-preview-container {
+      width: 90%;
+      padding: 1rem;
+    }
+    .header-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .header-bar .right {
+      text-align: left;
+      margin-top: 0.5rem;
+    }
+    .header-bar .left h3 {
+      font-size: 1.3rem;
+    }
   }
 </style>
 {% endblock %}

@@ -63,6 +63,7 @@
 </div>
 
 <style>
+/* Container */
 .testimonials-container {
   max-width: 800px;
   margin: 0 auto;
@@ -74,16 +75,23 @@
   color: #8b949e;
   margin-bottom: 2rem;
 }
+
+/* Carousel */
 .testimonial-carousel {
   position: relative;
-  height: 300px;
+  min-height: 300px; /* flexible height instead of fixed */
   overflow: hidden;
 }
+
+/* Cards */
 .testimonial-card {
-  background: #161b22;
-  border: 1px solid #30363d;
-  border-radius: 8px;
+  /* Light background, no heavy border, subtle shadow */
+  background: #c9d1d9;  
+  border: none; 
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
   padding: 1.5rem;
+  
   position: absolute;
   width: 100%;
   opacity: 0;
@@ -93,8 +101,8 @@
   opacity: 1;
 }
 .testimonial-image {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   margin-bottom: 1rem;
 }
@@ -112,6 +120,8 @@ blockquote {
   color: #8b949e;
   font-size: 0.9rem;
 }
+
+/* Carousel Controls */
 .carousel-controls {
   margin-top: 1rem;
 }
@@ -128,6 +138,8 @@ blockquote {
 .carousel-controls button:hover {
   background: #30363d;
 }
+
+/* Stats */
 .testimonial-stats {
   display: flex;
   justify-content: space-around;
@@ -141,6 +153,46 @@ blockquote {
 .stat-item p {
   color: #8b949e;
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .testimonials-container {
+    width: 90%;
+    padding: 1rem;
+  }
+  .testimonial-image {
+    width: 60px;
+    height: 60px;
+  }
+  blockquote {
+    font-size: 0.95rem;
+  }
+  .carousel-controls button {
+    padding: 0.4rem 0.8rem;
+  }
+  .stat-item h3 {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 500px) {
+  .testimonial-card {
+    padding: 1rem;
+  }
+  .testimonial-image {
+    width: 50px;
+    height: 50px;
+  }
+  .stat-item {
+    flex: 1 0 100%;
+    margin-bottom: 1rem; /* stack stats vertically */
+  }
+  .stat-item h3 {
+    font-size: 1.2rem;
+  }
+  .stat-item p {
+    font-size: 0.85rem;
+  }
+}
 </style>
 
 <script>
@@ -153,7 +205,7 @@ function changeTestimonial(direction) {
   testimonials[currentTestimonial].classList.add('active');
 }
 
-// Auto-rotate testimonials
+// Auto-rotate testimonials every 5s
 setInterval(() => changeTestimonial(1), 5000);
 </script>
 {% endblock %}

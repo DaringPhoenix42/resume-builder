@@ -110,16 +110,38 @@ class Testimonial(models.Model):
         return f"{self.user_name} - {self.created_at.date()}"
 
 
+# myapp/models.py
+from django.db import models
+from django.contrib.auth.models import User
+
 class CoverLetter(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # User's own info
+    full_name = models.CharField(max_length=100, blank=True)
+    job_title = models.CharField(max_length=100, blank=True)
+    phone = models.CharField(max_length=30, blank=True)
+    city_state = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(blank=True)
+    linkedin = models.URLField(blank=True)
+
+    # Employer/Company info
+    employer_name = models.CharField(max_length=100, blank=True)
+    employer_title = models.CharField(max_length=100, blank=True)
+    employer_company = models.CharField(max_length=100, blank=True)
+    employer_email = models.EmailField(blank=True)
+    employer_location = models.CharField(max_length=100, blank=True)
+
+    # Actual letter content
     greeting = models.CharField(max_length=200, blank=True)
-    introduction = models.TextField(blank=True)
     body = models.TextField(blank=True)
     closing = models.TextField(blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Cover Letter - {self.user.username}"
+        return f"Cover Letter - {self.user.username} - {self.full_name}"
+
 
 
 from django import forms
@@ -128,39 +150,15 @@ from .models import CoverLetter
 class CoverLetterForm(forms.ModelForm):
     class Meta:
         model = CoverLetter
-        fields = ['greeting', 'introduction', 'body', 'closing']
+        fields = [
+            'full_name', 'job_title', 'phone', 'city_state', 'email', 'linkedin',
+            'employer_name', 'employer_title', 'employer_company', 'employer_email', 'employer_location',
+            'greeting', 'body', 'closing'
+        ]
         widgets = {
-            'greeting': forms.TextInput(attrs={
-                'placeholder': 'Dear Hiring Manager',
-                'class': 'form-control'
-            }),
-            'introduction': forms.Textarea(attrs={
-                'placeholder': "Introduce yourself and the position you're applying for...",
-                'rows': 3,
-                'class': 'form-control'
-            }),
-            'body': forms.Textarea(attrs={
-                'placeholder': 'Highlight relevant experience, skills, and achievements...',
-                'rows': 6,
-                'class': 'form-control'
-            }),
-            'closing': forms.Textarea(attrs={
-                'placeholder': 'Thank the employer, express enthusiasm...',
-                'rows': 2,
-                'class': 'form-control'
-            })
+            'body': forms.Textarea(attrs={'rows': 6, 'class': 'form-control'}),
+            'closing': forms.Textarea(attrs={'rows': 2, 'class': 'form-control'}),
+            # etc.
         }
+
         
-from django.db import models
-from django.contrib.auth.models import User
-
-class CoverLetter(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    greeting = models.CharField(max_length=200)
-    introduction = models.TextField()
-    body = models.TextField()
-    closing = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Cover Letter - {self.user.username}"

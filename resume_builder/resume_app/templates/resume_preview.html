@@ -86,43 +86,42 @@
 <style>
     /* Container & Title */
     .resume-preview-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        color: #c9d1d9;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #c9d1d9;
     }
     .page-title {
-        text-align: center;
-        margin-bottom: 1.5rem;
-        color: #c9d1d9;
-        font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #c9d1d9;
+      font-size: 1.8rem;
+      font-weight: 600;
     }
-
+    
     /* Resume Preview Card */
     .resume-preview {
-        background-color: #161b22;
-        border: 1px solid #30363d;
-        border-radius: 8px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
-
+    
     /* Section Headings */
     .section-heading {
-        font-size: 1.2rem;
-        color: #c9d1d9;
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
+      font-size: 1.2rem;
+      color: #c9d1d9;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
     }
-
     .divider {
-        border: none;
-        border-top: 1px solid #30363d;
-        margin: 1rem 0;
+      border: none;
+      border-top: 1px solid #30363d;
+      margin: 1rem 0;
     }
-
-    /* Download Buttons */
+    
     .download-buttons {
         text-align: center;
         margin-top: 1.5rem;
@@ -144,5 +143,23 @@
         background-color: #2ea043;
         transform: translateY(-2px);
     }
-</style>
+    
+    /* Responsive Adjustments for Smaller Screens */
+    @media (max-width: 768px) {
+      .resume-preview-container {
+        width: 90%;
+        padding: 1rem;
+      }
+      .resume-preview {
+        padding: 1rem;
+      }
+      .page-title {
+        font-size: 1.6rem;
+      }
+      .section-heading {
+        font-size: 1rem;
+      }
+    }
+    </style>
+    
 {% endblock %}

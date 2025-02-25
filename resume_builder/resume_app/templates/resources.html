@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <div class="resources-container">
     <h2>Career Resources</h2>
     <p class="resources-intro">Explore our articles, guides, and tools to help you boost your career and achieve your professional goals.</p>
@@ -88,6 +87,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
+    gap: 1rem; /* spacing between filter elements */
 }
 
 .filter-bar select, .filter-bar input {
@@ -96,6 +96,7 @@
     border-radius: 4px;
     background-color: #0d1117;
     color: #c9d1d9;
+    outline: none;
 }
 
 .resources-grid {
@@ -160,7 +161,6 @@
     display: inline-block;
     margin-top: auto;
 }
-
 .btn-resource:hover {
     background: #30363d;
 }
@@ -168,7 +168,7 @@
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 9999; /* ensure it appears on top */
     left: 0;
     top: 0;
     width: 100%;
@@ -179,7 +179,7 @@
 
 .modal-content {
     background-color: #0d1117;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #30363d;
     width: 80%;
@@ -192,13 +192,12 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
-
 .close:hover,
 .close:focus {
     color: #c9d1d9;
     text-decoration: none;
-    cursor: pointer;
 }
 
 .no-resources {
@@ -212,6 +211,40 @@
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+}
+
+/* 
+   1) Tablet / Medium Screens
+*/
+@media (max-width: 768px) {
+    .resources-container {
+        width: 90%;
+        padding: 1rem;
+    }
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-bar select, .filter-bar input {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+
+/* 
+   2) Small / Very Narrow Screens
+*/
+@media (max-width: 500px) {
+    .resource-card h3 {
+        font-size: 1rem;
+    }
+    .resource-card p {
+        font-size: 0.9rem;
+    }
+    .btn-resource {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
 }
 </style>
 
@@ -253,5 +286,4 @@ window.onclick = function(event) {
     }
 }
 </script>
-
 {% endblock %}

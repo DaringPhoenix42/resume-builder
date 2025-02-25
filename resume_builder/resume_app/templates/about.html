@@ -96,41 +96,30 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-    color: #c9d1d9;        /* Light text for dark background */
-    background-color: #0d1117; /* If you want the entire container on a dark background */
-    border: 1px solid #30363d; /* Subtle border if desired */
-    border-radius: 8px;
+    color: #c9d1d9;
 }
-
-/* Top Heading */
 .about-container h2 {
     text-align: center;
     margin-bottom: 10px;
-    color: #c9d1d9;
 }
-
 .about-description {
     text-align: center;
     margin-bottom: 30px;
     color: #8b949e;
-    font-size: 1rem;
 }
 
-/* Section Layout */
+/* Spacing for Each Section */
 .about-section {
     margin-bottom: 2rem;
 }
-
 .about-section h3 {
     color: #c9d1d9;
     margin-bottom: 0.8rem;
     font-size: 1.4rem;
 }
-
 .about-section p {
     color: #8b949e;
     line-height: 1.6;
-    font-size: 0.95rem;
 }
 
 /* Why Choose Us List */
@@ -148,7 +137,7 @@
     margin-right: 0.4rem;
 }
 
-/* Story Section */
+/* Story Section Layout */
 .story-section .story-content {
     display: flex;
     flex-wrap: wrap;
@@ -167,7 +156,7 @@
     min-width: 280px;
 }
 
-/* Our Values */
+/* Values Section */
 .values-section .values-list {
     list-style: none;
     margin: 1rem 0 0 0;
@@ -206,208 +195,40 @@
     background-color: #2ea043;
     transform: translateY(-2px);
 }
+
+/* 
+   1) Medium Screens (e.g., tablets): 
+      Adjust padding & maybe stack story section 
+*/
+@media (max-width: 768px) {
+  .about-container {
+    width: 90%;
+    padding: 1rem;
+  }
+  .story-content {
+    flex-direction: column; /* stack image and text vertically */
+  }
+  .story-image img {
+    width: 100%;
+    height: auto; /* auto height for narrower screens */
+  }
+}
+
+/* 
+   2) Very Small Screens (e.g., phones): 
+      Tweak font sizes, spacing 
+*/
+@media (max-width: 500px) {
+  .about-section h3 {
+    font-size: 1.2rem;
+  }
+  .about-section p {
+    font-size: 0.9rem;
+  }
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}
 </style>
 {% endblock %}
-
-{% comment %} {% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-<div class="about-container">
-    <h2>About Space AstroResume</h2>
-    <p class="about-description">
-        Space AstroResume is a modern, user-friendly platform designed to help you create professional resumes in minutes. Whether you're a job seeker, freelancer, or student, our tools will help you stand out from the crowd.
-    </p>
-
-    <!-- Our Mission Section -->
-    <div class="about-section">
-        <h3>Our Mission</h3>
-        <p>
-            Our mission is to simplify the resume-building process and provide users with a seamless experience. We believe that everyone deserves a well-crafted resume to showcase their skills and achievements. By blending innovation with user-focused design, we strive to empower every professional in today’s dynamic job market.
-        </p>
-    </div>
-
-    <!-- Why Choose Us Section -->
-    <div class="about-section">
-        <h3>Why Choose Us?</h3>
-        <p>
-            Space AstroResume offers a unique combination of simplicity, flexibility, and professionalism. Here’s why thousands of users trust us:
-        </p>
-        <ul class="why-choose-list">
-            <li><i class="fas fa-mouse-pointer"></i> <strong>Easy-to-Use:</strong> Our intuitive interface makes resume creation a breeze.</li>
-            <li><i class="fas fa-layer-group"></i> <strong>Customizable Templates:</strong> Choose from a variety of professionally designed templates.</li>
-            <li><i class="fas fa-file-pdf"></i> <strong>Download in PDF:</strong> Save and share your resume in a universally accepted format.</li>
-            <li><i class="fas fa-adjust"></i> <strong>Dark & Light Themes:</strong> Work in a theme that suits your preference.</li>
-            <li><i class="fas fa-gem"></i> <strong>Free & Premium Options:</strong> Access basic features for free or unlock advanced tools with our premium plan.</li>
-        </ul>
-    </div>
-
-    <!-- Our Story Section (Expanded) -->
-    <div class="about-section story-section">
-        <h3>Our Story</h3>
-        <div class="story-content">
-            <!-- Optional: Story Image -->
-            <div class="story-image">
-                <img src="{% static 'images/our-story.jpg' %}" alt="Our Story"
-                     onerror="this.onerror=null;this.src='{% static 'images/default-image.jpg' %}'">
-            </div>
-            <div class="story-text">
-                <p>
-                    Founded in 2023, Space AstroResume started as a passion project by a small team of developers and career experts. The inspiration came from watching countless friends and colleagues struggle with outdated resume builders and one-size-fits-all templates.
-                </p>
-                <p>
-                    Determined to solve this problem, we spent months researching the needs of modern professionals and hiring managers alike. The result? A platform that combines beautiful design with cutting-edge technology to help you build a resume that truly reflects your unique background and aspirations.
-                </p>
-                <p>
-                    Today, Space AstroResume continues to evolve with industry trends, ensuring you always have the best tools to succeed. Our commitment to innovation, user feedback, and continuous improvement fuels our roadmap for the future.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Our Values Section -->
-    <div class="about-section values-section">
-        <h3>Our Values</h3>
-        <ul class="values-list">
-            <li><strong>Innovation:</strong> We embrace new ideas and technologies to keep our platform at the forefront of resume-building solutions.</li>
-            <li><strong>User Empowerment:</strong> We prioritize intuitive design, ensuring that every user can create a standout resume with minimal effort.</li>
-            <li><strong>Quality & Integrity:</strong> We continuously refine our templates and features, holding ourselves to high standards of excellence.</li>
-            <li><strong>Community Focus:</strong> We believe in collaboration, learning from user feedback, and growing together as professionals.</li>
-        </ul>
-    </div>
-
-    <!-- Our Roadmap Section -->
-    <div class="about-section roadmap-section">
-        <h3>Our Roadmap</h3>
-        <p>
-            We’re always working on new features to help you stay ahead in a competitive job market. Here’s a glimpse of what’s next:
-        </p>
-        <ul class="roadmap-list">
-            <li><strong>2025:</strong> AI-Powered Resume Feedback – Get instant suggestions for improving your resume’s clarity and impact.</li>
-            <li><strong>2026:</strong> Global Language Support – Build resumes in multiple languages for international job opportunities.</li>
-            <li><strong>2027:</strong> Interactive Portfolio Integration – Showcase projects and achievements directly from your resume.</li>
-            <li><strong>Beyond:</strong> Ongoing improvements to templates, ATS optimization, and user-driven feature requests.</li>
-        </ul>
-    </div>
-
-    <!-- Community CTA -->
-    <div class="about-section">
-        <h3>Join Our Community</h3>
-        <p>
-            We’re more than just a resume builder—we’re a community of professionals helping each other succeed. Join us today and take the first step toward landing your dream job!
-        </p>
-        <a href="{% url 'resume_form' %}" class="btn">Create Your Resume</a>
-    </div>
-</div>
-
-<!-- Inline CSS (move to your styles.css if desired) -->
-<style>
-    /* Container Styling */
-    .about-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 20px;
-        color: #c9d1d9;
-    }
-
-    .about-container h2 {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .about-description {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #8b949e;
-    }
-
-    .about-section {
-        margin-bottom: 2rem;
-    }
-
-    .about-section h3 {
-        color: #c9d1d9;
-        margin-bottom: 0.8rem;
-        font-size: 1.4rem;
-    }
-
-    .about-section p {
-        color: #8b949e;
-        line-height: 1.6;
-    }
-
-    /* Why Choose Us List */
-    .why-choose-list {
-        list-style: none;
-        padding: 0;
-        margin: 1rem 0 0 0;
-    }
-    .why-choose-list li {
-        margin-bottom: 0.8rem;
-        font-size: 0.95rem;
-    }
-    .why-choose-list i {
-        color: #58a6ff;
-        margin-right: 0.4rem;
-    }
-
-    /* Story Section */
-    .story-section .story-content {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-    .story-image img {
-        width: 320px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid #30363d;
-    }
-    .story-text {
-        flex: 1;
-        min-width: 280px;
-    }
-
-    /* Our Values */
-    .values-section .values-list {
-        list-style: none;
-        margin: 1rem 0 0 0;
-        padding: 0;
-    }
-    .values-section .values-list li {
-        margin-bottom: 0.8rem;
-        font-size: 0.95rem;
-    }
-
-    /* Roadmap Section */
-    .roadmap-section .roadmap-list {
-        list-style: none;
-        margin: 1rem 0 0 0;
-        padding: 0;
-    }
-    .roadmap-section .roadmap-list li {
-        margin-bottom: 0.8rem;
-        font-size: 0.95rem;
-    }
-
-    /* CTA Button */
-    .btn {
-        display: inline-block;
-        background-color: #238636;
-        color: #ffffff;
-        padding: 0.7rem 1rem;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 600;
-        margin-top: 1rem;
-        transition: background 0.3s, transform 0.3s;
-    }
-    .btn:hover {
-        background-color: #2ea043;
-        transform: translateY(-2px);
-    }
-</style>
-{% endblock %} {% endcomment %}

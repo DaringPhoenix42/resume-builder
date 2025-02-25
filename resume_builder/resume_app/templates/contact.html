@@ -47,7 +47,6 @@
                     <strong>Address:</strong> 123 Space Lane, Astro City, Universe
                 </li>
             </ul>
-            <!-- Optional: Additional Info -->
             <p class="additional-info">
                 We typically respond within 24-48 hours. For urgent inquiries, please call us directly.
             </p>
@@ -55,7 +54,7 @@
     </div>
 </div>
 
-<!-- Inline Styles (Move to styles.css if you prefer) -->
+<!-- Inline Styles -->
 <style>
 /* Container */
 .contact-container {
@@ -94,13 +93,6 @@
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Responsive Layout (Mobile) */
-@media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* Form Styles */
@@ -188,6 +180,30 @@
     color: #8b949e;
     line-height: 1.4;
     margin-top: 1rem;
+}
+
+/* 1) Switch to single-column on tablets or smaller screens */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 2) Further adjustments on very narrow screens */
+@media (max-width: 500px) {
+    .contact-container {
+        padding: 1rem;
+    }
+    .contact-title {
+        font-size: 1.5rem;
+    }
+    .contact-description {
+        font-size: 0.95rem;
+    }
+    .btn-send {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
 }
 </style>
 {% endblock %}

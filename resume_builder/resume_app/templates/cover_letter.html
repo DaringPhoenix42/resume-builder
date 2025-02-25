@@ -1,4 +1,129 @@
+<!-- templates/cover_letter.html -->
 {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cover-letter-form-container">
+  <h2>Create Your Cover Letter</h2>
+  <p>Fill out the details below to generate a styled cover letter.</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-grid">
+      {{ form.non_field_errors }}
+      
+      <div>
+        <label for="id_full_name">Full Name</label>
+        {{ form.full_name }}
+      </div>
+      <div>
+        <label for="id_job_title">Job Title</label>
+        {{ form.job_title }}
+      </div>
+      <div>
+        <label for="id_phone">Phone</label>
+        {{ form.phone }}
+      </div>
+      <div>
+        <label for="id_city_state">City, State</label>
+        {{ form.city_state }}
+      </div>
+      <div>
+        <label for="id_email">Email</label>
+        {{ form.email }}
+      </div>
+      <div>
+        <label for="id_linkedin">LinkedIn URL</label>
+        {{ form.linkedin }}
+      </div>
+
+      <div>
+        <label for="id_employer_name">Employer Name</label>
+        {{ form.employer_name }}
+      </div>
+      <div>
+        <label for="id_employer_title">Employer Title</label>
+        {{ form.employer_title }}
+      </div>
+      <div>
+        <label for="id_employer_company">Company Name</label>
+        {{ form.employer_company }}
+      </div>
+      <div>
+        <label for="id_employer_email">Company Email</label>
+        {{ form.employer_email }}
+      </div>
+      <div>
+        <label for="id_employer_location">Location</label>
+        {{ form.employer_location }}
+      </div>
+
+      <div>
+        <label for="id_greeting">Greeting</label>
+        {{ form.greeting }}
+      </div>
+      <div>
+        <label for="id_body">Body</label>
+        {{ form.body }}
+      </div>
+      <div>
+        <label for="id_closing">Closing</label>
+        {{ form.closing }}
+      </div>
+    </div>
+    
+    <button type="submit" class="btn-submit">Generate Cover Letter</button>
+  </form>
+</div>
+
+<style>
+.cover-letter-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #c9d1d9;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+label {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+input, textarea {
+  width: 100%;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  color: #c9d1d9;
+  padding: 0.5rem;
+}
+.btn-submit {
+  margin-top: 1.5rem;
+  background: #238636;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  background: #2ea043;
+}
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* stack all fields in one column on mobile */
+  }
+}
+</style>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
@@ -65,5 +190,44 @@ button.btn {
 button.btn:hover {
   background: #2ea043;
 }
+
+@media (max-width: 600px) {
+  /* Let the container shrink on mobile */
+  .cover-letter-container {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  /* Slightly reduce padding in the form */
+  .cover-letter-form {
+    padding: 1rem;
+  }
+
+  /* Reduce label size if needed */
+  .cover-letter-form label {
+    font-size: 0.9rem;
+  }
+
+  /* Shrink input/textarea font and padding */
+  .cover-letter-form input,
+  .cover-letter-form textarea {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    min-height: auto;  /* Let them shrink if text is short */
+  }
+
+  /* Optionally reduce the default height of textareas */
+  .cover-letter-form textarea {
+    height: 80px;   /* Adjust as desired */
+    resize: vertical; /* Allow user to expand if they want */
+  }
+
+  /* Make the submit button full-width (optional) */
+  .cover-letter-form button.btn {
+    width: 100%;
+  }
+}
+
+
 </style>
-{% endblock %}
+{% endblock %} {% endcomment %}

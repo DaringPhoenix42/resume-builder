@@ -1,21 +1,30 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Space AstroResume</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
 </head>
 <body class="github-theme">
   <header>
     <nav class="main-nav">
+      <!-- Logo -->
       <div class="logo">
         <i class="fas fa-rocket"></i>
         <h1>Space AstroResume</h1>
       </div>
+      <!-- Hamburger Menu Toggle for Mobile -->
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <!-- Nav Links -->
       <ul class="nav-links">
         <li><a href="{% url 'index' %}">Home</a></li>
         <li><a href="{% url 'templates' %}">Templates</a></li>
@@ -30,16 +39,13 @@
         <li><a href="{% url 'resume_form' %}">Create Resume</a></li>
       
         {% if user.is_authenticated %}
-          <!-- Show these only if user is logged in -->
           <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
           <li><a href="{% url 'logout_user' %}">Logout</a></li>
         {% else %}
-          <!-- Show these only if user is NOT logged in -->
           <li><a href="{% url 'login_user' %}">Login</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li> <!-- only if you have a signup page -->
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
         {% endif %}
       </ul>
-      
     </nav>
   </header>
 
@@ -48,63 +54,79 @@
     {% endblock %}
   </main>
 
- <!-- Simple Footer -->
- <footer class="site-footer">
-  <div class="footer-content">
-    <p>&copy; 2025 Space AstroResume. All rights reserved.</p>
-  </div>
-</footer>
+  <!-- Simple Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Space AstroResume. All rights reserved.</p>
+    </div>
+  </footer>
 
+  <!-- JS: Mobile Menu Toggle -->
   <script src="{% static 'js/script.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
 
-  <!-- Inline styles for demonstration (move to styles.css if desired) -->
+      menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+    });
+  </script>
+
+  <!-- Inline Styles with Media Queries for Mobile Responsiveness -->
   <style>
-    /* Add these styles */
+    /* Base Reset */
     html, body {
-      height: 100%;
       margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      background-color: #0d1117; /* optional dark background */
     }
-
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      color: #c9d1d9;
     }
-
     main {
       flex: 1;
-      padding: 20px 0;
+      padding: 20px;
     }
-    /* Make the header sticky */
+
+    /* Header Navigation */
     .main-nav {
       position: sticky;
       top: 0;
       z-index: 999;
-      background-color: #161b22; /* Dark background for the nav */
+      background-color: #161b22;
       border-bottom: 1px solid #30363d;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
+      /* Reduced padding for a slimmer nav bar */
+      padding: 8px 15px;
     }
-
     .logo {
       display: flex;
       align-items: center;
     }
-
+    /* Smaller rocket icon */
     .logo i {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: #58a6ff;
-      margin-right: 0.5rem;
+      margin-right: 0.4rem;
     }
-
+    /* Smaller title text */
     .logo h1 {
       color: #c9d1d9;
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1rem;
+      white-space: nowrap;
     }
 
+    /* Nav Links */
     .nav-links {
       list-style: none;
       margin: 0;
@@ -112,14 +134,14 @@
       display: flex;
       gap: 1rem;
     }
-
     .nav-links li a {
       color: #c9d1d9;
       text-decoration: none;
-      font-size: 0.95rem;
+      /* Slightly smaller nav text */
+      font-size: 0.9rem;
       transition: color 0.2s;
+      white-space: nowrap; /* Keep each link on a single line */
     }
-
     .nav-links li a:hover {
       color: #58a6ff;
     }
@@ -132,12 +154,279 @@
       text-align: center;
       margin-top: 20px;
     }
-
     .site-footer p {
       color: #8b949e;
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    /* Hamburger Icon (hidden by default) */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      color: #c9d1d9;
+      font-size: 1.3rem; /* slightly smaller than 1.5rem */
+    }
+
+    /* Responsive (Mobile) Styles */
+    @media (max-width: 768px) {
+      /* Show hamburger icon on smaller screens */
+      .menu-toggle {
+        display: block;
+      }
+      /* Hide the horizontal nav by default, turn into a vertical menu */
+      .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 50px; /* adjust based on nav height */
+        right: 15px;
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        padding: 10px;
+        display: none; /* hidden by default */
+        width: 180px;
+        z-index: 999;
+      }
+      .nav-links.active {
+        display: flex; /* shown when toggled */
+      }
+      .nav-links li {
+        margin-bottom: 10px;
+      }
+      .nav-links li:last-child {
+        margin-bottom: 0;
+      }
     }
   </style>
 </body>
-</html>
+</html> {% endcomment %}
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Space AstroResume</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <!-- Font Awesome Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+</head>
+<body class="github-theme">
+  <header>
+    <nav class="main-nav">
+      <!-- Logo -->
+      <div class="logo">
+        <i class="fas fa-rocket"></i>
+        <h1>Space AstroResume</h1>
+      </div>
+      <!-- Hamburger Menu Toggle (shown below 1200px) -->
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <!-- Nav Links -->
+      <ul class="nav-links">
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'templates' %}">Templates</a></li>
+        <li><a href="{% url 'examples' %}">Examples</a></li>
+        <li><a href="{% url 'cover_letter' %}">Cover Letter</a></li>
+        <li><a href="{% url 'pricing' %}">Pricing</a></li>
+        <li><a href="{% url 'resources' %}">Resources</a></li>
+        <li><a href="{% url 'blog' %}">Blog</a></li>
+        <li><a href="{% url 'testimonials' %}">Testimonials</a></li>
+        <li><a href="{% url 'faq' %}">FAQ</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li><a href="{% url 'resume_form' %}">Create Resume</a></li>
+      
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'logout_user' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'login_user' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Simple Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Space AstroResume. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS: Mobile Menu Toggle -->
+  <script src="{% static 'js/script.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+    });
+  </script>
+
+  <!-- Inline (or external) CSS -->
+  <style>
+    /* -------------------------------------
+       1) Base & Body
+    -------------------------------------- */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+      background-color: #0d1117; 
+      color: #c9d1d9;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
+    /* -------------------------------------
+       2) Nav Bar (Desktop by Default)
+    -------------------------------------- */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background-color: #161b22;
+      border-bottom: 1px solid #30363d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 21px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo i {
+      font-size: 1.3rem;
+      color: #58a6ff;
+      margin-right: 0.4rem;
+    }
+    .logo h1 {
+      margin: 0;
+      font-size: 1.3rem;
+      white-space: nowrap;
+    }
+    .nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;     /* Show horizontally on wide screens */
+      gap: 1rem;
+    }
+    .nav-links li a {
+      color: #c9d1d9;
+      text-decoration: none;
+      font-size: 1.0rem;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-links li a:hover {
+      color: #58a6ff;
+    }
+
+    /* Hamburger (hidden by default on wide) */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      color: #c9d1d9;
+      font-size: 1.3rem;
+    }
+
+    /* -------------------------------------
+       3) Footer
+    -------------------------------------- */
+    .site-footer {
+      background-color: #161b22;
+      border-top: 1px solid #30363d;
+      padding: 10px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .site-footer p {
+      color: #8b949e;
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    /* -------------------------------------
+       4) MEDIA QUERIES:
+          Use a single breakpoint at 1200px
+          to switch to hamburger menu below that
+    -------------------------------------- */
+    /* Show horizontal nav only if >= 1200px wide */
+    @media (min-width: 1200px) {
+      /* Desktop: big screen, no hamburger */
+      .menu-toggle {
+        display: none !important;
+      }
+      .nav-links {
+        display: flex !important;
+        position: static;
+      }
+    }
+
+    /* Below 1200px, show hamburger, hide nav by default */
+    @media (max-width: 1199px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        display: none;          /* hide the horizontal nav */
+        position: absolute;
+        top: 60px;              /* just below the main nav */
+        right: 20px;
+        flex-direction: column;
+        background-color: #161b22;
+        border: 1px solid #30363d;
+        padding: 10px;
+        width: 180px;           /* adjust as needed */
+        z-index: 999;
+      }
+      .nav-links.active {
+        display: flex; /* shown when toggled */
+      }
+      .nav-links li {
+        margin-bottom: 10px;
+      }
+      .nav-links li:last-child {
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</body>
+</html> 
+
+
+
+ 
+
+
+
+
+
+
+
+

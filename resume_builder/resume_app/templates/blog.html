@@ -24,6 +24,7 @@
       <p class="excerpt">We've introduced an AI-driven resume critique tool. Find out how it can help refine your resume!</p>
       <a href="#" class="btn" onclick="openModal('New AI Feature Launch', 'Our new AI-driven resume critique tool uses advanced machine learning algorithms to analyze your resume and provide personalized feedback. It checks for optimal keyword usage, formatting consistency, and even suggests improvements tailored to your industry. This feature is now available to all premium users.')">Read More</a>
     </div>
+
     <div class="blog-post" data-category="career-tips">
       <img src="{% static 'images/remote-interview.jpg' %}" alt="Remote Interview" class="blog-image">
       <h3>5 Tips for Remote Interviews</h3>
@@ -31,6 +32,7 @@
       <p class="excerpt">Make a great impression even when interviewing from home. Our top five tips for success.</p>
       <a href="#" class="btn" onclick="openModal('5 Tips for Remote Interviews', '1. Test your technology beforehand. 2. Choose a professional background. 3. Dress professionally from head to toe. 4. Maintain eye contact by looking at the camera. 5. Have a backup plan for technical difficulties.')">Read More</a>
     </div>
+
     <div class="blog-post" data-category="industry-trends">
       <img src="{% static 'images/tech-skills.jpg' %}" alt="Tech Skills" class="blog-image">
       <h3>Top 10 Tech Skills for 2025</h3>
@@ -65,8 +67,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
+  gap: 1rem; /* optional: spacing between filter elements */
 }
-.blog-filter input, .blog-filter select {
+.blog-filter input,
+.blog-filter select {
   padding: 0.5rem;
   border: 1px solid #30363d;
   border-radius: 4px;
@@ -124,7 +128,7 @@
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 9999; /* ensure it appears on top */
   left: 0;
   top: 0;
   width: 100%;
@@ -134,7 +138,7 @@
 }
 .modal-content {
   background-color: #0d1117;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #30363d;
   width: 80%;
@@ -152,7 +156,31 @@
 .close:focus {
   color: #c9d1d9;
   text-decoration: none;
-  cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  /* Stack filter bar vertically */
+  .blog-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .blog-filter input,
+  .blog-filter select {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* Single-column grid for narrower screens */
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Let images auto-size in height for narrow screens */
+  .blog-image {
+    height: auto;
+    max-height: 200px; /* optional limit */
+  }
 }
 </style>
 
@@ -167,8 +195,11 @@ function filterPosts() {
     const excerpt = post.getElementsByClassName('excerpt')[0].innerText.toLowerCase();
     const postCategory = post.getAttribute('data-category');
 
-    if ((category === 'all' || postCategory === category) &&
-        (title.includes(searchText) || excerpt.includes(searchText))) {
+    // Show post if matches category (or "all") and matches search text in title/excerpt
+    if (
+      (category === 'all' || postCategory === category) &&
+      (title.includes(searchText) || excerpt.includes(searchText))
+    ) {
       post.style.display = '';
     } else {
       post.style.display = 'none';
@@ -186,8 +217,9 @@ function closeModal() {
   document.getElementById('blogModal').style.display = 'none';
 }
 
+// Close modal if user clicks outside of it
 window.onclick = function(event) {
-  if (event.target == document.getElementById('blogModal')) {
+  if (event.target === document.getElementById('blogModal')) {
     closeModal();
   }
 }

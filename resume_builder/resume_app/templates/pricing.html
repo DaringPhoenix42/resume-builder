@@ -188,6 +188,20 @@
         color: #8b949e;
         line-height: 1.5;
     }
+    /* 1) Allow wrapping so the plan cards don't overflow on narrower screens */
+.pricing-grid {
+  flex-wrap: wrap; /* lets the cards move onto a new row if needed */
+}
+
+/* 2) On screens below 768px, stack cards vertically and adjust their widths */
+@media (max-width: 768px) {
+  .plan-card {
+    width: 100%;       /* each card takes full width */
+    max-width: 400px;  /* optional max-width so they're not too wide on tablets */
+    margin: 0 auto 1.5rem auto; /* center them and add spacing at the bottom */
+  }
+}
+
 </style>
 
 {% endblock %}

@@ -156,6 +156,31 @@
     .resume-tips strong {
         color: #c9d1d9; /* Highlight tip titles */
     }
+
+    /* 1) Slightly reduce the min-width in the grid so it fits smaller phones */
+.examples-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* was 280px */
+}
+
+/* 2) Extra media query for very narrow screens (optional) */
+@media (max-width: 500px) {
+  /* Single column on extra-small devices */
+  .examples-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Reduce padding if desired */
+  .examples-container {
+    padding: 1rem;
+  }
+  .example-card {
+    padding: 1rem;
+  }
+  .learn-more {
+    padding: 1rem;
+  }
+}
+
 </style>
 
 {% endblock %}

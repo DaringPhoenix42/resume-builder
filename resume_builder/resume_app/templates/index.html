@@ -3,6 +3,103 @@
 
 {% block content %}
 <div class="hero-section">
+  <div class="hero-content">
+    <h1>Welcome to Space AstroResume</h1>
+    <p>Create your professional resume in minutes!</p>
+    <a href="{% url 'resume_form' %}" class="btn">Create Your Resume</a>
+  </div>
+  <!-- Optional Earth image or background -->
+  <div class="earth"></div>
+</div>
+
+<!-- Inline Styles: Hero Layout & Responsiveness -->
+<style>
+/* Hero Container */
+.hero-section {
+  position: relative;         /* allows absolute-positioned Earth */
+  display: flex;
+  flex-direction: column;     /* stack elements vertically by default */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;         /* ample spacing for large screens */
+  background-color: #0d1117;  /* dark background */
+  color: #c9d1d9;             /* light text */
+  overflow: hidden;           /* in case Earth image overflows */
+}
+
+/* Hero Content (Text + Button) */
+.hero-content h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #c9d1d9;
+}
+.hero-content p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: #8b949e; /* slightly muted text */
+}
+.hero-content .btn {
+  display: inline-block;
+  background-color: #238636;
+  color: #ffffff;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.3s;
+}
+.hero-content .btn:hover {
+  background-color: #2ea043;
+  transform: translateY(-3px);
+}
+
+/* Earth Image (Optional) */
+{% comment %} .earth {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 300px; /* or 'auto' if you prefer exact aspect ratio */
+  background: url("{% static 'images/earth.png' %}") no-repeat center/contain;
+  pointer-events: none; /* so clicks pass through to hero-content */
+  z-index: 1;
+} {% endcomment %}
+
+/* Medium Screens (Tablets, etc.) */
+@media (max-width: 992px) {
+  .earth {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Small Screens (Phones) */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+  .hero-content h1 {
+    font-size: 1.6rem;
+  }
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+  .earth {
+    width: 150px;
+    height: 150px;
+  }
+}
+</style>
+{% endblock %}
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="hero-section">
     <div class="hero-content">
         <h1>Welcome to Space AstroResume</h1>
         <p>Create your professional resume in minutes!</p>
@@ -10,4 +107,4 @@
     </div>
     <div class="earth"></div>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}

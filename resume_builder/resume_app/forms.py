@@ -125,27 +125,19 @@ class BlogPostForm(forms.ModelForm):
 
 
 
+# myapp/forms.py
 from django import forms
 from .models import CoverLetter
 
 class CoverLetterForm(forms.ModelForm):
     class Meta:
         model = CoverLetter
-        fields = ['greeting', 'introduction', 'body', 'closing']
+        fields = [
+            'full_name', 'job_title', 'phone', 'city_state', 'email', 'linkedin',
+            'employer_name', 'employer_title', 'employer_company', 'employer_email', 'employer_location',
+            'greeting', 'body', 'closing'
+        ]
         widgets = {
-            'greeting': forms.TextInput(attrs={
-                'placeholder': 'e.g. Dear Hiring Manager'
-            }),
-            'introduction': forms.Textarea(attrs={
-                'rows': 3,
-                'placeholder': 'Introduce yourself and the position you\'re applying for...'
-            }),
-            'body': forms.Textarea(attrs={
-                'rows': 6,
-                'placeholder': 'Highlight relevant experience, skills, and achievements...'
-            }),
-            'closing': forms.Textarea(attrs={
-                'rows': 2,
-                'placeholder': 'Thank the employer, express enthusiasm...'
-            }),
+            'body': forms.Textarea(attrs={'rows': 6, 'class': 'form-control'}),
+            'closing': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
         }

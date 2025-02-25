@@ -1,386 +1,75 @@
-# from django.shortcuts import render, redirect
-# from .forms import ResumeForm  # Import the ResumeForm
-# from .models import Resume
-# from django.http import HttpResponse
-# from reportlab.lib.pagesizes import letter
-# from reportlab.pdfgen import canvas
-# from docx import Document
-# from io import BytesIO
-# from .models import Resume
-# from django.shortcuts import render, get_object_or_404
-# from .models import Resume
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth import login, logout
-# from django.contrib.admin.views.decorators import staff_member_required
-# from django.contrib.auth.models import User
-# from .models import Resource, BlogPost
-# from .forms import ResumeForm, ResourceForm
-# from django.contrib.auth.models import User
-# from django.contrib.auth import authenticate, login
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.contrib.auth import authenticate, login, logout
-# from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
-# from .forms import ResumeForm, ResourceForm  # <-- import both
-# from .models import Resume, Resource
-
-
-
-# @staff_member_required
-# def create_resource(request):
-#     if request.method == 'POST':
-#         # Save new Resource object
-#         ...
-#     return render(request, 'create_resource.html')
-
-# def index(request):
-#     return render(request, 'index.html')
-
-# def resume_form(request):
-#     template_id = request.GET.get('template_id', 1)  # Default to template 1 if no ID is provided
-#     if request.method == 'POST':
-#         form = ResumeForm(request.POST)
-#         if form.is_valid():
-#             resume = form.save(commit=False)
-#             resume.template_id = template_id  # Save the selected template ID
-#             resume.save()
-#             return redirect('resume_preview', id=resume.id)
-#     else:
-#         form = ResumeForm(initial={'template_id': template_id})  # Pass template_id to the form
-#     return render(request, 'resume_form.html', {'form': form, 'template_id': template_id})
-
-# def resume_preview(request, id):
-#     resume = get_object_or_404(Resume, id=id)
-#     return render(request, 'resume_preview.html', {'resume': resume})
-
-# def about(request):
-#     return render(request, 'about.html')
-
-# def contact(request):
-#     return render(request, 'contact.html')
-
-# def templates(request):
-#     return render(request, 'templates.html')
-
-# def faq(request):
-#     return render(request, 'faq.html')
-
-# # New pages
-# def pricing(request):
-#     return render(request, 'pricing.html')
-
-# def resources(request):
-#     return render(request, 'resources.html')
-
-# @login_required
-# def dashboard(request):
-#     # Only logged-in users can see this page.
-#     user_resumes = Resume.objects.filter(user=request.user)
-#     return render(request, 'dashboard.html', {'resumes': user_resumes})
-
-
-# def login_user(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')  # or request.POST['username'] if you're sure it's there
-#         password = request.POST.get('password')
-
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('dashboard')
-#         else:
-#             # handle invalid credentials
-#             # e.g., show an error message or redirect
-#             ...
-#     return render(request, 'login.html')
-
-
-# def logout_user(request):
-#     logout(request)
-#     return redirect('index')
-
-# def testimonials(request):
-#     return render(request, 'testimonials.html')
-
-# def examples(request):
-#     return render(request, 'examples.html')
-
-# def blog(request):
-#     return render(request, 'blog.html')
-
-# def cover_letter(request):
-#     return render(request, 'cover_letter.html')
-
-# # views.py
-# def create_resource(request):
-#     if request.method == 'POST':
-#         form = ResourceForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('resources')  # or wherever
-#     else:
-#         form = ResourceForm()
-#     return render(request, 'create_resource.html', {'form': form})
-
-
-# def download_resume(request, id, format):
-#     resume = Resume.objects.get(id=id)
-    
-#     if format == 'pdf':
-#         buffer = BytesIO()
-#         p = canvas.Canvas(buffer, pagesize=letter)
-#         p.drawString(100, 750, f"Name: {resume.name}")
-#         p.drawString(100, 730, f"Email: {resume.email}")
-#         p.drawString(100, 710, f"Phone: {resume.phone}")
-#         p.drawString(100, 690, f"Summary: {resume.summary}")
-#         p.drawString(100, 670, f"Skills: {resume.skills}")
-#         p.drawString(100, 650, f"Experience: {resume.experience}")
-#         p.drawString(100, 630, f"Education: {resume.education}")
-#         p.showPage()
-#         p.save()
-        
-#         buffer.seek(0)
-#         response = HttpResponse(buffer, content_type='application/pdf')
-#         response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
-#         return response
-    
-#     elif format == 'word':
-#         document = Document()
-#         document.add_heading(f"Resume: {resume.name}", 0)
-#         document.add_paragraph(f"Email: {resume.email}")
-#         document.add_paragraph(f"Phone: {resume.phone}")
-#         document.add_paragraph(f"Summary: {resume.summary}")
-#         document.add_paragraph(f"Skills: {resume.skills}")
-#         document.add_paragraph(f"Experience: {resume.experience}")
-#         document.add_paragraph(f"Education: {resume.education}")
-        
-#         buffer = BytesIO()
-#         document.save(buffer)
-#         buffer.seek(0)
-        
-#         response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-#         response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.docx"'
-#         return response
-    
-#     else:
-#         return HttpResponse("Invalid format", status=400)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.http import HttpResponse
-# from .forms import ResumeForm
-# from .models import Resume
-# import subprocess
-# import os
-# from io import BytesIO
-
-# def generate_latex(resume):
-#     # Escape special LaTeX characters
-#     def escape_latex(text):
-#         if text is None:
-#             return ""
-#         return str(text).replace("&", "\\&").replace("%", "\\%").replace("$", "\\$")
-
-#     # LaTeX template with placeholders
-#     latex_template = r"""
-# \documentclass[11pt, a4paper]{article}
-# \usepackage{geometry}
-# \geometry{a4paper, margin=1in}
-
-# \title{Resume}
-# \author{%s}
-# \date{}
-
-# \begin{document}
-
-# \maketitle
-
-# \section*{Personal Information}
-# \begin{itemize}
-#     \item Name: %s
-#     \item Email: %s
-#     \item Phone: %s
-#     \item Address: %s
-#     \item LinkedIn: %s
-#     \item GitHub: %s
-#     \item Portfolio: %s
-# \end{itemize}
-
-# \section*{Professional Summary}
-# %s
-
-# \section*{Skills}
-# %s
-
-# \section*{Experience}
-# %s
-
-# \section*{Education}
-# %s
-
-# \section*{Certifications}
-# %s
-
-# \section*{Languages}
-# %s
-
-# \section*{Hobbies and Interests}
-# %s
-
-# \end{document}
-#     """ % (
-#         escape_latex(resume.name), escape_latex(resume.name), escape_latex(resume.email),
-#         escape_latex(resume.phone), escape_latex(resume.address), escape_latex(resume.linkedin),
-#         escape_latex(resume.github), escape_latex(resume.portfolio), escape_latex(resume.summary),
-#         escape_latex(resume.skills), escape_latex(resume.experience), escape_latex(resume.education),
-#         escape_latex(resume.certifications), escape_latex(resume.languages), escape_latex(resume.hobbies_interests)
-#     )
-#     return latex_template
-
-# def resume_form(request):
-#     template_id = request.GET.get('template_id', 1)  # Default to template 1 if no ID is provided
-#     if request.method == 'POST':
-#         form = ResumeForm(request.POST)
-#         if form.is_valid():
-#             resume = form.save(commit=False)
-#             resume.template_id = template_id  # Save the selected template ID
-#             resume.save()
-#             return redirect('resume_preview', id=resume.id)
-#     else:
-#         form = ResumeForm(initial={'template_id': template_id})  # Pass template_id to the form
-#     return render(request, 'resume_form.html', {'form': form, 'template_id': template_id})
-
-# def resume_preview(request, id):
-#     resume = get_object_or_404(Resume, id=id)
-#     return render(request, 'resume_preview.html', {'resume': resume})
-
-# def download_resume(request, id, format):
-#     resume = get_object_or_404(Resume, id=id)
-    
-#     if format == 'pdf':
-#         # Generate the LaTeX file
-#         latex_content = generate_latex(resume)
-
-#         # Save the LaTeX content to a file
-#         with open("resume.tex", "w") as file:
-#             file.write(latex_content)
-
-#         # Compile the LaTeX file to PDF
-#         try:
-#             subprocess.run(["pdflatex", "resume.tex"], check=True)
-#         except subprocess.CalledProcessError:
-#             return HttpResponse("Failed to generate PDF. Please check the LaTeX content.", status=500)
-
-#         # Serve the PDF file for download
-#         with open("resume.pdf", "rb") as file:
-#             response = HttpResponse(file.read(), content_type="application/pdf")
-#             response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
-
-#         # Clean up temporary files
-#         for ext in [".tex", ".pdf", ".log", ".aux"]:
-#             try:
-#                 os.remove(f"resume{ext}")
-#             except FileNotFoundError:
-#                 pass
-
-#         return response
-    
-#     elif format == 'word':
-#         # Generate a Word document
-#         from docx import Document
-#         document = Document()
-#         document.add_heading(f"Resume: {resume.name}", 0)
-#         document.add_paragraph(f"Email: {resume.email}")
-#         document.add_paragraph(f"Phone: {resume.phone}")
-#         document.add_paragraph(f"Summary: {resume.summary}")
-#         document.add_paragraph(f"Skills: {resume.skills}")
-#         document.add_paragraph(f"Experience: {resume.experience}")
-#         document.add_paragraph(f"Education: {resume.education}")
-        
-#         buffer = BytesIO()
-#         document.save(buffer)
-#         buffer.seek(0)
-        
-#         response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-#         response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.docx"'
-#         return response
-    
-#     else:
-#         return HttpResponse("Invalid format", status=400)
-    
-    
-# from django.shortcuts import render, redirect
-# from .forms import ResumeForm  # Import the ResumeForm
-# from .models import Resume
-# from django.http import HttpResponse
-# from reportlab.lib.pagesizes import letter
-# from reportlab.pdfgen import canvas
-# from docx import Document
-# from io import BytesIO
-# from .models import Resume
-# from django.shortcuts import render, get_object_or_404
-# from .models import Resume
-
-# def index(request):
-#     return render(request, 'index.html')
-
-# def resume_form(request):
-#     template_id = request.GET.get('template_id', 1)  # Default to template 1 if no ID is provided
-#     if request.method == 'POST':
-#         form = ResumeForm(request.POST)
-#         if form.is_valid():
-#             resume = form.save(commit=False)
-#             resume.template_id = template_id  # Save the selected template ID
-#             resume.save()
-#             return redirect('resume_preview', id=resume.id)
-#     else:
-#         form = ResumeForm(initial={'template_id': template_id})  # Pass template_id to the form
-#     return render(request, 'resume_form.html', {'form': form, 'template_id': template_id})
-
-# def resume_preview(request, id):
-#     resume = get_object_or_404(Resume, id=id)
-#     return render(request, 'resume_preview.html', {'resume': resume})
-
-# def about(request):
-#     return render(request, 'about.html')
-
-# def contact(request):
-#     return render(request, 'contact.html')
-
-# def templates(request):
-#     return render(request, 'templates.html')
-
-# def faq(request):
-#     return render(request, 'faq.html')
-
-
+from docx import Document
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from docx.shared import Pt, Inches, RGBColor
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from docx import Document
+from io import BytesIO
 
+from .models import CoverLetter
+from .forms import CoverLetterForm
+from django.shortcuts import render, redirect
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from docx import Document
+from docx.shared import Pt
+import datetime
 
+from .models import CoverLetter
+from .forms import CoverLetterForm
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+import pdfkit
+from io import BytesIO
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
 
+import pdfkit
+from io import BytesIO
+from docx import Document
+from docx.shared import Pt
+from docx.enum.style import WD_STYLE_TYPE
+
+from .models import Resume
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+import datetime
+
+# For DOCX
+from docx import Document
+from docx.shared import Pt, Inches
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
+
+# For PDF
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+
+from .models import CoverLetter
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -480,20 +169,7 @@ def create_resource(request):
         form = ResourceForm()
     return render(request, 'create_resource.html', {'form': form})
 
-# views.py
 
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from django.contrib.admin.views.decorators import staff_member_required
-
-import pdfkit
-from io import BytesIO
-from docx import Document
-from docx.shared import Pt
-from docx.enum.style import WD_STYLE_TYPE
-
-from .models import Resume
 
 
 @staff_member_required
@@ -504,13 +180,6 @@ def create_resource(request):
 
 
 
-from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from django.http import HttpResponse
-import pdfkit
-from io import BytesIO
-from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 def download_resume(request, id, format):
     """
@@ -673,80 +342,311 @@ def logout_user(request):
 
 
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-from docx import Document
-from io import BytesIO
-
-from .models import CoverLetter
-from .forms import CoverLetterForm
-from django.shortcuts import render, redirect
 
 @login_required
 def cover_letter(request):
+    """Create or edit a cover letter."""
     if request.method == 'POST':
         form = CoverLetterForm(request.POST)
         if form.is_valid():
-            cover_letter = form.save(commit=False)
-            cover_letter.user = request.user
-            cover_letter.save()
-            return redirect('cover_letter_preview', id=cover_letter.id)
+            cl = form.save(commit=False)
+            cl.user = request.user
+            cl.save()
+            return redirect('cover_letter_preview', id=cl.id)
     else:
         form = CoverLetterForm()
     return render(request, 'cover_letter.html', {'form': form})
 
-
 @login_required
 def cover_letter_preview(request, id):
+    """Display a styled preview of the cover letter."""
     cover_letter = get_object_or_404(CoverLetter, id=id, user=request.user)
     return render(request, 'cover_letter_preview.html', {'cover_letter': cover_letter})
+
 
 @login_required
 def download_cover_letter(request, id, format):
     cover_letter = get_object_or_404(CoverLetter, id=id, user=request.user)
-    
-    content = f"""
-    {cover_letter.greeting}
 
-    {cover_letter.introduction}
+    # Build up a "structured" version of the letter data
+    today_str = datetime.date.today().strftime("%B %d, %Y")  # e.g. "February 27, 2025"
 
-    {cover_letter.body}
+    # We'll pass the entire cover_letter object + some extra fields to our generator
+    # so it can do the layout. 
+    letter_context = {
+        'full_name': cover_letter.full_name or "Your Name",
+        'job_title': cover_letter.job_title or "",
+        'phone': cover_letter.phone or "",
+        'city_state': cover_letter.city_state or "",
+        'email': cover_letter.email or "",
+        'linkedin': cover_letter.linkedin or "",
+        'date_str': today_str,
 
-    {cover_letter.closing}
-    """
-    
-    if format == 'pdf':
-        # Generate PDF
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="cover_letter.pdf"'
-        
-        # Use reportlab to create PDF
-        p = canvas.Canvas(response, pagesize=letter)
-        p.drawString(100, 750, content)
-        p.showPage()
-        p.save()
-        
-        return response
-        
-    elif format == 'docx':
-        # Generate Word document
-        document = Document()
-        document.add_paragraph(content)
-        
-        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        response['Content-Disposition'] = f'attachment; filename="cover_letter.docx"'
-        
-        document.save(response)
-        
-        return response
-    
+        'employer_name': cover_letter.employer_name or "",
+        'employer_title': cover_letter.employer_title or "",
+        'employer_company': cover_letter.employer_company or "",
+        'employer_email': cover_letter.employer_email or "",
+        'employer_location': cover_letter.employer_location or "",
+
+        'greeting': cover_letter.greeting or "Dear Hiring Manager,",
+        'body': cover_letter.body or "",
+        'closing': cover_letter.closing or "Thank you for your time,\nI look forward to hearing from you."
+    }
+
+    if format == 'docx':
+        return _generate_cover_letter_docx(letter_context)
+    elif format == 'pdf':
+        return _generate_cover_letter_pdf(letter_context)
     else:
         return HttpResponse("Invalid format", status=400)
-    
-    # views.py
+
+
+
+from docx import Document
+from docx.shared import Pt, Inches, RGBColor
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from django.http import HttpResponse
+
+def _generate_cover_letter_docx(letter_context):
+    """
+    Creates a .docx file that looks more like your reference image:
+    - White background page
+    - Dark-blue header bar with white text for name/job/contact
+    - Black text in the main body
+    """
+    document = Document()
+
+    # ---------------------------
+    # 1) Set Page Margins & Base Font
+    # ---------------------------
+    # Adjust margins to ~1 inch all around
+    for section in document.sections:
+        section.top_margin = Inches(1)
+        section.bottom_margin = Inches(1)
+        section.left_margin = Inches(1)
+        section.right_margin = Inches(1)
+
+    # Set "Normal" style to black text, Calibri 11pt
+    style = document.styles['Normal']
+    font = style.font
+    font.name = 'Calibri'
+    font.size = Pt(11)
+    font.color.rgb = RGBColor(0, 0, 0)  # black text
+
+    # ---------------------------
+    # 2) Create Header Table
+    # ---------------------------
+    # Single row, two columns: left (name/job), right (contact)
+    header_table = document.add_table(rows=1, cols=2)
+    header_table.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
+    header_table.autofit = False
+    # Column widths
+    header_table.columns[0].width = Inches(3.5)
+    header_table.columns[1].width = Inches(2.5)
+
+    # Shading color: a dark blue (e.g. #34495E)
+    # Convert hex color to fill attribute
+    shading_xml = r'<w:shd {} w:fill="34495E" w:color="auto" w:val="clear"/>'.format(nsdecls('w'))
+
+    row = header_table.rows[0]
+    for cell in row.cells:
+        cell_properties = cell._tc.get_or_add_tcPr()
+        cell_properties.append(parse_xml(shading_xml))
+
+    # Left cell: Name (big/bold/white) + Job Title (white)
+    left_cell = row.cells[0]
+    left_par = left_cell.paragraphs[0]
+
+    run_name = left_par.add_run(letter_context['full_name'])
+    run_name.font.size = Pt(16)
+    run_name.font.bold = True
+    run_name.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)  # white
+
+    left_par.add_run("\n")
+    run_title = left_par.add_run(letter_context['job_title'])
+    run_title.font.size = Pt(12)
+    run_title.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)  # white
+
+    # Right cell: contact info (white text, joined by |)
+    right_cell = row.cells[1]
+    right_par = right_cell.paragraphs[0]
+    contact_parts = []
+    if letter_context['phone']:
+        contact_parts.append(letter_context['phone'])
+    if letter_context['city_state']:
+        contact_parts.append(letter_context['city_state'])
+    if letter_context['email']:
+        contact_parts.append(letter_context['email'])
+    if letter_context['linkedin']:
+        contact_parts.append(letter_context['linkedin'])
+
+    contact_str = " | ".join(contact_parts)
+    run_contact = right_par.add_run(contact_str)
+    run_contact.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)  # white
+
+    # Add spacing after the header table
+    document.add_paragraph()  # blank paragraph
+
+    # ---------------------------
+    # 3) Date & Employer Info
+    # ---------------------------
+    # Example: "February 27, 2025"
+    document.add_paragraph(letter_context['date_str'])
+
+    # If you have multiple lines for the employer:
+    if letter_context['employer_name'] or letter_context['employer_title']:
+        line = f"{letter_context['employer_name']}, {letter_context['employer_title']}"
+        document.add_paragraph(line)
+    if letter_context['employer_company']:
+        document.add_paragraph(letter_context['employer_company'])
+    if letter_context['employer_email']:
+        document.add_paragraph(letter_context['employer_email'])
+    if letter_context['employer_location']:
+        document.add_paragraph(letter_context['employer_location'])
+
+    document.add_paragraph()  # extra blank line
+
+    # ---------------------------
+    # 4) Greeting, Body, Closing
+    # ---------------------------
+    # Greeting in bold
+    greeting_par = document.add_paragraph(letter_context['greeting'])
+    greeting_par.runs[0].font.bold = True
+
+    # Body: Split on double newlines if you want multiple paragraphs
+    body_blocks = letter_context['body'].split('\n\n')
+    for block in body_blocks:
+        p = document.add_paragraph(block)
+        p.paragraph_format.space_after = Pt(10)  # spacing after paragraphs
+
+    # Closing
+    document.add_paragraph(letter_context['closing'])
+    # Signature line
+    document.add_paragraph("Sincerely,\n" + letter_context['full_name'])
+
+    # ---------------------------
+    # 5) Return as .docx
+    # ---------------------------
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    )
+    response['Content-Disposition'] = 'attachment; filename="cover_letter.docx"'
+    document.save(response)
+    return response
+
+
+
+
+
+from django.http import HttpResponse
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+
+def _generate_cover_letter_pdf(letter_context):
+    """
+    Creates a PDF with a white page background and a single dark-blue header row
+    that has white text for name/job/contact. The rest is black text.
+    """
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="cover_letter.pdf"'
+
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=letter,
+        leftMargin=72, rightMargin=72, topMargin=72, bottomMargin=72
+    )
+
+    styles = getSampleStyleSheet()
+    normal_style = ParagraphStyle(
+        'NormalCustom',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=11,
+        leading=15,
+        textColor=colors.black,  # black text
+    )
+    bold_style = ParagraphStyle(
+        'BoldCustom',
+        parent=styles['Normal'],
+        fontName='Helvetica-Bold',
+        fontSize=11,
+        leading=15,
+        textColor=colors.black,
+    )
+
+    story = []
+
+    # 1) Dark-blue header row with white text
+    left_html = f"<font color='white'><b>{letter_context['full_name']}</b><br/>{letter_context['job_title']}</font>"
+    contact_parts = []
+    if letter_context['phone']:
+        contact_parts.append(letter_context['phone'])
+    if letter_context['city_state']:
+        contact_parts.append(letter_context['city_state'])
+    if letter_context['email']:
+        contact_parts.append(letter_context['email'])
+    if letter_context['linkedin']:
+        contact_parts.append(letter_context['linkedin'])
+    right_html = f"<font color='white'>{' | '.join(contact_parts)}</font>"
+
+    header_table_data = [
+        [Paragraph(left_html, normal_style), Paragraph(right_html, normal_style)]
+    ]
+    header_table = Table(header_table_data, colWidths=[3.5*inch, 2.5*inch])
+    header_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#34495E')),  # dark-blue
+        ('VALIGN', (0,0), (-1,-1), 'TOP'),
+        ('LEFTPADDING', (0,0), (-1,-1), 10),
+        ('RIGHTPADDING', (0,0), (-1,-1), 10),
+        ('TOPPADDING', (0,0), (-1,-1), 6),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+    ]))
+    story.append(header_table)
+    story.append(Spacer(1, 12))
+
+    # 2) Date & Employer Info
+    story.append(Paragraph(letter_context['date_str'], normal_style))
+    if letter_context['employer_name'] or letter_context['employer_title']:
+        line = f"{letter_context['employer_name']}, {letter_context['employer_title']}"
+        story.append(Paragraph(line, normal_style))
+    if letter_context['employer_company']:
+        story.append(Paragraph(letter_context['employer_company'], normal_style))
+    if letter_context['employer_email']:
+        story.append(Paragraph(letter_context['employer_email'], normal_style))
+    if letter_context['employer_location']:
+        story.append(Paragraph(letter_context['employer_location'], normal_style))
+    story.append(Spacer(1, 12))
+
+    # 3) Greeting
+    story.append(Paragraph(letter_context['greeting'], bold_style))
+    story.append(Spacer(1, 10))
+
+    # 4) Body
+    paragraphs = letter_context['body'].split('\n\n')
+    for block in paragraphs:
+        block_html = block.replace('\n', '<br/>')
+        story.append(Paragraph(block_html, normal_style))
+        story.append(Spacer(1, 10))
+
+    # 5) Closing + signature
+    closing_html = letter_context['closing'].replace('\n', '<br/>')
+    story.append(Paragraph(closing_html, normal_style))
+    story.append(Spacer(1, 12))
+    story.append(Paragraph("Sincerely,<br/>" + letter_context['full_name'], normal_style))
+
+    doc.build(story)
+    return response
+
+
+
+
+
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Resume
 from .forms import ResumeForm, EducationForm, EducationFormSet
